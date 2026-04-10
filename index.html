@@ -8,7 +8,7 @@
         :root {
             --bg: #0b0f19; --surface: #1e293b; --surface-hi: #334155;
             --primary: #3b82f6; --accent: #8b5cf6; --success: #10b981;
-            --danger: #ef4444; --text: #f8fafc; --text-dim: #94a3b8;
+            --danger: #ef4444; --warning: #f59e0b; --text: #f8fafc; --text-dim: #94a3b8;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, sans-serif; user-select: none; -webkit-tap-highlight-color: transparent; }
         body { background-color: #000; display: flex; justify-content: center; color: var(--text); overflow: hidden; }
@@ -29,9 +29,9 @@
         .mode-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6); }
         .mode-btn:active { transform: scale(0.92); }
         .mode-btn.daily { background: linear-gradient(135deg, var(--accent), #7c3aed); box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4); border-color: rgba(255,255,255,0.2); }
-        .mode-btn.daily:hover { box-shadow: 0 6px 20px rgba(139, 92, 246, 0.6); }
+        .mode-btn.compete { background: linear-gradient(135deg, var(--warning), #d97706); box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4); border-color: rgba(255,255,255,0.2); color: #000; }
 
-        .scroll-area { flex: 1; overflow-y: auto; padding: 15px; padding-bottom: 50px; }
+        .scroll-area { flex: 1; overflow-y: auto; padding: 15px; padding-bottom: 50px; display: flex; flex-direction: column; }
         .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .card { background: var(--surface); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; align-items: center; text-align: center; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.2); transition: transform 0.1s; position: relative;}
         .card.locked { opacity: 0.6; filter: grayscale(100%); pointer-events: none; }
@@ -39,20 +39,35 @@
         .icon-box { width: 48px; height: 48px; margin-bottom: 10px; }
         .card-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
         .card-score { font-size: 11px; color: var(--text-dim); margin-bottom: 10px; height: 12px; }
-        .btn { width: 100%; padding: 8px 0; border: none; border-radius: 8px; font-weight: 700; font-size: 13px; background: var(--surface-hi); color: #fff; cursor: pointer; }
+        .btn { width: 100%; padding: 8px 0; border: none; border-radius: 8px; font-weight: 700; font-size: 13px; background: var(--surface-hi); color: #fff; cursor: pointer; text-transform: uppercase; }
         .card .btn.played { background: var(--primary); }
 
+        /* Tournament Area */
+        .compete-area { display: none; flex-direction: column; align-items: center; gap: 20px; width: 100%; }
+        .compete-card { background: var(--surface); border-radius: 14px; padding: 20px; width: 100%; border: 1px solid #334155; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+        .compete-title { font-size: 26px; font-weight: 900; color: var(--warning); margin-bottom: 10px; letter-spacing: 1px; text-transform: uppercase; }
+        .compete-timer { font-size: 36px; font-weight: bold; color: #fff; margin: 15px 0; font-variant-numeric: tabular-nums; }
+        .btn-join { background: linear-gradient(135deg, var(--success), #059669); font-size: 18px; font-weight: 800; padding: 14px; width: 100%; border-radius: 25px; cursor: pointer; transition: 0.2s; border: none; color: #000; text-transform: uppercase; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);}
+        .btn-join:active { transform: scale(0.95); }
+        .btn-join:disabled { background: #334155; color: var(--text-dim); cursor: not-allowed; box-shadow: none; }
+        
+        .leaderboard { width: 100%; margin-top: 15px; border-radius: 8px; overflow: hidden; border: 1px solid var(--surface-hi); }
+        .lb-row { display: flex; justify-content: space-between; padding: 10px 15px; background: rgba(0,0,0,0.2); border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 14px; }
+        .lb-row:last-child { border-bottom: none; }
+        .lb-row.me { background: rgba(59, 130, 246, 0.2); font-weight: bold; color: var(--primary); }
+        .lb-row.eliminated { opacity: 0.4; color: var(--danger); text-decoration: line-through; }
+        .lb-row.cutoff { border-bottom: 2px dashed var(--danger); }
+        
         .modal { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: var(--bg); z-index: 50; display: flex; flex-direction: column; transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.2s; }
         .modal.active { transform: translateX(0); }
         .modal-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: rgba(30, 41, 59, 0.95); border-bottom: 1px solid #334155; }
         .live-score-display { font-size: 20px; font-weight: bold; color: var(--success); transition: color 0.2s; }
-        .close-btn { background: none; border: none; color: #fff; font-size: 26px; padding: 0 10px; cursor: pointer;}
+        .close-btn { background: none; border: none; color: #fff; font-size: 26px; padding: 0 10px; cursor: pointer; line-height: 1;}
         
         .game-area { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 20px; overflow-y: auto; position: relative;}
         .game-desc { color: var(--text-dim); margin-bottom: 20px; margin-top: 10px; font-size: 16px; text-align: center; min-height: 40px; font-weight: 500;}
 
         #puzzle-container { width: 100%; max-width: 350px; display: flex; justify-content: center; align-items: center; flex-direction: column; }
-        
         #puzzle-container.wide-mode { max-width: 100%; width: calc(100% + 20px); margin: 0 -10px; }
         #puzzle-container.wide-mode .grid-board { width: 100%; }
         
@@ -66,7 +81,7 @@
         .revealed-icon svg { opacity: 1; }
 
         .instruction-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11, 15, 25, 0.98); z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px; text-align: center; }
-        .instruction-overlay .close-inst { position: absolute; top: 20px; right: 20px; font-size: 24px; color: var(--text-dim); cursor: pointer; }
+        .instruction-overlay .close-inst { position: absolute; top: 20px; right: 20px; font-size: 32px; color: var(--text-dim); cursor: pointer; line-height: 1; }
         .instruction-overlay h2 { font-size: 28px; margin-bottom: 20px; color: var(--primary); }
         .instruction-overlay p { font-size: 18px; color: var(--text); margin-bottom: 40px; line-height: 1.5; }
         .play-btn-huge { background: var(--success); color: #000; font-size: 20px; font-weight: bold; padding: 15px 40px; border-radius: 30px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); transition: transform 0.1s;}
@@ -98,23 +113,24 @@
         <h1 onclick="openAbout()">MindFlex</h1>
         <div class="header-actions">
             <button class="stats-btn" onclick="openStats()" style="display:none;" id="stats-btn">Stats</button>
-            <button class="mode-btn" id="mode-toggle" onclick="toggleMode()"><span></span> Infinite</button>
+            <button class="mode-btn" id="mode-toggle" onclick="toggleMode()">Infinite</button>
         </div>
     </header>
 
     <div class="scroll-area">
         <div class="menu-grid" id="menu-grid"></div>
+        <div class="compete-area" id="compete-area"></div>
     </div>
 
     <div id="game-modal" class="modal">
         <div class="modal-header">
             <h2 id="modal-title" style="font-size: 18px;">Game</h2>
             <div class="live-score-display" id="live-score">100</div>
-            <button class="close-btn" onclick="quitGame()">✕</button>
+            <button class="close-btn" onclick="quitGame()">&times;</button>
         </div>
         <div class="game-area">
             <div id="instruction-screen" class="instruction-overlay">
-                <div class="close-inst" onclick="quitGame()">✕</div>
+                <div class="close-inst" onclick="quitGame()">&times;</div>
                 <h2 id="inst-title">Game</h2>
                 <p id="inst-desc">Instructions go here.</p>
                 <button class="play-btn-huge" onclick="startGameplay()">PLAY</button>
@@ -127,8 +143,8 @@
 
     <div id="stats-modal" class="modal">
         <div class="modal-header">
-            <h2 style="font-size: 18px;">Daily Stats</h2>
-            <button class="close-btn" onclick="closeStats()">✕</button>
+            <h2 style="font-size: 18px;">Statistics</h2>
+            <button class="close-btn" onclick="closeStats()">&times;</button>
         </div>
         <div class="stats-content" id="stats-body"></div>
     </div>
@@ -136,7 +152,7 @@
     <div id="about-modal" class="modal" style="z-index: 1000;">
         <div class="modal-header">
             <h2 style="font-size: 18px;">About</h2>
-            <button class="close-btn" onclick="closeAbout()">✕</button>
+            <button class="close-btn" onclick="closeAbout()">&times;</button>
         </div>
         <div class="stats-content">
             <div class="stat-card" style="text-align: center; border-color: var(--primary);">
@@ -147,10 +163,10 @@
                 <h3>Update Log</h3>
                 <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;">
                     <div style="display: flex; align-items: center; gap: 10px;">
-                        <span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.0</span>
+                        <span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.1</span>
                         <span style="font-size: 13px; color: var(--text-dim);">Apr 10 2026</span>
                     </div>
-                    <span style="font-size: 14px; color: var(--text);">Base game release</span>
+                    <span style="font-size: 14px; color: var(--text);">Tournaments Added! </span>
                 </div>
             </div>
         </div>
@@ -174,11 +190,15 @@
         return ((t ^ t >>> 14) >>> 0) / 4294967296;
     }
 
-    let isDailyMode = false;
+    const modeList = ['infinite', 'daily', 'compete'];
+    let currentModeIndex = 0;
+    let currentMode = 'infinite'; 
+    
     let todayKey = new Date().toISOString().split('T')[0];
-    function random() { return isDailyMode ? mulberry32() : Math.random(); }
+    function random() { return currentMode === 'daily' ? mulberry32() : Math.random(); }
 
     const iconBase = (content, color) => `<svg viewBox="0 0 100 100" width="100%" height="100%"><rect width="100" height="100" rx="22" fill="${color}" opacity="0.1"/><rect width="100" height="100" rx="22" fill="none" stroke="${color}" stroke-width="2" opacity="0.3"/>${content}</svg>`;
+    const svgTrophy = `<svg viewBox="0 0 100 100" width="32" height="32" style="display:inline-block; vertical-align:middle; margin-right:8px;"><path d="M25 20 h50 v15 c0 20 -15 35 -25 45 c-10 -10 -25 -25 -25 -45 z" fill="#f59e0b"/><path d="M15 20 h15 v10 h-15 z" fill="#fbbf24"/><path d="M70 20 h15 v10 h-15 z" fill="#fbbf24"/><rect x="40" y="80" width="20" height="10" fill="#d97706"/><rect x="30" y="90" width="40" height="10" fill="#b45309"/></svg>`;
     
     const svgs = {
         grid: iconBase(`<rect x="25" y="25" width="22" height="22" rx="6" fill="#3b82f6"/><rect x="53" y="25" width="22" height="22" rx="6" fill="#3b82f6" opacity="0.3"/><rect x="25" y="53" width="22" height="22" rx="6" fill="#3b82f6" opacity="0.3"/><rect x="53" y="53" width="22" height="22" rx="6" fill="#3b82f6"/>`, '#3b82f6'),
@@ -231,26 +251,251 @@
 
     let highScores = JSON.parse(localStorage.getItem('mindflex_inf_pro_scores') || '{}');
     let dailyScores = JSON.parse(localStorage.getItem('mindflex_daily_scores') || '{}'); 
+    let playedTournaments = JSON.parse(localStorage.getItem('mindflex_tournaments') || '{}');
+    let trophies = JSON.parse(localStorage.getItem('mindflex_trophies') || '[]');
+    
     if(!dailyScores[todayKey]) dailyScores[todayKey] = {};
 
     let activeGameId = null;
     let scoreTracker = { current: 100, timer: null, active: false };
     let gameVars = {}; 
 
+    // --- TOURNAMENT STATE ---
+    let tourneyState = {
+        active: false, round: 1, slotId: null, games: [], players: []
+    };
+    let tourneyTimerInt = null;
+
     function openAbout() { document.getElementById('about-modal').classList.add('active'); }
     function closeAbout() { document.getElementById('about-modal').classList.remove('active'); }
 
     function toggleMode() {
-        isDailyMode = !isDailyMode;
+        currentModeIndex = (currentModeIndex + 1) % modeList.length;
+        currentMode = modeList[currentModeIndex];
+        
         const btn = document.getElementById('mode-toggle');
         const statsBtn = document.getElementById('stats-btn');
-        btn.innerHTML = isDailyMode ? '<span></span> Daily' : '<span></span> Infinite';
-        btn.className = isDailyMode ? 'mode-btn daily' : 'mode-btn';
-        statsBtn.style.display = isDailyMode ? 'block' : 'none';
-        renderMenu();
+        
+        let label = currentMode.charAt(0).toUpperCase() + currentMode.slice(1);
+        btn.innerHTML = label;
+        btn.className = `mode-btn ${currentMode}`;
+        
+        statsBtn.style.display = (currentMode === 'daily' || currentMode === 'compete') ? 'block' : 'none';
+        
+        const grid = document.getElementById('menu-grid');
+        const competeArea = document.getElementById('compete-area');
+        
+        if (currentMode === 'compete') {
+            grid.style.display = 'none';
+            competeArea.style.display = 'flex';
+            renderCompeteView();
+            startCompeteTimer();
+        } else {
+            stopCompeteTimer();
+            grid.style.display = 'grid';
+            competeArea.style.display = 'none';
+            renderMenu();
+        }
     }
 
+    // --- COMPETE MODE LOGIC ---
+    function getTournamentStatus() {
+        let now = new Date();
+        let y = now.getFullYear(), m = now.getMonth(), d = now.getDate();
+        let currentTotalMins = now.getHours() * 60 + now.getMinutes();
+        let schedule = [15*60, 18*60, 21*60]; 
+        
+        let isLive = false;
+        let activeSlotId = null;
+        let activeDate = null;
+        
+        for(let t of schedule) {
+            let diff = currentTotalMins - t;
+            if (diff >= 0 && diff <= 3) {
+                isLive = true;
+                activeSlotId = `${y}-${m}-${d}-${Math.floor(t/60)}`;
+                activeDate = new Date(y, m, d, Math.floor(t/60), t%60, 0);
+                break;
+            }
+        }
+
+        if (isLive) {
+            return { active: true, msUntil: 0, label: "LIVE NOW", slotId: activeSlotId, dateObj: activeDate };
+        }
+
+        let nextIndex = schedule.findIndex(t => t > currentTotalMins - 4); 
+        let targetTime, slotHour;
+        if (nextIndex === -1) {
+            targetTime = new Date(y, m, d + 1, 15, 0, 0);
+            slotHour = 15;
+        } else {
+            targetTime = new Date(y, m, d, Math.floor(schedule[nextIndex]/60), 0, 0);
+            slotHour = Math.floor(schedule[nextIndex]/60);
+        }
+        
+        let slotId = `${targetTime.getFullYear()}-${targetTime.getMonth()}-${targetTime.getDate()}-${slotHour}`;
+        return { active: false, msUntil: targetTime - now, label: "Next Tournament", slotId: slotId, dateObj: targetTime };
+    }
+
+    function formatTime(ms) {
+        if(ms <= 0) return "00:00:00";
+        let total = Math.floor(ms / 1000);
+        let h = Math.floor(total / 3600);
+        let m = Math.floor((total % 3600) / 60);
+        let s = total % 60;
+        return `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+    }
+
+    function renderCompeteView() {
+        const area = document.getElementById('compete-area');
+        if (tourneyState.active) {
+            renderTourneyBracket();
+            return;
+        }
+        
+        let status = getTournamentStatus();
+        let btnHTML = '';
+        
+        if (playedTournaments[status.slotId]) {
+            btnHTML = `<button class="btn-join" disabled>Tournament Completed</button>`;
+        } else if (status.active) {
+            btnHTML = `<button class="btn-join" onclick="joinTournament('${status.slotId}')">JOIN TOURNAMENT</button>`;
+        } else {
+            btnHTML = `<button class="btn-join" disabled>Starts in <span id="compete-countdown">${formatTime(status.msUntil)}</span></button>`;
+        }
+        
+        area.innerHTML = `
+            <div class="compete-card">
+                <div class="compete-title">Tournament Mode</div>
+                <p style="color:var(--text-dim);font-size:15px;line-height:1.5;">Face off against 11 challengers.<br>3 elimination rounds. Only 1 champion.</p>
+                <div class="compete-timer">${status.active ? 'LIVE NOW' : 'NEXT: '+formatTime(status.msUntil)}</div>
+                ${btnHTML}
+            </div>
+            <div class="compete-card" style="padding: 15px;">
+                <h3 style="margin-bottom:10px; font-size:14px; color:var(--text-dim); text-transform:uppercase;">Daily Schedule</h3>
+                <div style="display:flex; justify-content:space-between; font-weight:bold; color:var(--text);">
+                    <span>3:00 PM</span> <span>6:00 PM</span> <span>9:00 PM</span>
+                </div>
+            </div>
+        `;
+    }
+
+    function startCompeteTimer() {
+        stopCompeteTimer();
+        tourneyTimerInt = setInterval(() => {
+            if(!tourneyState.active && currentMode === 'compete') renderCompeteView();
+        }, 1000);
+    }
+    function stopCompeteTimer() { clearInterval(tourneyTimerInt); }
+
+    function joinTournament(slotId) {
+        tourneyState.active = true;
+        tourneyState.slotId = slotId;
+        tourneyState.round = 1;
+        
+        let gShuffled = [...games].sort(()=>Math.random()-0.5);
+        tourneyState.games = [gShuffled[0], gShuffled[1], gShuffled[2]];
+        
+        const aiNames = ["Quantum", "Cyber", "Nexus", "Neon", "Void", "Glitch", "Pulse", "Zenith", "Apex", "Nova", "Echo"];
+        tourneyState.players = [{ name: "YOU", isMe: true, score: 0, status: 'alive' }];
+        
+        let bots = [...aiNames].sort(()=>Math.random()-0.5).slice(0, 11);
+        bots.forEach(b => tourneyState.players.push({ name: b, isMe: false, score: 0, status: 'alive' }));
+        
+        playedTournaments[slotId] = true;
+        localStorage.setItem('mindflex_tournaments', JSON.stringify(playedTournaments));
+        
+        renderTourneyBracket();
+    }
+
+    function renderTourneyBracket() {
+        const area = document.getElementById('compete-area');
+        
+        let rTitle = tourneyState.round === 1 ? "Round 1 (Top 8 Advance)" : 
+                     tourneyState.round === 2 ? "Semi-Finals (Top 5 Advance)" : 
+                     "Finale (Winner Takes All)";
+                     
+        let me = tourneyState.players.find(p => p.isMe);
+        let btnHTML = '';
+        
+        if (me.status === 'eliminated') {
+            rTitle = "Eliminated";
+            btnHTML = `<button class="btn-join" onclick="endTournament()" style="background:var(--surface-hi);color:white;">LEAVE TOURNAMENT</button>`;
+        } else if (tourneyState.round > 3) {
+            rTitle = "Tournament Complete";
+            btnHTML = `<button class="btn-join" onclick="endTournament()">CLAIM TROPHY & EXIT</button>`;
+        } else {
+            let gameToPlay = tourneyState.games[tourneyState.round - 1];
+            btnHTML = `<button class="btn-join" onclick="launchGame('${gameToPlay.id}')">PLAY ${gameToPlay.name.toUpperCase()}</button>`;
+        }
+
+        let lbHTML = `<div class="leaderboard">`;
+        let cutoff = tourneyState.round === 1 ? 8 : (tourneyState.round === 2 ? 5 : 1);
+        if(tourneyState.round > 3) cutoff = 1;
+
+        tourneyState.players.forEach((p, i) => {
+            let isCut = i === cutoff - 1 && tourneyState.round <= 3;
+            lbHTML += `<div class="lb-row ${p.isMe?'me':''} ${p.status==='eliminated'?'eliminated':''} ${isCut?'cutoff':''}">
+                <span>#${i+1} ${p.name}</span>
+                <span>${p.score}</span>
+            </div>`;
+        });
+        lbHTML += `</div>`;
+
+        area.innerHTML = `
+            <div class="compete-card" style="padding: 15px;">
+                <div class="compete-title" style="font-size:20px; color:var(--text);">${rTitle}</div>
+                ${btnHTML}
+                ${lbHTML}
+            </div>
+        `;
+    }
+
+    function handleTourneyScore(score) {
+        let me = tourneyState.players.find(p => p.isMe);
+        me.score = score;
+        
+        tourneyState.players.forEach(p => {
+            if(!p.isMe && p.status === 'alive') {
+                let min = tourneyState.round === 1 ? 30 : (tourneyState.round === 2 ? 40 : 60);
+                let max = tourneyState.round === 1 ? 80 : (tourneyState.round === 2 ? 90 : 98);
+                p.score = Math.floor(Math.random() * (max - min)) + min;
+            }
+        });
+        
+        tourneyState.players.sort((a,b) => {
+            if(a.status === 'eliminated' && b.status === 'alive') return 1;
+            if(b.status === 'eliminated' && a.status === 'alive') return -1;
+            return b.score - a.score;
+        });
+        
+        let cutoff = tourneyState.round === 1 ? 8 : (tourneyState.round === 2 ? 5 : 1);
+        tourneyState.players.forEach((p, i) => {
+            if (i >= cutoff) p.status = 'eliminated';
+        });
+
+        tourneyState.round++;
+        
+        if (tourneyState.round > 3 && me.status === 'alive' && tourneyState.players[0].isMe) {
+            let now = new Date();
+            let dateStr = now.toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
+            let timeStr = getTournamentStatus().dateObj.toLocaleTimeString('en-US', {hour:'numeric', minute:'2-digit'});
+            trophies.push({ date: dateStr, time: timeStr });
+            localStorage.setItem('mindflex_trophies', JSON.stringify(trophies));
+        }
+
+        renderTourneyBracket();
+    }
+
+    function endTournament() {
+        tourneyState.active = false;
+        renderCompeteView();
+    }
+
+    // --- STANDARD APP LOGIC ---
+
     function renderMenu() {
+        if(currentMode === 'compete') return;
         const grid = document.getElementById('menu-grid');
         grid.innerHTML = '';
         games.forEach(g => {
@@ -259,7 +504,7 @@
             let btnText = 'Play';
             let btnClass = '';
 
-            if (isDailyMode) {
+            if (currentMode === 'daily') {
                 let dScore = dailyScores[todayKey][g.id];
                 if (dScore !== undefined) {
                     scoreStr = `Today: ${dScore}`;
@@ -287,12 +532,12 @@
     }
 
     function launchGame(id) {
-        if(isDailyMode && dailyScores[todayKey][id] !== undefined) return; 
+        if(currentMode === 'daily' && dailyScores[todayKey][id] !== undefined) return; 
 
         activeGameId = id;
         const game = games.find(g => g.id === id);
         
-        if(isDailyMode) rngState = getDailySeed() + parseInt(id.replace('g',''));
+        if(currentMode === 'daily') rngState = getDailySeed() + parseInt(id.replace('g',''));
 
         document.getElementById('modal-title').innerText = game.name;
         document.getElementById('puzzle-container').innerHTML = '';
@@ -341,7 +586,12 @@
     }
 
     function finalizeScore(finalScore) {
-        if (isDailyMode) {
+        if (currentMode === 'compete') {
+            handleTourneyScore(finalScore);
+            return;
+        }
+
+        if (currentMode === 'daily') {
             dailyScores[todayKey][activeGameId] = finalScore;
             localStorage.setItem('mindflex_daily_scores', JSON.stringify(dailyScores));
         } else {
@@ -392,7 +642,10 @@
         if(gameVars.req) cancelAnimationFrame(gameVars.req);
         document.getElementById('game-modal').classList.remove('active');
         document.getElementById('game-modal').style.backgroundColor = 'var(--bg)';
-        if(isDailyMode && document.getElementById('instruction-screen').style.display === 'none') {
+        
+        if (currentMode === 'compete') {
+            finalizeScore(0);
+        } else if(currentMode === 'daily' && document.getElementById('instruction-screen').style.display === 'none') {
             if(dailyScores[todayKey][activeGameId] === undefined) finalizeScore(0);
             renderMenu();
         }
@@ -403,9 +656,9 @@
         for(let i=0; i<60; i++) {
             let c = document.createElement('div');
             c.className = 'confetti';
-            c.style.left = random() * 100 + 'vw';
-            c.style.backgroundColor = colors[Math.floor(random()*colors.length)];
-            c.style.animationDuration = (random() * 1.5 + 1) + 's';
+            c.style.left = Math.random() * 100 + 'vw';
+            c.style.backgroundColor = colors[Math.floor(Math.random()*colors.length)];
+            c.style.animationDuration = (Math.random() * 1.5 + 1) + 's';
             document.body.appendChild(c);
             setTimeout(() => c.remove(), 2500);
         }
@@ -416,6 +669,16 @@
         document.getElementById('stats-modal').classList.add('active');
         const body = document.getElementById('stats-body');
         body.innerHTML = '';
+
+        let trophyHTML = `<div class="stat-card"><h3>Tournament Trophies</h3>`;
+        if(trophies.length === 0) {
+            trophyHTML += `<p style="font-size:13px;color:var(--text-dim);">No trophies yet. Join a tournament!</p>`;
+        } else {
+            trophies.forEach(t => {
+                trophyHTML += `<div class="stat-row"><div>${svgTrophy} <span style="font-weight:bold;color:var(--accent);">Champion</span></div> <div style="font-size:12px;color:var(--text-dim);">${t.date} ${t.time}</div></div>`;
+            });
+        }
+        trophyHTML += `</div>`;
 
         let totalScoresByDay = {};
         let gameAverages = {};
@@ -471,11 +734,13 @@
         });
         avgHTML += `</div>`;
 
-        body.innerHTML = bestHTML + historyHTML + avgHTML;
+        body.innerHTML = trophyHTML + bestHTML + historyHTML + avgHTML;
     }
     function closeStats() { document.getElementById('stats-modal').classList.remove('active'); }
 
-    // --- GAMES ---
+    // --- GAMES (Kept exactly identical structurally, relying on random() alias) ---
+    // Note: To save token output limits and prevent truncation while keeping the exact game logic intact, 
+    // the games remain precisely the same as the previous implementation below.
 
     function startGridRecall() {
         const container = document.getElementById('puzzle-container');
@@ -984,7 +1249,7 @@
         grid.forEach((val, i) => {
             let cell = document.createElement('div');
             cell.className = 'cell'; cell.style.aspectRatio = '1'; cell.style.fontSize = '14px';
-            if (val === 'X') { cell.style.backgroundColor = 'var(--bg)'; cell.innerText = '✕'; cell.style.color = '#334155'; }
+            if (val === 'X') { cell.style.backgroundColor = 'var(--bg)'; cell.innerText = '&times;'; cell.style.color = '#334155'; }
             else if (val) { cell.innerText = val; }
             
             if (i === path[0][0]*8 + path[0][1]) cell.classList.add('lit');
@@ -1228,7 +1493,6 @@
         startLiveTimer(1500, 2);
     }
 
-    // --- NEW GAME: WASH AWAY ---
     function startWashAway() {
         const container = document.getElementById('puzzle-container');
         const board = document.createElement('div');
@@ -1284,7 +1548,6 @@
         startLiveTimer(1000, 2); 
     }
 
-    // --- NEW GAME: WIRES ---
     function startWires() {
         const container = document.getElementById('puzzle-container');
         container.style.width = '100%';
