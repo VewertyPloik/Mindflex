@@ -13,7 +13,7 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, sans-serif; user-select: none; -webkit-tap-highlight-color: transparent; }
         body { background-color: #000; display: flex; justify-content: center; color: var(--text); overflow: hidden; }
         .app-container { width: 100%; max-width: 390px; height: 100dvh; background: linear-gradient(180deg, #0f172a, var(--bg)); display: flex; flex-direction: column; overflow: hidden; position: relative; }
-    
+  
         header { padding: 15px; background: rgba(30, 41, 59, 0.95); border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center; z-index: 10; }
         header h1 {
             font-size: 22px;
@@ -32,9 +32,9 @@
         }
         header h1:active { transform: scale(0.95); box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3); }
         .header-actions { display: flex; gap: 10px; align-items: center; }
-    
+  
         .stats-btn { background: var(--surface-hi); color: var(--text); border: none; padding: 8px 14px; border-radius: 20px; font-size: 13px; font-weight: bold; cursor: pointer; transition: 0.2s; }
-    
+  
         .mode-btn {
             background: linear-gradient(135deg, var(--primary), #2563eb); color: #fff; border: 2px solid rgba(255,255,255,0.15);
             padding: 8px 16px; border-radius: 24px; font-size: 13px; font-weight: 800; cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -62,25 +62,25 @@
         .btn-join { background: linear-gradient(135deg, var(--success), #059669); font-size: 18px; font-weight: 800; padding: 14px; width: 100%; border-radius: 25px; cursor: pointer; transition: 0.2s; border: none; color: #000; text-transform: uppercase; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);}
         .btn-join:active { transform: scale(0.95); }
         .btn-join:disabled { background: #334155; color: var(--text-dim); cursor: not-allowed; box-shadow: none; }
-    
+  
         .leaderboard { width: 100%; margin-top: 15px; border-radius: 8px; overflow: hidden; border: 1px solid var(--surface-hi); }
         .lb-row { display: flex; justify-content: space-between; padding: 10px 15px; background: rgba(0,0,0,0.2); border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 14px; }
         .lb-row:last-child { border-bottom: none; }
         .lb-row.me { background: rgba(59, 130, 246, 0.2); font-weight: bold; color: var(--primary); }
         .lb-row.eliminated { opacity: 0.4; color: var(--danger); text-decoration: line-through; }
         .lb-row.cutoff { border-bottom: 2px dashed var(--danger); }
-    
+  
         .modal { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: var(--bg); z-index: 50; display: flex; flex-direction: column; transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.2s; }
         .modal.active { transform: translateX(0); }
         .modal-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: rgba(30, 41, 59, 0.95); border-bottom: 1px solid #334155; }
         .live-score-display { font-size: 20px; font-weight: bold; color: var(--success); transition: color 0.2s; }
         .close-btn { background: none; border: none; color: #fff; font-size: 26px; padding: 0 10px; cursor: pointer; line-height: 1;}
-    
+  
         .game-area { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 20px; overflow-y: auto; position: relative;}
         .game-desc { color: var(--text-dim); margin-bottom: 20px; margin-top: 10px; font-size: 16px; text-align: center; min-height: 40px; font-weight: 500;}
         #puzzle-container { width: 100%; max-width: 350px; display: flex; justify-content: center; align-items: center; flex-direction: column; }
         #puzzle-container.wide-mode { max-width: 100%; width: calc(100% + 20px); margin: 0 -10px; }
-    
+  
         .grid-board { display: grid; gap: 4px; width: 100%; }
         .cell { background: var(--surface-hi); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 18px; transition: 0.15s; cursor: pointer; color: #fff; position: relative; }
         .cell:active { transform: scale(0.9); }
@@ -110,7 +110,7 @@
         .cube-block { width: 100%; height: 54px; border-radius: 6px; box-shadow: inset 0 2px 4px rgba(255,255,255,0.3), 0 4px 6px rgba(0,0,0,0.4); }
         .cube-target-block { width: 20px; height: 20px; border-radius: 3px; }
         .cubes-target-col { display: flex; flex-direction: column-reverse; justify-content: flex-start; gap: 2px; width: 20px; height: 64px; background: rgba(255,255,255,0.05); padding: 1px;}
-      
+    
         /* Welcome modal */
         #welcome-modal {
             position: absolute;
@@ -123,6 +123,172 @@
             display: none;
             align-items: center;
             justify-content: center;
+        }
+        /* ====================== WORD SEARCH FRENZY v1.4 + SLICE IT! v1.5 STYLES ====================== */
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@600;800&display=swap');
+        #puzzle-container #frenzy-game-container {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(15px);
+            padding: 25px 20px;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            text-align: center;
+            max-width: 380px;
+            width: 100%;
+            position: relative;
+            z-index: 10;
+            margin: 0 auto;
+        }
+        #puzzle-container h1 {
+            font-family: 'Nunito', sans-serif;
+            color: #ff6b81;
+            font-size: 30px;
+            margin: 0 0 8px 0;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+        }
+        #puzzle-container .instructions {
+            color: #2f3542;
+            margin-bottom: 15px;
+            font-size: 14px;
+            font-weight: 800;
+        }
+        #frenzy-word-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .frenzy-word {
+            padding: 6px 14px;
+            background: white;
+            border: 2px solid #f1f2f6;
+            border-radius: 20px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 15px;
+            font-weight: 800;
+            color: #2f3542;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+        }
+        .frenzy-word.found {
+            background: #7bed9f;
+            border-color: #7bed9f;
+            color: #2f3542;
+            text-decoration: line-through;
+            transform: scale(0.9) rotate(-3deg);
+            box-shadow: none;
+        }
+        #frenzy-grid-container {
+            display: flex;
+            justify-content: center;
+        }
+        #frenzy-grid {
+            display: grid;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 8px;
+            border-radius: 14px;
+            touch-action: none;
+            box-shadow: inset 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .frenzy-cell {
+            width: 30px;
+            height: 30px;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Nunito', sans-serif;
+            font-size: 18px;
+            font-weight: 800;
+            color: #2f3542;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            box-shadow: 0 3px 0px rgba(0,0,0,0.1);
+        }
+        @media (max-width: 450px) {
+            .frenzy-cell { width: 26px; height: 26px; font-size: 16px; border-radius: 6px;}
+            #puzzle-container h1 { font-size: 24px; }
+            #puzzle-container #frenzy-game-container { padding: 20px 15px; }
+        }
+        .frenzy-cell:active {
+            transform: translateY(3px);
+            box-shadow: 0 0px 0px rgba(0,0,0,0.1);
+        }
+        .frenzy-cell.selected {
+            background: #eccc68;
+            color: #2f3542;
+            transform: scale(1.15) translateY(-2px);
+            box-shadow: 0 5px 12px rgba(236, 204, 104, 0.6);
+            z-index: 2;
+        }
+        .frenzy-cell.found {
+            background: #7bed9f;
+            color: #2f3542;
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes popIn {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        #frenzy-message {
+            margin-top: 15px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 26px;
+            color: #ff6b81;
+            min-height: 35px;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+            animation: bounce 1s infinite alternate;
+            display: none;
+        }
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-8px); }
+        }
+        #frenzy-restart-btn {
+            margin-top: 10px;
+            padding: 12px 25px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 18px;
+            background: #ff6b81;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            display: none;
+            box-shadow: 0 5px 0px #d63031, 0 12px 15px rgba(255, 107, 129, 0.4);
+            transition: all 0.2s;
+            margin-bottom: 5px;
+        }
+        #frenzy-restart-btn:hover {
+            transform: translateY(2px);
+            box-shadow: 0 3px 0px #d63031, 0 8px 12px rgba(255, 107, 129, 0.4);
+        }
+        #frenzy-restart-btn:active {
+            transform: translateY(5px);
+            box-shadow: 0 0px 0px #d63031;
+        }
+
+        /* ====================== SLICE IT! v1.5 STYLES ====================== */
+        .slice-wrapper {
+            position: relative;
+            width: 100%;
+            height: 420px;
+            max-width: 380px;
+            margin: 20px auto 0;
+            background: #74b9ff;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        .slice-wrapper h1 {
+            font-family: 'Fredoka One', cursive;
+        }
+        .slice-wrapper #slice-result-text {
+            font-family: 'Fredoka One', cursive;
         }
     </style>
 </head>
@@ -152,7 +318,7 @@
                 <p id="inst-desc">Instructions go here.</p>
                 <button class="play-btn-huge" onclick="startGameplay()">PLAY</button>
             </div>
-        
+      
             <div class="game-desc" id="game-desc"></div>
             <div id="puzzle-container"></div>
         </div>
@@ -176,6 +342,20 @@
             </div>
             <div class="stat-card">
                 <h3>Update Log</h3>
+                <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.5</span>
+                        <span style="font-size: 13px; color: var(--text-dim);">coming soon</span>
+                    </div>
+                    <span style="font-size: 14px; color: var(--text);">coming soon</span>
+                </div>
+                <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.4</span>
+                        <span style="font-size: 13px; color: var(--text-dim);">Apr 15 2026</span>
+                    </div>
+                    <span style="font-size: 14px; color: var(--text);">Added Word Search Frenzy — swipe to find 3 hidden words on an 8x8 grid! Added Slice, swipe to perfectly slice the square! </span>
+                </div>
                 <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;">
                     <div style="display: flex; align-items: center; gap: 10px;">
                         <span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.3</span>
@@ -263,10 +443,11 @@
         paint: `<svg viewBox="0 0 100 100" width="100%" height="100%"><rect x="18" y="18" width="19" height="19" rx="3" fill="#ef4444"/><rect x="40" y="18" width="19" height="19" rx="3" fill="#3b82f6"/><rect x="62" y="18" width="19" height="19" rx="3" fill="#10b981"/><rect x="18" y="40" width="19" height="19" rx="3" fill="#f59e0b"/><rect x="40" y="40" width="19" height="19" rx="3" fill="#8b5cf6"/><rect x="62" y="40" width="19" height="19" rx="3" fill="#ec4899"/><rect x="18" y="62" width="19" height="19" rx="3" fill="#3b82f6"/><rect x="40" y="62" width="19" height="19" rx="3" fill="#10b981"/><rect x="62" y="62" width="19" height="19" rx="3" fill="#f59e0b"/><rect x="40" y="40" width="19" height="19" rx="3" fill="none" stroke="#ffffff" stroke-width="2.5" opacity="0.9"/></svg>`,
         spelling: `<svg viewBox="0 0 100 100" width="100%" height="100%"><rect x="18" y="22" width="22" height="22" rx="4" fill="#3b82f6"/><text x="29" y="38" font-size="14" fill="#fff" text-anchor="middle" font-family="sans-serif" font-weight="700">S</text><rect x="41" y="22" width="22" height="22" rx="4" fill="#10b981"/><text x="52" y="38" font-size="14" fill="#fff" text-anchor="middle" font-family="sans-serif" font-weight="700">P</text><rect x="64" y="22" width="22" height="22" rx="4" fill="#f59e0b"/><text x="75" y="38" font-size="14" fill="#fff" text-anchor="middle" font-family="sans-serif" font-weight="700">E</text><rect x="18" y="48" width="22" height="22" rx="4" fill="#ec4899"/><text x="29" y="64" font-size="14" fill="#fff" text-anchor="middle" font-family="sans-serif" font-weight="700">L</text><rect x="41" y="48" width="22" height="22" rx="4" fill="#8b5cf6"/><text x="52" y="64" font-size="14" fill="#fff" text-anchor="middle" font-family="sans-serif" font-weight="700">L</text></svg>`,
         colorFinder: `<svg viewBox="0 0 100 100" width="100%" height="100%"><rect x="15" y="18" width="70" height="48" rx="10" fill="#1e293b" stroke="#3b82f6" stroke-width="8"/><defs><linearGradient id="huegrad" x1="22" y1="25" x2="80" y2="25"><stop offset="0%" stop-color="#ef4444"/><stop offset="16%" stop-color="#f59e0b"/><stop offset="33%" stop-color="#10b981"/><stop offset="50%" stop-color="#3b82f6"/><stop offset="66%" stop-color="#8b5cf6"/><stop offset="83%" stop-color="#ec4899"/><stop offset="100%" stop-color="#ef4444"/></linearGradient></defs><rect x="22" y="26" width="56" height="12" rx="3" fill="url(#huegrad)"/><rect x="22" y="42" width="56" height="12" rx="3" fill="url(#huegrad)"/><rect x="22" y="58" width="56" height="12" rx="3" fill="#334155"/><rect x="30" y="71" width="8" height="8" rx="2" fill="#3b82f6"/><rect x="43" y="71" width="8" height="8" rx="2" fill="#10b981"/><rect x="56" y="71" width="8" height="8" rx="2" fill="#f59e0b"/><circle cx="72" cy="35" r="9" fill="none" stroke="#f8fafc" stroke-width="4" opacity="0.9"/></svg>`,
-
         star: `<svg viewBox="0 0 24 24" width="60%" height="60%"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9" fill="#fff"/></svg>`,
         moon: `<svg viewBox="0 0 24 24" width="60%" height="60%"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" fill="#fff"/></svg>`,
-        heart: `<svg viewBox="0 0 24 24" width="60%" height="60%"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#fff"/></svg>`
+        heart: `<svg viewBox="0 0 24 24" width="60%" height="60%"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#fff"/></svg>`,
+        wordfrenzy: `<svg viewBox="0 0 100 100" width="100%" height="100%"><defs><filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><circle cx="42" cy="42" r="16" stroke="#7bed9f" stroke-width="8" fill="none" filter="url(#glow)"/><line x1="54" y1="54" x2="72" y2="72" stroke="#7bed9f" stroke-width="8" stroke-linecap="round" filter="url(#glow)"/></svg>`,
+        slice: `<svg viewBox="0 0 100 100" width="100%" height="100%"><circle cx="50" cy="50" r="45" fill="#fdcb6e" stroke="#2d3436" stroke-width="6"/><path d="M 25 30 L 75 30 L 75 48 L 25 58 Z" fill="#ff7675" stroke="#2d3436" stroke-width="6" stroke-linejoin="round"/><path d="M 25 68 L 75 58 L 75 80 L 25 80 Z" fill="#d63031" stroke="#2d3436" stroke-width="6" stroke-linejoin="round"/><path d="M 10 65 Q 50 45 90 45" fill="none" stroke="#2d3436" stroke-width="14" stroke-linecap="round"/><path d="M 10 65 Q 50 45 90 45" fill="none" stroke="#ffffff" stroke-width="6" stroke-linecap="round"/></svg>`
     };
     const wordList = ["BRAIN", "LOGIC", "SMART", "FOCUS", "SWIFT", "THINK", "SOLVE", "SPEED", "TRAIN", "POWER", "QUICK", "REACT", "PROVE", "NINJA", "CROWN", "EAGLE", "FLAME", "GIANT", "HEART", "INDEX", "JUMBO", "KNACK", "LASER", "MAGIC", "NOBLE", "OCEAN", "PILOT", "QUEST", "RIDER", "SUPER", "TIGER", "UNITY", "VALOR", "WATCH", "XENON", "YOUTH", "ZEBRA", "CHAMP", "FLASH", "GHOST"];
     const unscrambleList = ["PUZZLE", "GENIUS", "MEMORY", "SYSTEM", "WONDER", "EXPERT", "NEURON", "WIZARD", "MATRIX", "CIPHER", "ENIGMA", "CODING", "GAMING", "MASTER", "ACTION", "BREEZE", "COSMOS", "DRAGON", "ENERGY", "FALCON", "GALAXY", "HEROIC", "IMPACT", "JUNGLE", "KNIGHT", "LEGEND", "METEOR", "NECTAR", "ORACLE", "PLANET", "QUARTZ", "ROCKET", "SPHERE", "TEMPLE", "UTOPIA", "VORTEX", "WEAPON", "ZYGOTE"];
@@ -292,7 +473,9 @@
         { id: 'g18', name: 'Wires', icon: svgs.wires, desc: 'Drag to connect the matching colored wires from left to right.', setup: startWires },
         { id: 'g19', name: 'Flood Paint', icon: svgs.paint, desc: 'Tap any block to flood the center area with its color!', setup: startFloodPaint },
         { id: 'g20', name: 'Spell', icon: svgs.spelling, desc: 'Unscramble 4 letters to spell the correct word.', setup: startSpellingBee },
-        { id: 'g21', name: 'Color Finder', icon: svgs.colorFinder, desc: 'Memorize the shown color for 5 seconds then match it using the advanced hue + shade sliders!', setup: startColorFinder }
+        { id: 'g21', name: 'Color Finder', icon: svgs.colorFinder, desc: 'Memorize the shown color for 5 seconds then match it using the advanced hue + shade sliders!', setup: startColorFinder },
+        { id: 'g22', name: 'Word Search Frenzy', icon: svgs.wordfrenzy, desc: 'Find the 3 hidden words by swiping in any direction on the 8x8 grid!', setup: startWordSearchFrenzy },
+        { id: 'g23', name: 'Slice', icon: svgs.slice, desc: 'Swipe to slice the square exactly at the target percentage!', setup: startSlice }
     ];
     let highScores = JSON.parse(localStorage.getItem('mindflex_inf_pro_scores') || '{}');
     let dailyScores = JSON.parse(localStorage.getItem('mindflex_daily_scores') || '{}');
@@ -302,29 +485,21 @@
     let activeGameId = null;
     let scoreTracker = { current: 100, timer: null, active: false };
     let gameVars = {};
-    // --- TOURNAMENT STATE ---
-    let tourneyState = {
-        active: false, round: 1, slotId: null, games: [], players: []
-    };
+    let tourneyState = { active: false, round: 1, slotId: null, games: [], players: [] };
     let tourneyTimerInt = null;
     function openAbout() { document.getElementById('about-modal').classList.add('active'); }
     function closeAbout() { document.getElementById('about-modal').classList.remove('active'); }
     function toggleMode() {
         currentModeIndex = (currentModeIndex + 1) % modeList.length;
         currentMode = modeList[currentModeIndex];
-    
         const btn = document.getElementById('mode-toggle');
         const statsBtn = document.getElementById('stats-btn');
-    
         let label = currentMode.charAt(0).toUpperCase() + currentMode.slice(1);
         btn.innerHTML = label;
         btn.className = `mode-btn ${currentMode}`;
-    
         statsBtn.style.display = (currentMode === 'daily' || currentMode === 'compete') ? 'block' : 'none';
-    
         const grid = document.getElementById('menu-grid');
         const competeArea = document.getElementById('compete-area');
-    
         if (currentMode === 'compete') {
             grid.style.display = 'none';
             competeArea.style.display = 'flex';
@@ -337,17 +512,14 @@
             renderMenu();
         }
     }
-    // --- COMPETE MODE LOGIC ---
     function getTournamentStatus() {
         let now = new Date();
         let y = now.getFullYear(), m = now.getMonth(), d = now.getDate();
         let currentTotalMins = now.getHours() * 60 + now.getMinutes();
         let schedule = [15*60, 18*60, 21*60];
-    
         let isLive = false;
         let activeSlotId = null;
         let activeDate = null;
-    
         for(let t of schedule) {
             let diff = currentTotalMins - t;
             if (diff >= 0 && diff <= 3) {
@@ -357,9 +529,7 @@
                 break;
             }
         }
-        if (isLive) {
-            return { active: true, msUntil: 0, label: "LIVE NOW", slotId: activeSlotId, dateObj: activeDate };
-        }
+        if (isLive) return { active: true, msUntil: 0, label: "LIVE NOW", slotId: activeSlotId, dateObj: activeDate };
         let nextIndex = schedule.findIndex(t => t > currentTotalMins - 4);
         let targetTime, slotHour;
         if (nextIndex === -1) {
@@ -369,7 +539,6 @@
             targetTime = new Date(y, m, d, Math.floor(schedule[nextIndex]/60), 0, 0);
             slotHour = Math.floor(schedule[nextIndex]/60);
         }
-    
         let slotId = `${targetTime.getFullYear()}-${targetTime.getMonth()}-${targetTime.getDate()}-${slotHour}`;
         return { active: false, msUntil: targetTime - now, label: "Next Tournament", slotId: slotId, dateObj: targetTime };
     }
@@ -383,14 +552,9 @@
     }
     function renderCompeteView() {
         const area = document.getElementById('compete-area');
-        if (tourneyState.active) {
-            renderTourneyBracket();
-            return;
-        }
-    
+        if (tourneyState.active) { renderTourneyBracket(); return; }
         let status = getTournamentStatus();
         let btnHTML = '';
-    
         if (playedTournaments[status.slotId]) {
             btnHTML = `<button class="btn-join" disabled>Tournament Completed</button>`;
         } else if (status.active) {
@@ -398,7 +562,6 @@
         } else {
             btnHTML = `<button class="btn-join" disabled>Starts in <span id="compete-countdown">${formatTime(status.msUntil)}</span></button>`;
         }
-    
         area.innerHTML = `
             <div class="compete-card">
                 <div class="compete-title">Tournament Mode</div>
@@ -414,42 +577,25 @@
             </div>
         `;
     }
-    function startCompeteTimer() {
-        stopCompeteTimer();
-        tourneyTimerInt = setInterval(() => {
-            if(!tourneyState.active && currentMode === 'compete') renderCompeteView();
-        }, 1000);
-    }
+    function startCompeteTimer() { stopCompeteTimer(); tourneyTimerInt = setInterval(() => { if(!tourneyState.active && currentMode === 'compete') renderCompeteView(); }, 1000); }
     function stopCompeteTimer() { clearInterval(tourneyTimerInt); }
     function joinTournament(slotId) {
-        tourneyState.active = true;
-        tourneyState.slotId = slotId;
-        tourneyState.round = 1;
-    
+        tourneyState.active = true; tourneyState.slotId = slotId; tourneyState.round = 1;
         let gShuffled = [...games].sort(()=>Math.random()-0.5);
         tourneyState.games = [gShuffled[0], gShuffled[1], gShuffled[2]];
-    
         const aiNames = ["Quantum", "Cyber", "Nexus", "Neon", "Void", "Glitch", "Pulse", "Zenith", "Apex", "Nova", "Echo"];
         tourneyState.players = [{ name: "YOU", isMe: true, score: 0, status: 'alive' }];
-    
         let bots = [...aiNames].sort(()=>Math.random()-0.5).slice(0, 11);
         bots.forEach(b => tourneyState.players.push({ name: b, isMe: false, score: 0, status: 'alive' }));
-    
         playedTournaments[slotId] = true;
         localStorage.setItem('mindflex_tournaments', JSON.stringify(playedTournaments));
-    
         renderTourneyBracket();
     }
     function renderTourneyBracket() {
         const area = document.getElementById('compete-area');
-    
-        let rTitle = tourneyState.round === 1 ? "Round 1 (Top 8 Advance)" :
-                     tourneyState.round === 2 ? "Semi-Finals (Top 5 Advance)" :
-                     "Finale (Winner Takes All)";
-                 
+        let rTitle = tourneyState.round === 1 ? "Round 1 (Top 8 Advance)" : tourneyState.round === 2 ? "Semi-Finals (Top 5 Advance)" : "Finale (Winner Takes All)";
         let me = tourneyState.players.find(p => p.isMe);
         let btnHTML = '';
-    
         if (me.status === 'eliminated') {
             rTitle = "Eliminated";
             btnHTML = `<button class="btn-join" onclick="endTournament()" style="background:var(--surface-hi);color:white;">LEAVE TOURNAMENT</button>`;
@@ -465,44 +611,18 @@
         if(tourneyState.round > 3) cutoff = 1;
         tourneyState.players.forEach((p, i) => {
             let isCut = i === cutoff - 1 && tourneyState.round <= 3;
-            lbHTML += `<div class="lb-row ${p.isMe?'me':''} ${p.status==='eliminated'?'eliminated':''} ${isCut?'cutoff':''}">
-                <span>#${i+1} ${p.name}</span>
-                <span>${p.score}</span>
-            </div>`;
+            lbHTML += `<div class="lb-row ${p.isMe?'me':''} ${p.status==='eliminated'?'eliminated':''} ${isCut?'cutoff':''}"><span>#${i+1} ${p.name}</span><span>${p.score}</span></div>`;
         });
         lbHTML += `</div>`;
-        area.innerHTML = `
-            <div class="compete-card" style="padding: 15px;">
-                <div class="compete-title" style="font-size:20px; color:var(--text);">${rTitle}</div>
-                ${btnHTML}
-                ${lbHTML}
-            </div>
-        `;
+        area.innerHTML = `<div class="compete-card" style="padding: 15px;"><div class="compete-title" style="font-size:20px; color:var(--text);">${rTitle}</div>${btnHTML}${lbHTML}</div>`;
     }
     function handleTourneyScore(score) {
-        let me = tourneyState.players.find(p => p.isMe);
-        me.score = score;
-    
-        tourneyState.players.forEach(p => {
-            if(!p.isMe && p.status === 'alive') {
-                let min = tourneyState.round === 1 ? 30 : (tourneyState.round === 2 ? 40 : 60);
-                let max = tourneyState.round === 1 ? 80 : (tourneyState.round === 2 ? 90 : 98);
-                p.score = Math.floor(Math.random() * (max - min)) + min;
-            }
-        });
-    
-        tourneyState.players.sort((a,b) => {
-            if(a.status === 'eliminated' && b.status === 'alive') return 1;
-            if(b.status === 'eliminated' && a.status === 'alive') return -1;
-            return b.score - a.score;
-        });
-    
+        let me = tourneyState.players.find(p => p.isMe); me.score = score;
+        tourneyState.players.forEach(p => { if(!p.isMe && p.status === 'alive') { let min = tourneyState.round === 1 ? 30 : (tourneyState.round === 2 ? 40 : 60); let max = tourneyState.round === 1 ? 80 : (tourneyState.round === 2 ? 90 : 98); p.score = Math.floor(Math.random() * (max - min)) + min; } });
+        tourneyState.players.sort((a,b) => { if(a.status === 'eliminated' && b.status === 'alive') return 1; if(b.status === 'eliminated' && a.status === 'alive') return -1; return b.score - a.score; });
         let cutoff = tourneyState.round === 1 ? 8 : (tourneyState.round === 2 ? 5 : 1);
-        tourneyState.players.forEach((p, i) => {
-            if (i >= cutoff) p.status = 'eliminated';
-        });
+        tourneyState.players.forEach((p, i) => { if (i >= cutoff) p.status = 'eliminated'; });
         tourneyState.round++;
-    
         if (tourneyState.round > 3 && me.status === 'alive' && tourneyState.players[0].isMe) {
             let now = new Date();
             let dateStr = now.toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
@@ -512,11 +632,7 @@
         }
         renderTourneyBracket();
     }
-    function endTournament() {
-        tourneyState.active = false;
-        renderCompeteView();
-    }
-    // --- STANDARD APP LOGIC ---
+    function endTournament() { tourneyState.active = false; renderCompeteView(); }
     function renderMenu() {
         if(currentMode === 'compete') return;
         const grid = document.getElementById('menu-grid');
@@ -555,19 +671,15 @@
         if(currentMode === 'daily' && dailyScores[todayKey][id] !== undefined) return;
         activeGameId = id;
         const game = games.find(g => g.id === id);
-    
         if(currentMode === 'daily') rngState = getDailySeed() + parseInt(id.replace('g',''));
         document.getElementById('modal-title').innerText = game.name;
         document.getElementById('puzzle-container').innerHTML = '';
         document.getElementById('puzzle-container').className = '';
         document.getElementById('game-desc').innerText = '';
-    
         document.getElementById('inst-title').innerText = game.name;
         document.getElementById('inst-desc').innerText = game.desc;
         document.getElementById('instruction-screen').style.display = 'flex';
-    
         document.getElementById('game-modal').classList.add('active');
-    
         scoreTracker.current = 100;
         scoreTracker.active = false;
         updateScoreDisplay();
@@ -579,7 +691,6 @@
         document.getElementById('instruction-screen').style.display = 'none';
         scoreTracker.active = true;
         const game = games.find(g => g.id === activeGameId);
-    
         if(activeGameId === 'g13') document.getElementById('puzzle-container').classList.add('wide-mode');
         game.setup();
     }
@@ -599,10 +710,7 @@
         }, speedMs);
     }
     function finalizeScore(finalScore) {
-        if (currentMode === 'compete') {
-            handleTourneyScore(finalScore);
-            return;
-        }
+        if (currentMode === 'compete') { handleTourneyScore(finalScore); return; }
         if (currentMode === 'daily') {
             dailyScores[todayKey][activeGameId] = finalScore;
             localStorage.setItem('mindflex_daily_scores', JSON.stringify(dailyScores));
@@ -617,7 +725,6 @@
         if (!scoreTracker.active) return;
         scoreTracker.current = Math.max(0, scoreTracker.current - penalty);
         updateScoreDisplay();
-    
         const modal = document.getElementById('game-modal');
         modal.style.backgroundColor = '#450a0a';
         setTimeout(() => modal.style.backgroundColor = 'var(--bg)', 200);
@@ -625,7 +732,6 @@
             scoreTracker.active = false;
             clearInterval(scoreTracker.timer);
             if(gameVars.req) cancelAnimationFrame(gameVars.req);
-        
             document.getElementById('game-desc').innerText = "Out of points!";
             finalizeScore(0);
             setTimeout(() => { document.getElementById('game-modal').classList.remove('active'); renderMenu(); }, 1500);
@@ -636,10 +742,8 @@
         scoreTracker.active = false;
         clearInterval(scoreTracker.timer);
         if(gameVars.req) cancelAnimationFrame(gameVars.req);
-    
         let finalScore = Math.floor(scoreTracker.current);
         finalizeScore(finalScore);
-    
         throwConfetti();
         document.getElementById('game-desc').innerText = "Brilliant!";
         setTimeout(() => { document.getElementById('game-modal').classList.remove('active'); renderMenu(); }, 2000);
@@ -650,7 +754,6 @@
         if(gameVars.req) cancelAnimationFrame(gameVars.req);
         document.getElementById('game-modal').classList.remove('active');
         document.getElementById('game-modal').style.backgroundColor = 'var(--bg)';
-    
         if (currentMode === 'compete') {
             finalizeScore(0);
         } else if(currentMode === 'daily' && document.getElementById('instruction-screen').style.display === 'none') {
@@ -670,7 +773,6 @@
             setTimeout(() => c.remove(), 2500);
         }
     }
-    // --- STATS SYSTEM ---
     function openStats() {
         document.getElementById('stats-modal').classList.add('active');
         const body = document.getElementById('stats-body');
@@ -723,17 +825,7 @@
         let bestHTML = '';
         if(bestGameId) {
             let g = games.find(x => x.id === bestGameId);
-            bestHTML = `
-            <div class="stat-card">
-                <h3>Strongest Puzzle</h3>
-                <div style="display:flex; align-items:center;">
-                    <div class="best-game-icon">${g.icon}</div>
-                    <div>
-                        <div style="font-weight:bold;">${g.name}</div>
-                        <div style="font-size:12px; color:var(--text-dim);">Average: ${Math.round(bestAvg)} pts</div>
-                    </div>
-                </div>
-            </div>`;
+            bestHTML = `<div class="stat-card"><h3>Strongest Puzzle</h3><div style="display:flex; align-items:center;"><div class="best-game-icon">${g.icon}</div><div><div style="font-weight:bold;">${g.name}</div><div style="font-size:12px; color:var(--text-dim);">Average: ${Math.round(bestAvg)} pts</div></div></div></div>`;
         }
         let avgHTML = `<div class="stat-card"><h3>Average Scores</h3>`;
         games.forEach(g => {
@@ -746,38 +838,28 @@
         body.innerHTML = trophyHTML + bestHTML + historyHTML + todayHTML + avgHTML;
     }
     function closeStats() { document.getElementById('stats-modal').classList.remove('active'); }
-    // v1.3 Welcome Popup Handlers
     function dismissWelcome() {
         const modal = document.getElementById('welcome-modal');
         modal.style.display = 'none';
         localStorage.setItem('mindflex_v13_welcome_seen', 'true');
     }
-    function viewWhatsNew() {
-        dismissWelcome();
-        openAbout();
-    }
-    // --- GAMES ---
+    function viewWhatsNew() { dismissWelcome(); openAbout(); }
+
+    // ====================== ORIGINAL GAMES ======================
     function startGridRecall() {
         const container = document.getElementById('puzzle-container');
         const board = document.createElement('div');
         board.className = 'grid-board'; board.style.gridTemplateColumns = 'repeat(8, 1fr)'; board.style.gap = '3px';
-    
         let targetIndices = new Set();
         while(targetIndices.size < 8) targetIndices.add(Math.floor(random() * 64));
-    
         gameVars.selected = new Set(); gameVars.locked = true;
         for (let i = 0; i < 64; i++) {
             let cell = document.createElement('div');
             cell.className = 'cell'; cell.style.aspectRatio = '1'; cell.style.borderRadius = '3px';
             if (targetIndices.has(i)) cell.classList.add('lit');
-        
             cell.onclick = () => {
                 if (gameVars.locked) return;
-                if (!targetIndices.has(i)) {
-                    cell.classList.add('wrong');
-                    setTimeout(() => cell.classList.remove('wrong'), 300);
-                    handleMistake(3); return;
-                }
+                if (!targetIndices.has(i)) { cell.classList.add('wrong'); setTimeout(() => cell.classList.remove('wrong'), 300); handleMistake(3); return; }
                 cell.classList.add('lit');
                 gameVars.selected.add(i);
                 if (gameVars.selected.size === 8) winGame();
@@ -797,7 +879,6 @@
         const container = document.getElementById('puzzle-container');
         const board = document.createElement('div');
         board.className = 'grid-board'; board.style.gridTemplateColumns = 'repeat(6, 1fr)';
-    
         let grid = Array(36).fill('');
         const dirs = [[1,0], [0,1], [1,1], [1,-1], [-1,0], [-1,-1], [-1,1], [0,-1]];
         let placed = false; let startIdx, chosenDir;
@@ -807,16 +888,13 @@
             let dir = dirs[Math.floor(random() * dirs.length)];
             let endR = r + dir[0] * (targetWord.length - 1);
             let endC = c + dir[1] * (targetWord.length - 1);
-        
             if(endR >= 0 && endR < 6 && endC >= 0 && endC < 6) {
                 startIdx = r * 6 + c; chosenDir = dir;
                 for(let i=0; i<targetWord.length; i++) grid[(r + dir[0]*i)*6 + (c + dir[1]*i)] = targetWord[i];
                 placed = true;
             }
         }
-        for(let i=0; i<36; i++) {
-            if(grid[i] === '') grid[i] = String.fromCharCode(65 + Math.floor(random() * 26));
-        }
+        for(let i=0; i<36; i++) { if(grid[i] === '') grid[i] = String.fromCharCode(65 + Math.floor(random() * 26)); }
         gameVars.step = 0;
         grid.forEach((char, i) => {
             let cell = document.createElement('div');
@@ -825,7 +903,6 @@
                 let r = Math.floor(startIdx / 6) + chosenDir[0] * gameVars.step;
                 let c = (startIdx % 6) + chosenDir[1] * gameVars.step;
                 let expectedIdx = r * 6 + c;
-            
                 if (i === expectedIdx && char === targetWord[gameVars.step]) {
                     cell.classList.add('matched');
                     gameVars.step++;
@@ -843,7 +920,6 @@
         let hues = [baseHue, baseHue+20, baseHue+40, baseHue+60, baseHue+80, baseHue+100];
         let sorted = [...hues];
         hues.sort(() => random() - 0.5);
-    
         gameVars.selectedDiv = null;
         function renderBars() {
             container.innerHTML = '';
@@ -853,7 +929,6 @@
                 let bar = document.createElement('div');
                 bar.style.flex = '1'; bar.style.height = '100%'; bar.style.borderRadius = '6px'; bar.style.transition = '0.2s';
                 bar.style.backgroundColor = `hsl(${h}, 80%, 60%)`;
-            
                 if (gameVars.selectedDiv === i) bar.style.transform = 'translateY(-15px)';
                 bar.onclick = () => {
                     if (gameVars.selectedDiv === null) { gameVars.selectedDiv = i; renderBars(); }
@@ -872,7 +947,6 @@
     function startMathSprint() {
         const container = document.getElementById('puzzle-container');
         gameVars.stage = 0;
-    
         function nextEquation() {
             if (gameVars.stage === 5) { winGame(); return; }
             container.innerHTML = '';
@@ -881,7 +955,6 @@
             let a = Math.floor(random() * 40) + 10;
             let b = Math.floor(random() * 20) + 1;
             let ans = isAdd ? a + b : a - b;
-        
             let eq = document.createElement('div');
             eq.style.fontSize = '36px'; eq.style.fontWeight = 'bold'; eq.style.marginBottom = '30px';
             eq.innerText = `${a} ${isAdd ? '+' : '-'} ${b} = ?`;
@@ -891,14 +964,10 @@
             let optArr = Array.from(options).sort(() => random() - 0.5);
             let grid = document.createElement('div');
             grid.className = 'grid-board'; grid.style.gridTemplateColumns = '1fr 1fr';
-        
             optArr.forEach(opt => {
                 let btn = document.createElement('div');
                 btn.className = 'cell'; btn.style.height = '60px'; btn.innerText = opt;
-                btn.onclick = () => {
-                    if (opt === ans) { gameVars.stage++; nextEquation(); }
-                    else handleMistake(5);
-                };
+                btn.onclick = () => { if (opt === ans) { gameVars.stage++; nextEquation(); } else handleMistake(5); };
                 grid.appendChild(btn);
             });
             container.appendChild(grid);
@@ -907,12 +976,11 @@
     }
     function startReaction() {
         const container = document.getElementById('puzzle-container');
-        container.innerHTML = ''; // fix duplicate red button on early click
+        container.innerHTML = '';
         let pad = document.createElement('div');
         pad.style.width = '200px'; pad.style.height = '200px';
         pad.style.borderRadius = '50%'; pad.style.backgroundColor = 'var(--danger)';
         pad.style.transition = 'background 0.1s';
-    
         gameVars.state = 'waiting';
         let timeout = setTimeout(() => {
             pad.style.backgroundColor = 'var(--success)';
@@ -935,18 +1003,12 @@
         const container = document.getElementById('puzzle-container');
         const board = document.createElement('div');
         board.className = 'grid-board'; board.style.gridTemplateColumns = 'repeat(4, 1fr)';
-    
         let targetIdx = Math.floor(random() * 16);
         let hue = Math.floor(random() * 360);
-    
         for (let i = 0; i < 16; i++) {
             let cell = document.createElement('div');
             cell.className = 'cell'; cell.style.aspectRatio = '1';
-        
-            let shape = i === targetIdx ?
-                `<circle cx="12" cy="12" r="8" fill="hsl(${hue}, 80%, 60%)"/>` :
-                `<rect x="4" y="4" width="16" height="16" rx="2" fill="hsl(${hue}, 80%, 60%)"/>`;
-            
+            let shape = i === targetIdx ? `<circle cx="12" cy="12" r="8" fill="hsl(${hue}, 80%, 60%)"/>` : `<rect x="4" y="4" width="16" height="16" rx="2" fill="hsl(${hue}, 80%, 60%)"/>`;
             cell.innerHTML = `<svg viewBox="0 0 24 24" width="60%" height="60%">${shape}</svg>`;
             cell.onclick = () => { i === targetIdx ? winGame() : handleMistake(15); };
             board.appendChild(cell);
@@ -957,18 +1019,14 @@
         const container = document.getElementById('puzzle-container');
         const board = document.createElement('div');
         board.className = 'grid-board'; board.style.gridTemplateColumns = 'repeat(4, 1fr)';
-    
         let targetIdx = Math.floor(random() * 16);
         let hue = Math.floor(random() * 360);
         let oddHue = hue + (random() > 0.5 ? 15 : -15);
-    
         for (let i = 0; i < 16; i++) {
             let cell = document.createElement('div');
             cell.className = 'cell'; cell.style.aspectRatio = '1';
-        
             let color = i === targetIdx ? `hsl(${oddHue}, 80%, 60%)` : `hsl(${hue}, 80%, 60%)`;
             let shape = `<rect x="4" y="4" width="16" height="16" rx="2" fill="${color}"/>`;
-            
             cell.innerHTML = `<svg viewBox="0 0 24 24" width="60%" height="60%">${shape}</svg>`;
             cell.onclick = () => { i === targetIdx ? winGame() : handleMistake(15); };
             board.appendChild(cell);
@@ -979,10 +1037,8 @@
         const container = document.getElementById('puzzle-container');
         const board = document.createElement('div');
         board.className = 'grid-board'; board.style.gridTemplateColumns = '1fr 1fr'; board.style.gap = '10px';
-    
         let colors = ['#ef4444', '#3b82f6', '#10b981', '#f59e0b'];
         let pads = []; let seq = [];
-    
         for (let i=0; i<4; i++) {
             let pad = document.createElement('div');
             pad.className = 'cell'; pad.style.height = '120px'; pad.style.backgroundColor = colors[i]; pad.style.opacity = '0.3';
@@ -990,10 +1046,7 @@
             pads.push(pad); board.appendChild(pad);
         }
         container.appendChild(board);
-        function flash(i) {
-            pads[i].style.opacity = '1';
-            setTimeout(() => pads[i].style.opacity = '0.3', 300);
-        }
+        function flash(i) { pads[i].style.opacity = '1'; setTimeout(() => pads[i].style.opacity = '0.3', 300); }
         gameVars.locked = true; gameVars.input = [];
         for(let i=0; i<6; i++) seq.push(Math.floor(random() * 4));
         document.getElementById('game-desc').innerText = "Watch carefully...";
@@ -1005,9 +1058,8 @@
         function handleTap(i) {
             if (gameVars.locked) return;
             flash(i); gameVars.input.push(i);
-            if (gameVars.input[gameVars.input.length - 1] !== seq[gameVars.input.length - 1]) {
-                handleMistake(3); gameVars.input = [];
-            } else if (gameVars.input.length === seq.length) winGame();
+            if (gameVars.input[gameVars.input.length - 1] !== seq[gameVars.input.length - 1]) { handleMistake(3); gameVars.input = []; }
+            else if (gameVars.input.length === seq.length) winGame();
         }
     }
     function startUnscramble() {
@@ -1015,11 +1067,9 @@
         const target = targetStr.split('');
         let current = [...target].sort(() => random() - 0.5);
         while(current.join('') === targetStr) current.sort(() => random() - 0.5);
-    
         const container = document.getElementById('puzzle-container');
         const board = document.createElement('div');
         board.className = 'grid-board'; board.style.gridTemplateColumns = `repeat(${target.length}, 1fr)`;
-    
         gameVars.selected = null;
         function draw() {
             board.innerHTML = '';
@@ -1045,7 +1095,6 @@
         const container = document.getElementById('puzzle-container');
         const board = document.createElement('div');
         board.className = 'grid-board'; board.style.gridTemplateColumns = 'repeat(4, 1fr)';
-    
         let nums = Array.from({length: 16}, (_, i) => i + 1).sort(() => random() - 0.5);
         gameVars.currentNum = 1;
         nums.forEach(n => {
@@ -1065,10 +1114,8 @@
         const container = document.getElementById('puzzle-container');
         const board = document.createElement('div');
         board.className = 'grid-board'; board.style.gridTemplateColumns = 'repeat(4, 1fr)';
-    
         let icons = [svgs.star, svgs.moon, svgs.heart, svgs.grid, svgs.star, svgs.moon, svgs.heart, svgs.grid];
         icons.sort(() => random() - 0.5);
-    
         gameVars.first = null; gameVars.matches = 0; gameVars.locked = false;
         icons.forEach((ic, i) => {
             let cell = document.createElement('div');
@@ -1076,7 +1123,6 @@
             cell.onclick = () => {
                 if (gameVars.locked || cell.classList.contains('revealed-icon')) return;
                 cell.classList.replace('hidden-icon', 'revealed-icon');
-            
                 if (!gameVars.first) { gameVars.first = {el: cell, val: ic}; }
                 else {
                     gameVars.locked = true;
@@ -1104,14 +1150,12 @@
         let targetType = random() > 0.5 ? 'STARS' : 'MOONS';
         let targetCount = targetType === 'STARS' ? starCount : moonCount;
         document.getElementById('game-desc').innerText = `Count the ${targetType}!`;
-    
         let canvasDiv = document.createElement('div');
         canvasDiv.style.position = 'relative'; canvasDiv.style.width = '100%'; canvasDiv.style.height = '180px';
         canvasDiv.style.background = 'var(--surface)'; canvasDiv.style.borderRadius = '10px'; canvasDiv.style.marginBottom = '15px';
         let items = [];
         for(let i=0; i<starCount; i++) items.push(svgs.star);
         for(let i=0; i<moonCount; i++) items.push(svgs.moon);
-    
         items.forEach(icon => {
             let el = document.createElement('div');
             el.innerHTML = icon; el.style.position = 'absolute'; el.style.width = '35px';
@@ -1137,10 +1181,8 @@
     function startLockPick() {
         const container = document.getElementById('puzzle-container');
         gameVars.stage = 0;
-    
         let bar = document.createElement('div');
         bar.style.width = '100%'; bar.style.height = '40px'; bar.style.background = '#334155'; bar.style.position = 'relative'; bar.style.borderRadius = '20px'; bar.style.overflow = 'hidden';
-    
         let zoneWidth = 18;
         let zonePos = random() * (100 - zoneWidth);
         let zone = document.createElement('div');
@@ -1189,7 +1231,6 @@
         board.style.gap = '3px';
         board.style.maxWidth = '280px';
         board.style.margin = '20px auto 15px';
-    
         let path = []; let visited = new Set();
         function dfs(r, c, currentPath) {
             if (currentPath.length > 30) return currentPath;
@@ -1206,38 +1247,29 @@
             }
             return null;
         }
-    
         while(path.length === 0) {
             visited.clear();
             let startR = Math.floor(random()*8), startC = Math.floor(random()*8);
             visited.add(startR+','+startC);
             path = dfs(startR, startC, [[startR, startC]]) || [];
         }
-    
         let grid = Array(64).fill('X');
         path.forEach((p, idx) => { grid[p[0]*8 + p[1]] = ''; });
-    
         let milestones = [];
         for(let i=0; i<8; i++) milestones.push(path[Math.floor(i * (path.length-1) / 7)]);
         milestones.forEach((m, i) => { grid[m[0]*8 + m[1]] = i+1; });
         gameVars.currStep = 0; gameVars.pathIndex = 0; gameVars.userPath = [path[0]];
-    
         let cells = [];
         grid.forEach((val, i) => {
             let cell = document.createElement('div');
             cell.className = 'cell'; cell.style.aspectRatio = '1'; cell.style.fontSize = '14px';
-            if (val === 'X') {
-                cell.style.backgroundColor = '#111827';
-            }
+            if (val === 'X') { cell.style.backgroundColor = '#111827'; }
             else if (val) { cell.innerText = val; }
-        
             if (i === path[0][0]*8 + path[0][1]) cell.classList.add('lit');
-        
             cell.onclick = () => {
                 let r = Math.floor(i / 8), c = i % 8;
                 let lastP = gameVars.userPath[gameVars.userPath.length-1];
                 let isAdj = Math.abs(lastP[0]-r) + Math.abs(lastP[1]-c) === 1;
-            
                 if (gameVars.userPath.length > 1) {
                     let prevP = gameVars.userPath[gameVars.userPath.length-2];
                     if (prevP[0] === r && prevP[1] === c) {
@@ -1247,7 +1279,6 @@
                     }
                 }
                 if (!isAdj || val === 'X' || cell.classList.contains('lit')) { handleMistake(2); return; }
-            
                 gameVars.pathIndex++;
                 if (val > 0) {
                     let expectedNum = Math.floor((gameVars.pathIndex / (path.length-1)) * 7) + 1;
@@ -1255,14 +1286,11 @@
                 }
                 cell.classList.add('lit');
                 gameVars.userPath.push([r,c]);
-            
                 if (gameVars.userPath.length === path.length) winGame();
             };
             cells.push(cell); board.appendChild(cell);
         });
-    
         container.appendChild(board);
-    
         let resetBtn = document.createElement('button');
         resetBtn.className = 'btn'; resetBtn.style.marginTop = '15px'; resetBtn.innerText = "Clear Path";
         resetBtn.style.width = 'calc(100% - 20px)';
@@ -1278,11 +1306,9 @@
         const board = document.createElement('div');
         const S = 6; const TOT = S * S;
         board.className = 'grid-board'; board.style.gridTemplateColumns = `repeat(${S}, 1fr)`; board.style.gap = '2px';
-    
         const P_STR = [1,0,1,0]; const P_COR = [1,1,0,0];
         let grid = Array(TOT).fill(null);
         let path = []; let curr = [0,0]; path.push(curr);
-    
         while(curr[0] < S-1 || curr[1] < S-1) {
             let moves = [];
             if(curr[0]<S-1) moves.push([1,0]);
@@ -1292,7 +1318,6 @@
             path.push(curr);
         }
         let cellData = Array(TOT).fill(null).map(()=>({ type: P_STR, rot: 0, connected: false }));
-    
         for(let i=0; i<TOT; i++) {
             let isPath = path.findIndex(p => p[0]*S+p[1] === i);
             if(isPath !== -1) {
@@ -1303,12 +1328,10 @@
                     if(prev[0]<r) req[0]=1; else if(prev[0]>r) req[2]=1;
                     else if(prev[1]<c) req[3]=1; else req[1]=1;
                 } else req[3]=1;
-            
                 if(next) {
                     if(next[0]<r) req[0]=1; else if(next[0]>r) req[2]=1;
                     else if(next[1]<c) req[3]=1; else req[1]=1;
                 } else req[1]=1;
-            
                 if(req[0]&&req[2] || req[1]&&req[3]) cellData[i].type = P_STR;
                 else cellData[i].type = P_COR;
             } else {
@@ -1328,18 +1351,15 @@
             cellData.forEach(d => d.connected = false);
             let q = [0]; cellData[0].connected = true;
             let visited = new Set([0]);
-        
             while(q.length > 0) {
                 let idx = q.shift();
                 let r = Math.floor(idx/S), c = idx%S;
                 let ports = getPorts(cellData[idx]);
-            
                 if(ports[0] && r>0) { let n = idx-S; if(!visited.has(n) && getPorts(cellData[n])[2]) { visited.add(n); cellData[n].connected = true; q.push(n); } }
                 if(ports[1] && c<S-1) { let n = idx+1; if(!visited.has(n) && getPorts(cellData[n])[3]) { visited.add(n); cellData[n].connected = true; q.push(n); } }
                 if(ports[2] && r<S-1) { let n = idx+S; if(!visited.has(n) && getPorts(cellData[n])[0]) { visited.add(n); cellData[n].connected = true; q.push(n); } }
                 if(ports[3] && c>0) { let n = idx-1; if(!visited.has(n) && getPorts(cellData[n])[1]) { visited.add(n); cellData[n].connected = true; q.push(n); } }
             }
-        
             cells.forEach((el, i) => {
                 let paths = el.querySelectorAll('rect, path');
                 paths.forEach(p => p.setAttribute('fill', cellData[i].connected ? '#3b82f6' : (p.tagName==='rect'?'#8B4513':'none')));
@@ -1353,7 +1373,6 @@
             cell.className = 'cell'; cell.style.aspectRatio = '1';
             cell.innerHTML = data.type === P_STR ? svgStr : svgCor;
             cell.querySelector('svg').style.transform = `rotate(${data.rot * 90}deg)`;
-        
             if (i === TOT-1) cell.style.backgroundColor = '#064e3b';
             cell.onclick = () => {
                 data.rot = (data.rot + 1) % 4;
@@ -1362,17 +1381,14 @@
             };
             cells.push(cell); board.appendChild(cell);
         });
-    
         container.appendChild(board);
         checkFlow();
         startLiveTimer(2000, 1);
     }
     function startCubes() {
         const container = document.getElementById('puzzle-container');
-    
         const colors = ['#ef4444', '#3b82f6', '#10b981', '#f59e0b', '#8b5cf6', '#06b6d4', '#ec4899'];
         let pool = [...colors].sort(() => random() - 0.5);
-    
         let targetState = [[], [], []];
         for(let i=0; i<7; i++) {
             let col;
@@ -1409,7 +1425,6 @@
         container.appendChild(targetWrapper);
         let playArea = document.createElement('div');
         playArea.style.display = 'flex'; playArea.style.gap = '15px'; playArea.style.justifyContent = 'center';
-    
         gameVars.selectedCol = null;
         function renderPlayArea() {
             playArea.innerHTML = '';
@@ -1421,7 +1436,6 @@
                     let b = document.createElement('div');
                     b.className = 'cube-block';
                     b.style.backgroundColor = c;
-                
                     if(gameVars.selectedCol === colIndex && i === colArr.length - 1) {
                         b.style.transform = 'translateY(-10px)';
                         b.style.transition = '0.2s';
@@ -1439,7 +1453,6 @@
                             currentState[colIndex].push(blockToMove);
                             gameVars.selectedCol = null;
                             renderPlayArea();
-                        
                             if(JSON.stringify(currentState) === JSON.stringify(targetState)) winGame();
                         } else {
                             handleMistake(5);
@@ -1460,16 +1473,13 @@
         board.style.gridTemplateColumns = 'repeat(5, 1fr)';
         board.style.gap = '3px';
         board.style.width = '100%';
-    
         let totalCells = 25;
         let totalToClean = Math.floor(random() * 6) + 10;
         let cleanCount = 0;
-    
         let dirtyIndices = new Set();
         while (dirtyIndices.size < totalToClean) {
             dirtyIndices.add(Math.floor(random() * totalCells));
         }
-    
         let cells = [];
         for (let i = 0; i < totalCells; i++) {
             let cell = document.createElement('div');
@@ -1480,7 +1490,6 @@
             cells.push(cell);
             board.appendChild(cell);
         }
-    
         cells.forEach((cell, i) => {
             if (dirtyIndices.has(i)) {
                 cell.style.backgroundColor = 'var(--success)';
@@ -1489,12 +1498,10 @@
                 cell.style.backgroundColor = 'var(--surface-hi)';
                 cell.dataset.dirty = "false";
             }
-        
             cell.onpointerdown = (e) => {
                 e.preventDefault();
                 cell.style.transform = 'scale(0.85)';
                 setTimeout(() => cell.style.transform = 'scale(1)', 100);
-            
                 if (cell.dataset.dirty === "true") {
                     cell.dataset.dirty = "false";
                     cell.style.backgroundColor = '#fff';
@@ -1506,14 +1513,12 @@
                 }
             };
         });
-    
         container.appendChild(board);
         startLiveTimer(500, 1);
     }
     function startWires() {
         const container = document.getElementById('puzzle-container');
         container.style.width = '100%';
-    
         let gameArea = document.createElement('div');
         gameArea.style.position = 'relative';
         gameArea.style.width = '100%';
@@ -1522,7 +1527,6 @@
         gameArea.style.justifyContent = 'space-between';
         gameArea.style.alignItems = 'stretch';
         gameArea.style.touchAction = 'none';
-    
         let svgOverlay = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         svgOverlay.style.position = 'absolute';
         svgOverlay.style.top = '0';
@@ -1532,40 +1536,31 @@
         svgOverlay.style.pointerEvents = 'none';
         svgOverlay.style.zIndex = '1';
         gameArea.appendChild(svgOverlay);
-    
         let leftCol = document.createElement('div');
         leftCol.style.display = 'flex'; leftCol.style.flexDirection = 'column'; leftCol.style.justifyContent = 'space-between'; leftCol.style.zIndex = '2';
-    
         let rightCol = document.createElement('div');
         rightCol.style.display = 'flex'; rightCol.style.flexDirection = 'column'; rightCol.style.justifyContent = 'space-between'; rightCol.style.zIndex = '2';
-    
         let colors = ['#ef4444', '#3b82f6', '#10b981', '#f59e0b', '#a855f7', '#06b6d4'];
         let leftColors = [...colors].sort(() => random() - 0.5);
         let rightColors = [...colors].sort(() => random() - 0.5);
-    
         let connected = new Set();
         let activeWire = null;
         let tempLine = null;
         let leftNodes = {};
-    
         for(let i=0; i<6; i++) {
             let lNode = createNode(leftColors[i], 'left');
             leftCol.appendChild(lNode);
             leftNodes[leftColors[i]] = lNode;
-        
             let rNode = createNode(rightColors[i], 'right');
             rightCol.appendChild(rNode);
-        
             lNode.onpointerdown = (e) => {
                 e.preventDefault();
                 if(connected.has(leftColors[i])) return;
                 activeWire = leftColors[i];
-            
                 let rect = lNode.getBoundingClientRect();
                 let gameRect = gameArea.getBoundingClientRect();
                 let startX = rect.right - gameRect.left;
                 let startY = rect.top + rect.height/2 - gameRect.top;
-            
                 tempLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
                 tempLine.setAttribute('x1', startX); tempLine.setAttribute('y1', startY);
                 tempLine.setAttribute('x2', startX); tempLine.setAttribute('y2', startY);
@@ -1575,7 +1570,6 @@
                 svgOverlay.appendChild(tempLine);
             };
         }
-    
         gameArea.onpointermove = (e) => {
             if(!activeWire || !tempLine) return;
             let gameRect = gameArea.getBoundingClientRect();
@@ -1584,53 +1578,41 @@
             tempLine.setAttribute('x2', x);
             tempLine.setAttribute('y2', y);
         };
-    
         const cleanupDrag = () => {
             if(tempLine && svgOverlay.contains(tempLine)) svgOverlay.removeChild(tempLine);
             tempLine = null; activeWire = null;
         };
         gameArea.onpointerup = (e) => {
             if(!activeWire) return;
-        
             let elem = document.elementFromPoint(e.clientX, e.clientY);
             if (elem && elem.dataset.side === 'right' && elem.dataset.color === activeWire) {
                 connected.add(activeWire);
                 let rRect = elem.getBoundingClientRect();
                 let gameRect = gameArea.getBoundingClientRect();
-            
                 tempLine.setAttribute('x2', rRect.left - gameRect.left);
                 tempLine.setAttribute('y2', rRect.top + rRect.height/2 - gameRect.top);
                 tempLine = null; activeWire = null;
-            
                 if(connected.size === 6) winGame();
             } else {
                 cleanupDrag();
             }
         };
-    
         gameArea.onpointerleave = cleanupDrag;
         gameArea.onpointercancel = cleanupDrag;
-    
         gameArea.appendChild(leftCol); gameArea.appendChild(rightCol);
         container.appendChild(gameArea);
-    
         function createNode(color, side) {
             let nodeWrap = document.createElement('div');
             nodeWrap.style.display = 'flex'; nodeWrap.style.alignItems = 'center'; nodeWrap.style.height = '45px'; nodeWrap.style.gap = '10px'; nodeWrap.style.padding = side === 'left' ? '0 10px 0 0' : '0 0 0 10px';
             nodeWrap.dataset.color = color; nodeWrap.dataset.side = side;
-        
             let box = document.createElement('div');
             box.style.width = '24px'; box.style.height = '24px'; box.style.backgroundColor = color; box.style.borderRadius = '6px'; box.style.pointerEvents = 'none';
-        
             let point = document.createElement('div');
             point.style.width = '12px'; point.style.height = '12px'; point.style.backgroundColor = color; point.style.borderRadius = '50%'; point.style.pointerEvents = 'none';
-        
             if (side === 'left') { nodeWrap.appendChild(box); nodeWrap.appendChild(point); }
             else { nodeWrap.appendChild(point); nodeWrap.appendChild(box); }
-        
             return nodeWrap;
         }
-    
         startLiveTimer(1000, 1);
     }
     function startFloodPaint() {
@@ -1638,19 +1620,15 @@
         container.innerHTML = '';
         const SIZE = 5;
         const colorOptions = ['#ef4444', '#3b82f6', '#10b981', '#f59e0b', '#8b5cf6'];
-     
         let grid = Array.from({length: SIZE}, () =>
             Array.from({length: SIZE}, () => colorOptions[Math.floor(random() * 5)])
         );
-     
         gameVars.grid = grid;
         gameVars.cells = [];
-     
         const board = document.createElement('div');
         board.className = 'grid-board';
         board.style.gridTemplateColumns = `repeat(${SIZE}, 1fr)`;
         board.style.gap = '6px';
-     
         for (let r = 0; r < SIZE; r++) {
             const row = [];
             for (let c = 0; c < SIZE; c++) {
@@ -1665,18 +1643,15 @@
                     const tappedColor = grid[r][c];
                     const centerColor = grid[2][2];
                     if (tappedColor === centerColor) return;
-                 
                     const visited = new Set();
                     const queue = [[2, 2]];
                     const positions = [];
-                 
                     while (queue.length) {
                         const [rr, cc] = queue.shift();
                         const key = `${rr},${cc}`;
                         if (visited.has(key)) continue;
                         visited.add(key);
                         positions.push([rr, cc]);
-                     
                         const dirs = [[-1,0],[1,0],[0,-1],[0,1]];
                         for (const [dr, dc] of dirs) {
                             const nr = rr + dr;
@@ -1686,7 +1661,6 @@
                             }
                         }
                     }
-                 
                     positions.forEach(([rr, cc]) => {
                         grid[rr][cc] = tappedColor;
                         gameVars.cells[rr][cc].style.backgroundColor = tappedColor;
@@ -1694,7 +1668,6 @@
                             gameVars.cells[rr][cc].style.boxShadow = 'inset 0 0 0 6px rgba(255,255,255,0.7)';
                         }
                     });
-                 
                     const first = grid[0][0];
                     let allSame = true;
                     for (let rr = 0; rr < SIZE; rr++) {
@@ -1705,41 +1678,33 @@
                     }
                     if (allSame) winGame();
                 };
-             
                 board.appendChild(cell);
                 row.push(cell);
             }
             gameVars.cells.push(row);
         }
         container.appendChild(board);
-     
         document.getElementById('game-desc').innerText = 'Tap any block to flood from the center!';
         startLiveTimer(1000, 1);
     }
- 
     function startSpellingBee() {
         const container = document.getElementById('puzzle-container');
         container.innerHTML = '';
-     
         const targetWord = spellingList[Math.floor(random() * spellingList.length)];
         let currentLetters = targetWord.split('');
         currentLetters.sort(() => random() - 0.5);
         while (currentLetters.join('') === targetWord) {
             currentLetters.sort(() => random() - 0.5);
         }
-     
         document.getElementById('game-desc').innerText = `Unscramble the 4 letters to spell a word!`;
-     
         gameVars.currentLetters = currentLetters;
         gameVars.targetWord = targetWord;
         gameVars.selectedIndex = null;
-     
         const board = document.createElement('div');
         board.className = 'grid-board';
         board.style.gridTemplateColumns = 'repeat(4, 1fr)';
         board.style.gap = '12px';
         board.style.maxWidth = '320px';
-     
         function renderBoard() {
             board.innerHTML = '';
             gameVars.currentLetters.forEach((letter, i) => {
@@ -1763,7 +1728,6 @@
                         gameVars.currentLetters[i] = temp;
                         gameVars.selectedIndex = null;
                         renderBoard();
-                     
                         if (gameVars.currentLetters.join('') === gameVars.targetWord) {
                             winGame();
                         }
@@ -1772,29 +1736,24 @@
                 board.appendChild(cell);
             });
         }
-     
         renderBoard();
         container.appendChild(board);
-     
         startLiveTimer(500, 1);
     }
-
     function startColorFinder() {
         const container = document.getElementById('puzzle-container');
         container.innerHTML = '';
-    
         let hue = Math.floor(random() * 360);
         let sat = 55 + Math.floor(random() * 40);
         let light = 35 + Math.floor(random() * 45);
         let targetHSL = `hsl(${hue}, ${sat}%, ${light}%)`;
-    
         function hslToRgb(h, s, l) {
             s /= 100; l /= 100;
             let c = (1 - Math.abs(2 * l - 1)) * s;
             let x = c * (1 - Math.abs((h / 60) % 2 - 1));
             let m = l - c/2;
             let r=0,g=0,b=0;
-            if (0 <= h && h < 60) { r = c; g = x; b = 0; } 
+            if (0 <= h && h < 60) { r = c; g = x; b = 0; }
             else if (60 <= h && h < 120) { r = x; g = c; b = 0; }
             else if (120 <= h && h < 180) { r = 0; g = c; b = x; }
             else if (180 <= h && h < 240) { r = 0; g = x; b = c; }
@@ -1806,7 +1765,6 @@
             return {r, g, b};
         }
         let targetRgb = hslToRgb(hue, sat, light);
-    
         let memoryDiv = document.createElement('div');
         memoryDiv.style.width = '240px';
         memoryDiv.style.height = '240px';
@@ -1820,7 +1778,6 @@
         memoryDiv.style.justifyContent = 'center';
         memoryDiv.style.flexDirection = 'column';
         container.appendChild(memoryDiv);
-    
         let countdownEl = document.createElement('div');
         countdownEl.style.fontSize = '110px';
         countdownEl.style.fontWeight = '900';
@@ -1829,9 +1786,7 @@
         countdownEl.style.textShadow = '0 0 30px #000';
         countdownEl.style.opacity = '0.95';
         memoryDiv.appendChild(countdownEl);
-    
         document.getElementById('game-desc').innerText = 'Memorize this color!';
-    
         let count = 5;
         countdownEl.innerText = count;
         const cdInterval = setInterval(() => {
@@ -1849,7 +1804,6 @@
                     setTimeout(() => {
                         container.innerHTML = '';
                         document.getElementById('game-desc').innerText = 'Match the exact color!';
-    
                         let preview = document.createElement('div');
                         preview.style.width = '190px';
                         preview.style.height = '190px';
@@ -1858,7 +1812,6 @@
                         preview.style.boxShadow = '0 0 25px #000';
                         preview.style.backgroundColor = `hsl(0, 70%, 55%)`;
                         container.appendChild(preview);
-    
                         let hueSliderContainer = document.createElement('div');
                         hueSliderContainer.style.position = 'relative';
                         hueSliderContainer.style.width = '290px';
@@ -1879,7 +1832,6 @@
                         hueThumb.style.cursor = 'grab';
                         hueSliderContainer.appendChild(hueThumb);
                         container.appendChild(hueSliderContainer);
-    
                         let shadeSliderContainer = document.createElement('div');
                         shadeSliderContainer.style.position = 'relative';
                         shadeSliderContainer.style.width = '290px';
@@ -1900,19 +1852,15 @@
                         shadeThumb.style.cursor = 'grab';
                         shadeSliderContainer.appendChild(shadeThumb);
                         container.appendChild(shadeSliderContainer);
-    
                         let currentHue = Math.floor(random() * 360);
                         let currentLight = 50;
-    
                         function updatePreview() {
                             preview.style.backgroundColor = `hsl(${currentHue}, ${sat}%, ${currentLight}%)`;
                             shadeSliderContainer.style.background = `linear-gradient(to right, hsl(${currentHue}, ${sat}%, 20%), hsl(${currentHue}, ${sat}%, 80%))`;
                         }
-    
                         let hueDragging = false;
                         let shadeDragging = false;
                         let sliderW = 290;
-    
                         function handleHueMove(e) {
                             if (!hueDragging) return;
                             let rect = hueSliderContainer.getBoundingClientRect();
@@ -1921,7 +1869,6 @@
                             currentHue = Math.floor((x / (sliderW - 38)) * 360);
                             updatePreview();
                         }
-    
                         function handleShadeMove(e) {
                             if (!shadeDragging) return;
                             let rect = shadeSliderContainer.getBoundingClientRect();
@@ -1930,31 +1877,25 @@
                             currentLight = 20 + Math.floor((x / (sliderW - 38)) * 60);
                             updatePreview();
                         }
-    
                         hueThumb.onpointerdown = (e) => { e.preventDefault(); hueDragging = true; };
                         shadeThumb.onpointerdown = (e) => { e.preventDefault(); shadeDragging = true; };
-    
                         document.onpointermove = (e) => {
                             handleHueMove(e);
                             handleShadeMove(e);
                         };
-    
                         document.onpointerup = () => {
                             hueDragging = false;
                             shadeDragging = false;
                         };
-    
                         hueThumb.style.left = (currentHue / 360 * (sliderW - 38)) + 'px';
                         shadeThumb.style.left = ((currentLight - 20) / 60 * (sliderW - 38)) + 'px';
                         updatePreview();
-    
                         let submitBtn = document.createElement('button');
                         submitBtn.className = 'btn';
                         submitBtn.style.marginTop = '30px';
                         submitBtn.style.width = '220px';
                         submitBtn.innerText = 'SUBMIT COLOR';
                         container.appendChild(submitBtn);
-    
                         function submitColor() {
                             let chosenRgb = hslToRgb(currentHue, sat, currentLight);
                             let dr = targetRgb.r - chosenRgb.r;
@@ -1962,10 +1903,8 @@
                             let db = targetRgb.b - chosenRgb.b;
                             let dist = Math.sqrt(dr*dr + dg*dg + db*db);
                             let closeness = Math.max(0, Math.floor(100 * (1 - dist / 442)));
-    
                             container.innerHTML = '';
                             document.getElementById('game-desc').innerText = 'Result';
-    
                             let resultDiv = document.createElement('div');
                             resultDiv.style.display = 'flex';
                             resultDiv.style.gap = '30px';
@@ -1981,7 +1920,6 @@
                                 <div style="width:130px;height:130px;border-radius:22px;background-color:${targetHSL};margin:12px auto;box-shadow:0 0 25px #000;"></div>
                             </div>`;
                             container.appendChild(resultDiv);
-    
                             let scoreText = document.createElement('div');
                             scoreText.style.fontSize = '52px';
                             scoreText.style.fontWeight = '900';
@@ -1989,12 +1927,10 @@
                             scoreText.style.color = closeness >= 85 ? 'var(--success)' : (closeness >= 60 ? '#f59e0b' : 'var(--danger)');
                             scoreText.innerText = closeness + ' PTS';
                             container.appendChild(scoreText);
-    
                             scoreTracker.current = closeness;
                             updateScoreDisplay();
                             setTimeout(() => winGame(), 2400);
                         }
-    
                         submitBtn.onclick = submitColor;
                         startLiveTimer(1000, 0);
                     }, 650);
@@ -2002,8 +1938,441 @@
             }
         }, 1000);
     }
+
+    // ====================== WORD SEARCH FRENZY ======================
+    function startWordSearchFrenzy() {
+        const container = document.getElementById('puzzle-container');
+        container.innerHTML = `
+            <div id="frenzy-game-container">
+                <h1>Word Search Frenzy</h1>
+                <div class="instructions">Find the 3 hidden words! Swipe in any direction.</div>
+                <div id="frenzy-word-list"></div>
+                <div id="frenzy-grid-container">
+                    <div id="frenzy-grid"></div>
+                </div>
+                <div id="frenzy-message">TAP UNDER TO FINISH</div>
+                <button id="frenzy-restart-btn">PLAY AGAIN</button>
+            </div>
+        `;
+        frenzyInitGame();
+    }
+    function frenzyInitGame() {
+        const allWords = ["CAT","DOG","BIRD","FISH","BEAR","WOLF","FOX","FROG","SNAKE","ANT","APPLE","PEACH","GRAPE","PLUM","LEMON","MELON","CHERRY","BANANA","MANGO","KIWI","RED","BLUE","GREEN","YELLOW","ORANGE","PURPLE","PINK","BROWN","BLACK","WHITE","SUN","MOON","STAR","PLANET","GALAXY","COMET","METEOR","EARTH","MARS","VENUS","CAR","TRUCK","TRAIN","PLANE","BOAT","BIKE","BUS","SHIP","ROCKET","GLIDER","HAPPY","SMILE","LAUGH","JOY","PEACE","LOVE","KIND","BRAVE","CALM","PROUD","HOUSE","DOOR","WINDOW","ROOF","WALL","FLOOR","ROOM","CHAIR","TABLE","BED","RIVER","OCEAN","LAKE","POND","CREEK","WATER","WAVE","BEACH","SAND","SHELL","TREE","LEAF","BRANCH","ROOT","FOREST","WOODS","JUNGLE","PLANT","GRASS","BUSH","FIRE","ICE","SNOW","RAIN","WIND","STORM","CLOUD","FROST","HAIL","MIST","BOOK","PAGE","WORD","STORY","POEM","SONG","MUSIC","NOTES","TUNE","RHYTHM","MAGIC","SPELL","WAND","WIZARD","WITCH","DRAGON","FAIRY","ELF","GHOST","MYTH"];
+        const size = 8;
+        const dirs = [[0,1],[1,0],[1,1],[-1,1],[0,-1],[-1,0],[-1,-1],[1,-1]];
+        let wordsToFind = [];
+        let foundWords = [];
+        let gridData = [];
+        let isSelecting = false;
+        let startCell = null;
+        let selectedElements = [];
+        const wordListEl = document.getElementById('frenzy-word-list');
+        const gridEl = document.getElementById('frenzy-grid');
+        const messageEl = document.getElementById('frenzy-message');
+        const restartBtn = document.getElementById('frenzy-restart-btn');
+        function initGame() {
+            foundWords = [];
+            gridData = Array.from({length: size}, () => Array(size).fill(''));
+            gridEl.innerHTML = '';
+            wordListEl.innerHTML = '';
+            messageEl.style.display = 'none';
+            restartBtn.style.display = 'none';
+            gridEl.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
+            let shuffledWords = [...allWords].sort(() => 0.5 - Math.random());
+            wordsToFind = shuffledWords.slice(0, 3);
+            wordsToFind.forEach(word => {
+                let span = document.createElement('span');
+                span.className = 'frenzy-word';
+                span.id = 'frenzy-word-' + word;
+                span.innerText = word;
+                wordListEl.appendChild(span);
+            });
+            wordsToFind.forEach(word => placeWord(word));
+            const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            for(let r=0; r<size; r++) {
+                for(let c=0; c<size; c++) {
+                    if(gridData[r][c] === '') gridData[r][c] = alphabet[Math.floor(Math.random() * alphabet.length)];
+                    let cell = document.createElement('div');
+                    cell.className = 'frenzy-cell';
+                    cell.dataset.r = r;
+                    cell.dataset.c = c;
+                    cell.innerText = gridData[r][c];
+                    gridEl.appendChild(cell);
+                }
+            }
+            setupInteractions();
+            startLiveTimer(2000, 1);
+        }
+        function placeWord(word) {
+            let placed = false;
+            while (!placed) {
+                let d = dirs[Math.floor(Math.random() * dirs.length)];
+                let r = Math.floor(Math.random() * size);
+                let c = Math.floor(Math.random() * size);
+                let canPlace = true;
+                let endR = r + d[0] * (word.length - 1);
+                let endC = c + d[1] * (word.length - 1);
+                if(endR < 0 || endR >= size || endC < 0 || endC >= size) continue;
+                for(let i=0; i<word.length; i++) {
+                    let currR = r + d[0]*i;
+                    let currC = c + d[1]*i;
+                    if(gridData[currR][currC] !== '' && gridData[currR][currC] !== word[i]) { canPlace = false; break; }
+                }
+                if(canPlace) {
+                    for(let i=0; i<word.length; i++) gridData[r + d[0]*i][c + d[1]*i] = word[i];
+                    placed = true;
+                }
+            }
+        }
+        function setupInteractions() {
+            gridEl.addEventListener('mousedown', handleStart);
+            document.addEventListener('mouseup', handleEnd);
+            gridEl.addEventListener('mouseover', handleMove);
+            gridEl.addEventListener('touchstart', handleStart, {passive: false});
+            document.addEventListener('touchend', handleEnd);
+            gridEl.addEventListener('touchmove', (e) => {
+                if(!isSelecting) return;
+                e.preventDefault();
+                let touch = e.touches[0];
+                let target = document.elementFromPoint(touch.clientX, touch.clientY);
+                if(target && target.classList.contains('frenzy-cell')) handleMove({ target: target });
+            }, {passive: false});
+        }
+        function handleStart(e) {
+            if(!e.target.classList.contains('frenzy-cell')) return;
+            isSelecting = true;
+            startCell = e.target;
+            clearSelection();
+            selectCell(startCell);
+        }
+        function handleMove(e) {
+            if(!isSelecting || !e.target.classList.contains('frenzy-cell')) return;
+            let currentCell = e.target;
+            let r1 = parseInt(startCell.dataset.r);
+            let c1 = parseInt(startCell.dataset.c);
+            let r2 = parseInt(currentCell.dataset.r);
+            let c2 = parseInt(currentCell.dataset.c);
+            let dr = r2 - r1;
+            let dc = c2 - c1;
+            if(dr === 0 || dc === 0 || Math.abs(dr) === Math.abs(dc)) {
+                clearSelection();
+                let steps = Math.max(Math.abs(dr), Math.abs(dc));
+                let rStep = steps === 0 ? 0 : dr / steps;
+                let cStep = steps === 0 ? 0 : dc / steps;
+                for(let i=0; i<=steps; i++) {
+                    let cellToSelect = document.querySelector(`.frenzy-cell[data-r="${r1 + i*rStep}"][data-c="${c1 + i*cStep}"]`);
+                    if(cellToSelect) selectCell(cellToSelect);
+                }
+            }
+        }
+        function handleEnd() {
+            if(!isSelecting) return;
+            isSelecting = false;
+            let selectedWord = selectedElements.map(el => el.innerText).join('');
+            let reversedWord = selectedWord.split('').reverse().join('');
+            let found = false;
+            let matchedWord = "";
+            if(wordsToFind.includes(selectedWord) && !foundWords.includes(selectedWord)) {
+                found = true; matchedWord = selectedWord;
+            } else if(wordsToFind.includes(reversedWord) && !foundWords.includes(reversedWord)) {
+                found = true; matchedWord = reversedWord;
+            }
+            if(found) {
+                foundWords.push(matchedWord);
+                document.getElementById('frenzy-word-' + matchedWord).classList.add('found');
+                selectedElements.forEach(el => { el.classList.remove('selected'); el.classList.add('found'); });
+                if(foundWords.length === wordsToFind.length) {
+                    messageEl.style.display = "block";
+                    restartBtn.style.display = "inline-block";
+                    restartBtn.innerText = "CLAIM SCORE";
+                    restartBtn.onclick = winGame;
+                }
+            } else {
+                clearSelection();
+            }
+        }
+        function selectCell(cell) {
+            if(!selectedElements.includes(cell) && !cell.classList.contains('found')) {
+                cell.classList.add('selected');
+                selectedElements.push(cell);
+            }
+        }
+        function clearSelection() {
+            selectedElements.forEach(el => el.classList.remove('selected'));
+            selectedElements = [];
+        }
+        initGame();
+    }
+
+    // ====================== SLICE IT! CARTOON EDITION ======================
+    function startSlice() {
+        const container = document.getElementById('puzzle-container');
+        container.innerHTML = `
+            <div class="slice-wrapper" id="slice-wrapper">
+                <svg id="slice-game-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:20px;right:20px;width:70px;height:70px;z-index:10;filter:drop-shadow(3px 5px 0px rgba(0,0,0,0.3));">
+                    <circle cx="50" cy="50" r="45" fill="#fdcb6e" stroke="#2d3436" stroke-width="6"/>
+                    <path d="M 25 30 L 75 30 L 75 48 L 25 58 Z" fill="#ff7675" stroke="#2d3436" stroke-width="6" stroke-linejoin="round"/>
+                    <path d="M 25 68 L 75 58 L 75 80 L 25 80 Z" fill="#d63031" stroke="#2d3436" stroke-width="6" stroke-linejoin="round"/>
+                    <path d="M 10 65 Q 50 45 90 45" fill="none" stroke="#2d3436" stroke-width="14" stroke-linecap="round"/>
+                    <path d="M 10 65 Q 50 45 90 45" fill="none" stroke="#ffffff" stroke-width="6" stroke-linecap="round"/>
+                </svg>
+
+                <div id="slice-ui-layer" style="position:absolute;top:10%;width:100%;text-align:center;pointer-events:none;z-index:5;">
+                    <h1 id="slice-target-text" style="margin:0;font-size:2.8rem;color:#ffeaa7;text-shadow:-4px -4px 0 #2d3436,4px -4px 0 #2d3436,-4px 4px 0 #2d3436,4px 4px 0 #2d3436,0px 6px 0 #2d3436;letter-spacing:2px;">50%</h1>
+                    <div id="slice-result-text" style="margin-top:10px;font-size:1.8rem;min-height:2.5rem;color:#fff;text-shadow:-3px -3px 0 #2d3436,3px -3px 0 #2d3436,-3px 3px 0 #2d3436,3px 3px 0 #2d3436;transition:all 0.2s ease;"></div>
+                </div>
+
+                <canvas id="slice-canvas" width="380" height="420" style="display:block;width:100%;height:100%;"></canvas>
+            </div>
+        `;
+
+        const canvas = document.getElementById('slice-canvas');
+        const ctx = canvas.getContext('2d');
+        const targetText = document.getElementById('slice-target-text');
+        const resultDiv = document.getElementById('slice-result-text');
+
+        let square = { x: 0, y: 0, size: 220, color: '#ff9f43' };
+        let targetPercent = 50;
+        let state = 'WAITING';
+        let points = [];
+        let isSwiping = false;
+        let cutLine = null;
+        let particles = [];
+        let bottomPiece = { yOffset: 0, velocity: 0, gravity: 0.9, rotation: 0, rotVelocity: 0 };
+        let topPiece = { yOffset: 0, velocity: 0 };
+
+        function sliceResize() {
+            canvas.width = 380;
+            canvas.height = 420;
+            square.size = 220;
+            square.x = (380 - square.size) / 2;
+            square.y = (420 - square.size) / 2 + 20;
+        }
+
+        function nextRound() {
+            targetPercent = Math.floor(Math.random() * 15 + 3) * 5;
+            targetText.innerText = `${targetPercent}%`;
+            resultDiv.innerText = '';
+            state = 'WAITING';
+            cutLine = null;
+            bottomPiece = { yOffset: 0, velocity: 0, gravity: 0.9, rotation: 0, rotVelocity: 0 };
+            topPiece = { yOffset: 0, velocity: 0 };
+            points = [];
+        }
+
+        function spawnConfetti(startX, endX, yLeft, yRight) {
+            const numParticles = 12;
+            const colors = ['#55efc4', '#81ecec', '#fab1a0', '#ffeaa7', '#fd79a8'];
+            for (let i = 0; i < numParticles; i++) {
+                let t = i / numParticles;
+                let pX = startX + (endX - startX) * t;
+                let pY = yLeft + (yRight - yLeft) * t;
+                particles.push({
+                    x: pX, y: pY,
+                    vx: (Math.random() - 0.5) * 15,
+                    vy: (Math.random() - 1) * 10,
+                    size: Math.random() * 10 + 10,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    rotation: Math.random() * Math.PI,
+                    rotSpeed: (Math.random() - 0.5) * 0.5
+                });
+            }
+        }
+
+        function startSwipe(e) {
+            if (state !== 'WAITING') return;
+            isSwiping = true;
+            points = [];
+            addPoint(e);
+        }
+
+        function moveSwipe(e) {
+            if (!isSwiping) return;
+            addPoint(e);
+        }
+
+        function addPoint(e) {
+            e.preventDefault();
+            const rect = canvas.getBoundingClientRect();
+            const clientX = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+            const clientY = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+            points.push({ x: clientX, y: clientY });
+        }
+
+        function endSwipe(e) {
+            if (!isSwiping || state !== 'WAITING') return;
+            isSwiping = false;
+            if (points.length < 2) { points = []; return; }
+            let pStart = points[0];
+            let pEnd = points[points.length - 1];
+            let minX = Math.min(pStart.x, pEnd.x);
+            let maxX = Math.max(pStart.x, pEnd.x);
+            if (minX < square.x + 40 && maxX > square.x + square.size - 40) {
+                let m = (pEnd.y - pStart.y) / (pEnd.x - pStart.x);
+                let yLeft = m * (square.x - pStart.x) + pStart.y;
+                let yRight = m * (square.x + square.size - pStart.x) + pStart.y;
+                if ((yLeft < square.y && yRight < square.y) || (yLeft > square.y + square.size && yRight > square.y + square.size)) {
+                    points = []; return;
+                }
+                cutLine = { yLeft, yRight };
+                let averageY = (yLeft + yRight) / 2;
+                let actualPercent = 100 - (((averageY - square.y) / square.size) * 100);
+                actualPercent = Math.max(0, Math.min(100, Math.round(actualPercent)));
+                spawnConfetti(square.x, square.x + square.size, yLeft, yRight);
+                bottomPiece.velocity = -8;
+                bottomPiece.rotVelocity = m * 0.08;
+                topPiece.velocity = -3;
+                evaluateCut(actualPercent);
+            } else {
+                points = [];
+            }
+        }
+
+        function evaluateCut(actual) {
+            state = 'FALLING';
+            let diff = Math.abs(targetPercent - actual);
+            let message = "";
+            let color = "";
+            if (diff <= 3) { message = "PERFECT!"; color = "#55efc4"; }
+            else if (diff <= 10) { message = "CLOSE!"; color = "#ffeaa7"; }
+            else if (diff <= 20) { message = "OKAY!"; color = "#fab1a0"; }
+            else { message = "WAY OFF!"; color = "#ff7675"; }
+            resultDiv.innerHTML = `<span style="color:${color}">${actual}% — ${message}</span>`;
+
+            // NEW ACCURACY-BASED SCORING (no timer deduction)
+            let gameScore = Math.max(0, 100 - diff);
+            scoreTracker.current = gameScore;
+            updateScoreDisplay();
+
+            setTimeout(() => {
+                winGame();
+            }, 1600);
+        }
+
+        function drawSquareShape(ctx, y1, y2, isTop) {
+            ctx.beginPath();
+            if (isTop) {
+                ctx.moveTo(square.x, square.y);
+                ctx.lineTo(square.x + square.size, square.y);
+                ctx.lineTo(square.x + square.size, y2);
+                ctx.lineTo(square.x, y1);
+            } else {
+                ctx.moveTo(square.x, y1);
+                ctx.lineTo(square.x + square.size, y2);
+                ctx.lineTo(square.x + square.size, square.y + square.size);
+                ctx.lineTo(square.x, square.y + square.size);
+            }
+            ctx.closePath();
+            ctx.fillStyle = square.color;
+            ctx.fill();
+            ctx.lineWidth = 8;
+            ctx.strokeStyle = "#2d3436";
+            ctx.lineJoin = "round";
+            ctx.stroke();
+        }
+
+        function sliceDraw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = "#2d3436";
+            ctx.font = "bold 18px 'Fredoka One', cursive";
+            ctx.textAlign = "right";
+            ctx.fillText("100%", square.x - 15, square.y + 15);
+            ctx.fillText("0%", square.x - 15, square.y + square.size);
+
+            ctx.strokeStyle = "rgba(45, 52, 54, 0.3)";
+            ctx.lineWidth = 4;
+            ctx.setLineDash([10, 10]);
+            ctx.beginPath();
+            ctx.moveTo(square.x - 10, square.y); ctx.lineTo(square.x + square.size + 10, square.y);
+            ctx.moveTo(square.x - 10, square.y + square.size); ctx.lineTo(square.x + square.size + 10, square.y + square.size);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            if (state === 'WAITING') {
+                drawSquareShape(ctx, square.y + square.size, square.y + square.size, true);
+            } else if (state === 'FALLING' && cutLine) {
+                if (topPiece.yOffset > -20) {
+                    topPiece.yOffset += topPiece.velocity;
+                    topPiece.velocity += 0.8;
+                }
+                bottomPiece.yOffset += bottomPiece.velocity;
+                bottomPiece.velocity += bottomPiece.gravity;
+                bottomPiece.rotation += bottomPiece.rotVelocity;
+
+                ctx.save();
+                ctx.translate(0, Math.min(0, topPiece.yOffset));
+                drawSquareShape(ctx, cutLine.yLeft, cutLine.yRight, true);
+                ctx.restore();
+
+                ctx.save();
+                ctx.translate(square.x + square.size/2, square.y + square.size/2 + bottomPiece.yOffset);
+                ctx.rotate(bottomPiece.rotation);
+                ctx.translate(-(square.x + square.size/2), -(square.y + square.size/2));
+                drawSquareShape(ctx, cutLine.yLeft, cutLine.yRight, false);
+                ctx.restore();
+            }
+
+            for (let i = particles.length - 1; i >= 0; i--) {
+                let p = particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+                p.vy += 0.5;
+                p.rotation += p.rotSpeed;
+                ctx.save();
+                ctx.translate(p.x, p.y);
+                ctx.rotate(p.rotation);
+                ctx.fillStyle = p.color;
+                ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size);
+                ctx.lineWidth = 3;
+                ctx.strokeStyle = "#2d3436";
+                ctx.strokeRect(-p.size/2, -p.size/2, p.size, p.size);
+                ctx.restore();
+                if (p.y > canvas.height + 50) particles.splice(i, 1);
+            }
+
+            if (points.length > 1) {
+                ctx.lineCap = "round";
+                ctx.lineJoin = "round";
+                ctx.beginPath();
+                ctx.moveTo(points[0].x, points[0].y);
+                for (let i = 1; i < points.length; i++) ctx.lineTo(points[i].x, points[i].y);
+                ctx.lineWidth = 20;
+                ctx.strokeStyle = "#2d3436";
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.moveTo(points[0].x, points[0].y);
+                for (let i = 1; i < points.length; i++) ctx.lineTo(points[i].x, points[i].y);
+                ctx.lineWidth = 12;
+                ctx.strokeStyle = "#ffffff";
+                ctx.stroke();
+            }
+
+            if (!isSwiping && points.length > 0) {
+                points.shift();
+                points.shift();
+            }
+
+            requestAnimationFrame(sliceDraw);
+        }
+
+        canvas.addEventListener('touchstart', startSwipe, {passive: false});
+        canvas.addEventListener('touchmove', moveSwipe, {passive: false});
+        canvas.addEventListener('touchend', endSwipe);
+        canvas.addEventListener('mousedown', startSwipe);
+        canvas.addEventListener('mousemove', moveSwipe);
+        canvas.addEventListener('mouseup', endSwipe);
+
+        sliceResize();
+        nextRound();
+        sliceDraw();
+
+        // NO live timer for Slice It! — score is 100 - difference only
+    }
+
+    // FINAL INIT
     renderMenu();
-    // Show v1.3 welcome popup if first time
     if (!localStorage.getItem('mindflex_v13_welcome_seen')) {
         const welcomeEl = document.getElementById('welcome-modal');
         if (welcomeEl) welcomeEl.style.display = 'flex';
