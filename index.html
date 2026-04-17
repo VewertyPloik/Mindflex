@@ -375,7 +375,7 @@
             max-width: 350px;
         }
 
-        /* ====================== MINI CROSSWORD STYLES ====================== */
+        /* ====================== MINI CROSSWORD STYLES (FIXED - now scoped with .mini-crossword-mode so it NEVER touches other games) ====================== */
         .clue-bar {
             width: 100%;
             max-width: 320px;
@@ -431,7 +431,7 @@
             cursor: not-allowed;
             background-color: #f3f4f6;
         }
-        #puzzle-container .grid {
+        #puzzle-container.mini-crossword-mode .grid {
             display: grid;
             grid-template-columns: repeat(4, 55px);
             grid-template-rows: repeat(4, 55px);
@@ -442,7 +442,7 @@
             margin-bottom: 15px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
-        #puzzle-container .cell {
+        #puzzle-container.mini-crossword-mode .cell {
             background-color: #ffffff;
             display: flex;
             align-items: center;
@@ -453,11 +453,11 @@
             cursor: pointer;
             user-select: none;
         }
-        #puzzle-container .cell.word-active { background-color: #fef08a; }
-        #puzzle-container .cell.correct { background-color: #bbf7d0; color: #166534; }
-        #puzzle-container .cell.incorrect { background-color: #e5e7eb; color: #4b5563; }
-        #puzzle-container .cell.cell-active { background-color: #fde047 !important; color: #000 !important; }
-        #puzzle-container .keyboard {
+        #puzzle-container.mini-crossword-mode .cell.word-active { background-color: #fef08a; }
+        #puzzle-container.mini-crossword-mode .cell.correct { background-color: #bbf7d0; color: #166534; }
+        #puzzle-container.mini-crossword-mode .cell.incorrect { background-color: #e5e7eb; color: #4b5563; }
+        #puzzle-container.mini-crossword-mode .cell.cell-active { background-color: #fde047 !important; color: #000 !important; }
+        #puzzle-container.mini-crossword-mode .keyboard {
             width: 100%;
             max-width: 400px;
             display: flex;
@@ -465,12 +465,12 @@
             gap: 5px;
             margin-bottom: 10px;
         }
-        #puzzle-container .keyboard-row {
+        #puzzle-container.mini-crossword-mode .keyboard-row {
             display: flex;
             justify-content: center;
             gap: 5px;
         }
-        #puzzle-container .key {
+        #puzzle-container.mini-crossword-mode .key {
             background-color: #d1d5db;
             border: none;
             border-radius: 6px;
@@ -484,9 +484,9 @@
             user-select: none;
             touch-action: manipulation;
         }
-        #puzzle-container .key:active { background-color: #9ca3af; }
-        #puzzle-container .key.wide { flex: 1.5; max-width: 60px; font-size: 14px; }
-        #puzzle-container #message {
+        #puzzle-container.mini-crossword-mode .key:active { background-color: #9ca3af; }
+        #puzzle-container.mini-crossword-mode .key.wide { flex: 1.5; max-width: 60px; font-size: 14px; }
+        #puzzle-container.mini-crossword-mode #message {
             min-height: 24px;
             font-weight: bold;
             font-size: 20px;
@@ -694,6 +694,20 @@
     let gameVars = {};
     let tourneyState = { active: false, round: 1, slotId: null, games: [], players: [] };
     let tourneyTimerInt = null;
+
+    /* ====================== RESET FUNCTION - THIS WAS THE MAIN CAUSE OF EVERY GAME BEING SCREWED ====================== */
+    function resetPuzzleContainer() {
+        const pc = document.getElementById('puzzle-container');
+        pc.style.cssText = '';           // clears ALL inline styles from previous games
+        pc.className = '';               // clears ALL extra classes (wide-mode, mini-crossword-mode, etc.)
+        // force base styles back
+        pc.style.width = '100%';
+        pc.style.maxWidth = '350px';
+        pc.style.display = 'flex';
+        pc.style.justifyContent = 'center';
+        pc.style.alignItems = 'center';
+        pc.style.flexDirection = 'column';
+    }
 
     /* ====================== SHRINKAGE GAME LOGIC ====================== */
     const puzzles = [
@@ -2094,7 +2108,6 @@
                 document.getElementById('frenzy-word-' + matchedWord).classList.add('found');
                 selectedElements.forEach(el => { el.classList.remove('selected'); el.classList.add('found'); });
                 if(foundWords.length === wordsToFind.length) {
-                    // AUTO FINISH - no tap needed
                     winGame();
                     return;
                 }
@@ -2349,7 +2362,7 @@
         nextRound();
         sliceDraw();
     }
-    // ====================== MINI CROSSWORD (clue text is now dark gray) ======================
+    // ====================== MINI CROSSWORD (now properly scoped) ======================
     function startMiniCrossword() {
         const container = document.getElementById('puzzle-container');
         container.innerHTML = `
@@ -2372,14 +2385,15 @@
             <div id="message"></div>
         `;
 
+        // ADD THE MODE CLASS SO ONLY MINI CROSSWORD USES THE WHITE/BIG CELL STYLES
+        container.classList.add('mini-crossword-mode');
+
         const puzzleBank = [
             { answers: "SOMEOPENLENDODDS", across: ["An unspecified amount", "Not closed", "Let someone borrow", "The chances of an event"], down: ["Flying without a copilot", "Newspaper opinion section", "Fix or repair", "Brings to a close"] },
             { answers: "WHATHAVEIRONPENT", across: ["Question word", "Possess or own", "Metal for forging", "___ up (frustrated)"], down: ["Indiana Jones's weapon", "Fast-running rabbit", "Shakespeare's river", "Camping shelter"] },
             { answers: "BLOBRAVEOMENWEND", across: ["Drop of paint", "Wild dance party", "Sign of things to come", "Make one's way"], down: ["Forehead", "Weak, like an excuse", "Baking appliance", "Curve or flex"] },
             { answers: "STOPARTSWATSSPOT", across: ["Red Light", "School Subject Involving Paint", "Pre-800 number system", "Place To Think"], down: ["Machinery With Spinning Blades", "——Door", "Palindromic name", "Whispering Onomatopoeia"] },
-            { answers: "STARHOMEOMENWENT", across: ["Night sky light", "Where you live", "Superstitious sign", "Departed"], down: ["Netflix presentation", "Dusty old volume", "Sunday chorus word", "Lease out"] },
-            { answers: "PIERIDLENOSESLED", across: ["Ocean boardwalk", "Not currently in use", "Facial body part", "Used in the winter to slide down hills"], down: ["What you knock down while bowling", "A famous person you look up to ", "Other than that", "Saxophone Mouthpiece"] },
-            { answers: "FLEWRIVEONESGENT", across: ["Traveled by plane", "Split or tear apart", "Dollar bills", "Polite fellow, for short"], down: ["Hopping amphibian", "Draw a straight ___", "Flat and level", "Direction of the sunset"] },
+            { answers: "PIERIDLENOSESLED", across: ["Ocean boardwalk", "Not currently in use", "Facial body part", "Used in the winter to slide down hills"], down: ["What you knock down while bowling", "A famous person you look up to ", "Other than that", "Saxophone Mouthpiece"] },      
             { answers: "WASPECHONEATTSMS", across: ["Hurts to get stung by", "Sound bouncing off walls to repeat", "Tidy", "Traffic Signal Management System"], down: ["Past tense of go", "One’s in a deck of cards", "A lie to deceive someone into believing", "—— and pans"] },
             { answers: "ALTONORDNCAAHTML", across: ["—— Saxophone", "Means north in many European languages", "College Basketball", "Classic script language"], down: ["A name, not Anne", "Shorter way of spelling locked", "Light rail vehicle", "Old Norse word for ancestral property or inherited land rights"] }
         ];
@@ -2712,6 +2726,7 @@
     }
     function launchGame(id) {
         if(currentMode === 'daily' && dailyScores[todayKey][id] !== undefined) return;
+        resetPuzzleContainer();               // <--- THIS WAS MISSING BEFORE - fixes every single game
         activeGameId = id;
         const game = games.find(g => g.id === id);
         if(currentMode === 'daily') rngState = getDailySeed() + parseInt(id.replace('g',''));
