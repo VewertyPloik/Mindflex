@@ -13,7 +13,6 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, sans-serif; user-select: none; -webkit-tap-highlight-color: transparent; }
         body { background-color: #000; display: flex; justify-content: center; color: var(--text); overflow: hidden; }
         .app-container { width: 100%; max-width: 390px; height: 100dvh; background: linear-gradient(180deg, #0f172a, var(--bg)); display: flex; flex-direction: column; overflow: hidden; position: relative; }
-  
         header { padding: 15px; background: rgba(30, 41, 59, 0.95); border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center; z-index: 10; }
         header h1 {
             font-size: 22px;
@@ -32,9 +31,7 @@
         }
         header h1:active { transform: scale(0.95); box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3); }
         .header-actions { display: flex; gap: 10px; align-items: center; }
-  
         .stats-btn { background: var(--surface-hi); color: var(--text); border: none; padding: 8px 14px; border-radius: 20px; font-size: 13px; font-weight: bold; cursor: pointer; transition: 0.2s; }
-  
         .mode-btn {
             background: linear-gradient(135deg, var(--primary), #2563eb); color: #fff; border: 2px solid rgba(255,255,255,0.15);
             padding: 8px 16px; border-radius: 24px; font-size: 13px; font-weight: 800; cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -62,25 +59,21 @@
         .btn-join { background: linear-gradient(135deg, var(--success), #059669); font-size: 18px; font-weight: 800; padding: 14px; width: 100%; border-radius: 25px; cursor: pointer; transition: 0.2s; border: none; color: #000; text-transform: uppercase; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);}
         .btn-join:active { transform: scale(0.95); }
         .btn-join:disabled { background: #334155; color: var(--text-dim); cursor: not-allowed; box-shadow: none; }
-  
         .leaderboard { width: 100%; margin-top: 15px; border-radius: 8px; overflow: hidden; border: 1px solid var(--surface-hi); }
         .lb-row { display: flex; justify-content: space-between; padding: 10px 15px; background: rgba(0,0,0,0.2); border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 14px; }
         .lb-row:last-child { border-bottom: none; }
         .lb-row.me { background: rgba(59, 130, 246, 0.2); font-weight: bold; color: var(--primary); }
         .lb-row.eliminated { opacity: 0.4; color: var(--danger); text-decoration: line-through; }
         .lb-row.cutoff { border-bottom: 2px dashed var(--danger); }
-  
         .modal { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: var(--bg); z-index: 50; display: flex; flex-direction: column; transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.2s; }
         .modal.active { transform: translateX(0); }
         .modal-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: rgba(30, 41, 59, 0.95); border-bottom: 1px solid #334155; }
         .live-score-display { font-size: 20px; font-weight: bold; color: var(--success); transition: color 0.2s; }
         .close-btn { background: none; border: none; color: #fff; font-size: 26px; padding: 0 10px; cursor: pointer; line-height: 1;}
-  
         .game-area { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 20px; overflow-y: auto; position: relative;}
         .game-desc { color: var(--text-dim); margin-bottom: 20px; margin-top: 10px; font-size: 16px; text-align: center; min-height: 40px; font-weight: 500;}
         #puzzle-container { width: 100%; max-width: 350px; display: flex; justify-content: center; align-items: center; flex-direction: column; }
         #puzzle-container.wide-mode { max-width: 100%; width: calc(100% + 20px); margin: 0 -10px; }
-  
         .grid-board { display: grid; gap: 4px; width: 100%; }
         .cell { background: var(--surface-hi); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 18px; transition: 0.15s; cursor: pointer; color: #fff; position: relative; }
         .cell:active { transform: scale(0.9); }
@@ -110,7 +103,7 @@
         .cube-block { width: 100%; height: 54px; border-radius: 6px; box-shadow: inset 0 2px 4px rgba(255,255,255,0.3), 0 4px 6px rgba(0,0,0,0.4); }
         .cube-target-block { width: 20px; height: 20px; border-radius: 3px; }
         .cubes-target-col { display: flex; flex-direction: column-reverse; justify-content: flex-start; gap: 2px; width: 20px; height: 64px; background: rgba(255,255,255,0.05); padding: 1px;}
-    
+  
         /* Welcome modal */
         #welcome-modal {
             position: absolute;
@@ -124,7 +117,7 @@
             align-items: center;
             justify-content: center;
         }
-        /* ====================== WORD SEARCH FRENZY v1.4 + SLICE IT! v1.5 STYLES ====================== */
+        /* ====================== WORD SEARCH FRENZY v1.4 + SLICE IT! v1.5 + SHRINKAGE + MINI CROSSWORD ====================== */
         @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@600;800&display=swap');
         #puzzle-container #frenzy-game-container {
             background: rgba(255, 255, 255, 0.85);
@@ -271,7 +264,6 @@
             transform: translateY(5px);
             box-shadow: 0 0px 0px #d63031;
         }
-
         /* ====================== SLICE IT! v1.5 STYLES ====================== */
         .slice-wrapper {
             position: relative;
@@ -289,6 +281,217 @@
         }
         .slice-wrapper #slice-result-text {
             font-family: 'Fredoka One', cursive;
+        }
+        /* ====================== SHRINKAGE STYLES ====================== */
+        #puzzle-container .shrinkage-wrapper {
+            width: 100%;
+            max-width: 380px;
+            margin: 0 auto;
+        }
+        #puzzle-container .row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+            justify-content: center;
+        }
+        #puzzle-container .box {
+            width: 50px;
+            height: 50px;
+            border: 2px solid #334155;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+            background: #1e293b;
+            color: #f8fafc;
+            box-sizing: border-box;
+        }
+        #puzzle-container input.box {
+            outline: none;
+            caret-color: transparent;
+        }
+        #puzzle-container input.box:focus {
+            border-color: #38bdf8;
+        }
+        #puzzle-container .static {
+            background: #059669;
+            border-color: transparent;
+        }
+        #puzzle-container .static-end {
+            background: #d97706;
+            border-color: transparent;
+        }
+        #puzzle-container .btn {
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 30px;
+            margin-top: 30px;
+            cursor: pointer;
+            width: 100%;
+            max-width: 300px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: opacity 0.3s;
+        }
+        #puzzle-container .submit-btn {
+            background: #2563eb;
+        }
+        #puzzle-container .hint-btn {
+            background: #7c3aed;
+            margin-top: 15px;
+            display: none;
+        }
+        #puzzle-container #message {
+            margin-top: 25px;
+            font-weight: bold;
+            font-size: 18px;
+            text-align: center;
+            height: 24px;
+        }
+        #puzzle-container .modal {
+            display: none;
+            position: fixed;
+            z-index: 10;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(15, 23, 42, 0.9);
+            justify-content: center;
+            align-items: center;
+        }
+        #puzzle-container .modal-content {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 16px;
+            padding: 25px;
+            width: 85%;
+            max-width: 350px;
+        }
+
+        /* ====================== MINI CROSSWORD STYLES ====================== */
+        .clue-bar {
+            width: 100%;
+            max-width: 320px;
+            min-height: 44px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 12px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            text-align: center;
+            font-size: 15px;
+            font-weight: 600;
+        }
+        .clue-dir {
+            color: #2563eb;
+            margin-right: 8px;
+            text-transform: uppercase;
+            font-size: 13px;
+            font-weight: 800;
+        }
+        #puzzle-container #clue-text {
+            color: #374151;
+        }
+        .btn-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+            height: 34px;
+        }
+        .action-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            background-color: #ffffff;
+            border: 2px solid #2563eb;
+            color: #2563eb;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .action-btn.cooldown {
+            border-color: #9ca3af;
+            color: #9ca3af;
+            cursor: not-allowed;
+            background-color: #f3f4f6;
+        }
+        #puzzle-container .grid {
+            display: grid;
+            grid-template-columns: repeat(4, 55px);
+            grid-template-rows: repeat(4, 55px);
+            gap: 2px;
+            background-color: #111827;
+            border: 4px solid #111827;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        #puzzle-container .cell {
+            background-color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            user-select: none;
+        }
+        #puzzle-container .cell.word-active { background-color: #fef08a; }
+        #puzzle-container .cell.correct { background-color: #bbf7d0; color: #166534; }
+        #puzzle-container .cell.incorrect { background-color: #e5e7eb; color: #4b5563; }
+        #puzzle-container .cell.cell-active { background-color: #fde047 !important; color: #000 !important; }
+        #puzzle-container .keyboard {
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+        #puzzle-container .keyboard-row {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+        }
+        #puzzle-container .key {
+            background-color: #d1d5db;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 0;
+            font-size: 18px;
+            font-weight: bold;
+            color: #1f2937;
+            cursor: pointer;
+            flex: 1;
+            max-width: 40px;
+            user-select: none;
+            touch-action: manipulation;
+        }
+        #puzzle-container .key:active { background-color: #9ca3af; }
+        #puzzle-container .key.wide { flex: 1.5; max-width: 60px; font-size: 14px; }
+        #puzzle-container #message {
+            min-height: 24px;
+            font-weight: bold;
+            font-size: 20px;
+            text-align: center;
+            color: #16a34a;
         }
     </style>
 </head>
@@ -318,7 +521,7 @@
                 <p id="inst-desc">Instructions go here.</p>
                 <button class="play-btn-huge" onclick="startGameplay()">PLAY</button>
             </div>
-      
+    
             <div class="game-desc" id="game-desc"></div>
             <div id="puzzle-container"></div>
         </div>
@@ -345,9 +548,9 @@
                 <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;">
                     <div style="display: flex; align-items: center; gap: 10px;">
                         <span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.5</span>
-                        <span style="font-size: 13px; color: var(--text-dim);">coming soon</span>
+                        <span style="font-size: 13px; color: var(--text-dim);">Apr 16 2026</span>
                     </div>
-                    <span style="font-size: 14px; color: var(--text);">coming soon</span>
+                    <span style="font-size: 14px; color: var(--text);">New Games! — Shrinkage & Mini Crossword</span>
                 </div>
                 <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;">
                     <div style="display: flex; align-items: center; gap: 10px;">
@@ -447,7 +650,9 @@
         moon: `<svg viewBox="0 0 24 24" width="60%" height="60%"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" fill="#fff"/></svg>`,
         heart: `<svg viewBox="0 0 24 24" width="60%" height="60%"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#fff"/></svg>`,
         wordfrenzy: `<svg viewBox="0 0 100 100" width="100%" height="100%"><defs><filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><circle cx="42" cy="42" r="16" stroke="#7bed9f" stroke-width="8" fill="none" filter="url(#glow)"/><line x1="54" y1="54" x2="72" y2="72" stroke="#7bed9f" stroke-width="8" stroke-linecap="round" filter="url(#glow)"/></svg>`,
-        slice: `<svg viewBox="0 0 100 100" width="100%" height="100%"><circle cx="50" cy="50" r="45" fill="#fdcb6e" stroke="#2d3436" stroke-width="6"/><path d="M 25 30 L 75 30 L 75 48 L 25 58 Z" fill="#ff7675" stroke="#2d3436" stroke-width="6" stroke-linejoin="round"/><path d="M 25 68 L 75 58 L 75 80 L 25 80 Z" fill="#d63031" stroke="#2d3436" stroke-width="6" stroke-linejoin="round"/><path d="M 10 65 Q 50 45 90 45" fill="none" stroke="#2d3436" stroke-width="14" stroke-linecap="round"/><path d="M 10 65 Q 50 45 90 45" fill="none" stroke="#ffffff" stroke-width="6" stroke-linecap="round"/></svg>`
+        slice: `<svg viewBox="0 0 100 100" width="100%" height="100%"><circle cx="50" cy="50" r="45" fill="#fdcb6e" stroke="#2d3436" stroke-width="6"/><path d="M 25 30 L 75 30 L 75 48 L 25 58 Z" fill="#ff7675" stroke="#2d3436" stroke-width="6" stroke-linejoin="round"/><path d="M 25 68 L 75 58 L 75 80 L 25 80 Z" fill="#d63031" stroke="#2d3436" stroke-width="6" stroke-linejoin="round"/><path d="M 10 65 Q 50 45 90 45" fill="none" stroke="#2d3436" stroke-width="14" stroke-linecap="round"/><path d="M 10 65 Q 50 45 90 45" fill="none" stroke="#ffffff" stroke-width="6" stroke-linecap="round"/></svg>`,
+        shrinkage: `<svg viewBox="0 0 100 100" width="100%" height="100%"><rect x="10" y="10" width="80" height="80" rx="12" fill="#1e293b" stroke="#38bdf8" stroke-width="8"/><circle cx="50" cy="50" r="28" fill="rgba(16,185,129,0.1)" stroke="#10b981" stroke-width="6"/><text x="50" y="62" font-size="38" font-weight="800" fill="#f8fafc" text-anchor="middle" font-family="-apple-system,sans-serif">S</text></svg>`,
+        miniCrossword: `<svg viewBox="0 0 100 100" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" rx="8" fill="#111827"/><rect x="5" y="5" width="42" height="42" rx="2" fill="#f8fafc"/><rect x="52" y="5" width="42" height="42" rx="2" fill="#f8fafc"/><rect x="5" y="52" width="42" height="42" rx="2" fill="#f8fafc"/><rect x="52" y="52" width="42" height="42" rx="2" fill="#3b82f6"/><line x1="26" y1="5" x2="26" y2="47" stroke="#e5e7eb" stroke-width="1"/><line x1="5" y1="26" x2="47" y2="26" stroke="#e5e7eb" stroke-width="1"/></svg>`
     };
     const wordList = ["BRAIN", "LOGIC", "SMART", "FOCUS", "SWIFT", "THINK", "SOLVE", "SPEED", "TRAIN", "POWER", "QUICK", "REACT", "PROVE", "NINJA", "CROWN", "EAGLE", "FLAME", "GIANT", "HEART", "INDEX", "JUMBO", "KNACK", "LASER", "MAGIC", "NOBLE", "OCEAN", "PILOT", "QUEST", "RIDER", "SUPER", "TIGER", "UNITY", "VALOR", "WATCH", "XENON", "YOUTH", "ZEBRA", "CHAMP", "FLASH", "GHOST"];
     const unscrambleList = ["PUZZLE", "GENIUS", "MEMORY", "SYSTEM", "WONDER", "EXPERT", "NEURON", "WIZARD", "MATRIX", "CIPHER", "ENIGMA", "CODING", "GAMING", "MASTER", "ACTION", "BREEZE", "COSMOS", "DRAGON", "ENERGY", "FALCON", "GALAXY", "HEROIC", "IMPACT", "JUNGLE", "KNIGHT", "LEGEND", "METEOR", "NECTAR", "ORACLE", "PLANET", "QUARTZ", "ROCKET", "SPHERE", "TEMPLE", "UTOPIA", "VORTEX", "WEAPON", "ZYGOTE"];
@@ -475,7 +680,9 @@
         { id: 'g20', name: 'Spell', icon: svgs.spelling, desc: 'Unscramble 4 letters to spell the correct word.', setup: startSpellingBee },
         { id: 'g21', name: 'Color Finder', icon: svgs.colorFinder, desc: 'Memorize the shown color for 5 seconds then match it using the advanced hue + shade sliders!', setup: startColorFinder },
         { id: 'g22', name: 'Word Search Frenzy', icon: svgs.wordfrenzy, desc: 'Find the 3 hidden words by swiping in any direction on the 8x8 grid!', setup: startWordSearchFrenzy },
-        { id: 'g23', name: 'Slice', icon: svgs.slice, desc: 'Swipe to slice the square exactly at the target percentage!', setup: startSlice }
+        { id: 'g23', name: 'Slice', icon: svgs.slice, desc: 'Swipe to slice the square exactly at the target percentage!', setup: startSlice },
+        { id: 'g24', name: 'Shrinkage', icon: svgs.shrinkage, desc: 'Shrink a 6-letter word down to 3 letters by dropping one letter each time. Every row must be a real word!', setup: startShrinkage },
+        { id: 'g25', name: 'Mini Crossword', icon: svgs.miniCrossword, desc: 'Fill the 4x4 grid using across and down clues!', setup: startMiniCrossword }
     ];
     let highScores = JSON.parse(localStorage.getItem('mindflex_inf_pro_scores') || '{}');
     let dailyScores = JSON.parse(localStorage.getItem('mindflex_daily_scores') || '{}');
@@ -487,365 +694,171 @@
     let gameVars = {};
     let tourneyState = { active: false, round: 1, slotId: null, games: [], players: [] };
     let tourneyTimerInt = null;
-    function openAbout() { document.getElementById('about-modal').classList.add('active'); }
-    function closeAbout() { document.getElementById('about-modal').classList.remove('active'); }
-    function toggleMode() {
-        currentModeIndex = (currentModeIndex + 1) % modeList.length;
-        currentMode = modeList[currentModeIndex];
-        const btn = document.getElementById('mode-toggle');
-        const statsBtn = document.getElementById('stats-btn');
-        let label = currentMode.charAt(0).toUpperCase() + currentMode.slice(1);
-        btn.innerHTML = label;
-        btn.className = `mode-btn ${currentMode}`;
-        statsBtn.style.display = (currentMode === 'daily' || currentMode === 'compete') ? 'block' : 'none';
-        const grid = document.getElementById('menu-grid');
-        const competeArea = document.getElementById('compete-area');
-        if (currentMode === 'compete') {
-            grid.style.display = 'none';
-            competeArea.style.display = 'flex';
-            renderCompeteView();
-            startCompeteTimer();
-        } else {
-            stopCompeteTimer();
-            grid.style.display = 'grid';
-            competeArea.style.display = 'none';
-            renderMenu();
+
+    /* ====================== SHRINKAGE GAME LOGIC ====================== */
+    const puzzles = [
+        { start: "BADGER", end: "EAR", v5: ["BREAD","BADGE","DEBAR","GRADE","RAGED"], v4: ["BEAR","BARE","BEAD","READ","DARE","DEAR","GEAR","RAGE","DRAG","GRAD","BRAD","GARB","GRAB"] },
+        { start: "PLANES", end: "PAN", v5: ["PANEL","PANES","NAPES","SNEAP"], v4: ["PANE","NAPE","PANS","NAPS","SNAP","SPAN"] },
+        { start: "SPRING", end: "PIG", v5: ["SPRIG","RINGS","GRINS"], v4: ["PRIG","PIGS","RIGS","RING","GRIN","SIGN","SING","SNIP","PINS","SPIN","GRIP"] },
+        { start: "STREAM", end: "ART", v5: ["STARE","TEARS","RATES","ASTER","STEAM","TEAMS","SMEAR","SMART"], v4: ["STAR","RATS","ARTS","TEAR","RATE","SEAT","EAST","EATS","MEAT","TEAM","TAME","MATE","MARE","REAM","SEAM","SAME","MART","TRAM"] },
+        { start: "RESCUE", end: "USE", v5: ["REUSE","CURSE","CURES","CRUSE","ECRUS"], v4: ["CURE","RUSE","RUES","SURE","USER","ECRU","CUES","SUER"] },
+        { start: "LISTEN", end: "TEN", v5: ["SILENT","ENLIST","INLETS","TINSEL"], v4: ["LENT","NEST","SENT","NETS","TENS","LIST","SILT","TILE","LITE","LINE"] },
+        { start: "MASTER", end: "MAT", v5: ["STEAM","TEAMS","STARE","SMART","TRAMS","MATERS"], v4: ["TEAM","MEAT","MATE","TAME","MARE","MART","TRAM","STAR","STEM","SEAM"] },
+        { start: "FRIEND", end: "RED", v5: ["FIEND","FINED","DINER","RINED"], v4: ["FIND","FINE","DINE","RIND","RIDE","DIRE","FERN","REIF"] },
+        { start: "PLAYER", end: "LAP", v5: ["PEARL","PALE","REPLY","LAYER","PARLEY"], v4: ["PLAY","PRAY","PEAL","PALE","PLEA","PEAR","REAP","EARL","REAL","LYRE","RELY"] },
+        { start: "ORANGE", end: "RAG", v5: ["RANGE","ANGER","GONER","GRANE"], v4: ["RAGE","RANG","GEAR","EARN","NEAR","GONE","GORE","GARE","OGRE"] },
+        { start: "THREAT", end: "HAT", v5: ["HEART","HATER","EARTH","RATHE","THREE"], v4: ["HEAT","HATE","THAT","RATH","RATE","TEAR","TARE","HARE","HEAR","HERE"] },
+        { start: "SMILED", end: "DIM", v5: ["SMILE","SLIME","SLID","MILED"], v4: ["SLID","SLIM","MILE","LIME","MILD","DIME","LIED","DIES","SEMI","IDES"] },
+        { start: "DRAGON", end: "RAG", v5: ["GROAN","ORGAN","RADON","GRAND"], v4: ["DRAG","GRAD","RANG","ROAN","ROAD","DONG","NARD"] },
+        { start: "CATTLE", end: "CAT", v5: ["CLEAT"], v4: ["TALC","LACE"] },
+        { start: "PAINTS", end: "PIN", v5: ["PAINT","SAINT","STAIN","PANTS"], v4: ["PAIN","PINT","PANT","SNIP","SNAP","SPAN","SPIT","TIPS","NAPS","PINS"] },
+        { start: "WONDERS", end: "OWN", v5: ["WONDER","DOWNS","SWORN","DROWN","WRENS","OWNERS"], v4: ["SNOW","DOWN","DONE","DREW","OWNS","SEND","ENDS","WREN","WORD","WORE"] },
+        { start: "CLAMPS", end: "MAP", v5: ["CLAMP","PALMS","SCAMP","CALMS","CLAPS"], v4: ["PALM","CALM","CLAM","CLAP","MAPS","AMPS","ALMS","LAMS"] },
+        { start: "SPREAD", end: "RED", v5: ["SPARED","DRAPES","PADRE","READS","SPADE"], v4: ["READ","DEAR","DARE","REAP","PEAR","PARE","SPED","APES"] },
+        { start: "BRAKES", end: "ASK", v5: ["BRAKE","BAKES","BREAK","BAKER","BARKS","BEAKS"], v4: ["BAKE","BARE","BEAR","BARK","BEAK","ARKS","RAKE","SAKE","SERB"] }
+    ];
+    let currentPuzzle = null;
+    let hintTimerShrink = null;
+    let currentGoldenPath = null;
+    function loadRandomPuzzle() {
+        const randomIndex = Math.floor(Math.random() * puzzles.length);
+        currentPuzzle = puzzles[randomIndex];
+        currentGoldenPath = findPath("");
+        const topBoxes = document.querySelectorAll('#row6 .box');
+        for(let i=0; i<6; i++) topBoxes[i].textContent = currentPuzzle.start[i];
+        const bottomBoxes = document.querySelectorAll('#row3 .box');
+        for(let i=0; i<3; i++) bottomBoxes[i].textContent = currentPuzzle.end[i];
+        document.querySelectorAll('#puzzle-container input.box').forEach(input => input.value = '');
+        startHintTimer();
+    }
+    function startHintTimer() {
+        clearTimeout(hintTimerShrink);
+        const hintBtn = document.getElementById('hintBtn');
+        if (hintBtn) hintBtn.style.display = 'none';
+        hintTimerShrink = setTimeout(() => {
+            if (hintBtn) hintBtn.style.display = 'block';
+        }, 10000);
+    }
+    function findPath(currentW5) {
+        const w6 = currentPuzzle.start;
+        const w3 = currentPuzzle.end;
+        for (let w5 of currentPuzzle.v5) {
+            if (!isValidShrink(w6, w5)) continue;
+            for (let w4 of currentPuzzle.v4) {
+                if (isValidShrink(w5, w4) && isValidShrink(w4, w3)) return [w5, w4];
+            }
+        }
+        return null;
+    }
+    function checkAutoSubmit() {
+        if (!currentGoldenPath) return;
+        const w5 = Array.from(document.querySelectorAll('#row5 input')).map(i=>i.value).join('').toUpperCase();
+        const w4 = Array.from(document.querySelectorAll('#row4 input')).map(i=>i.value).join('').toUpperCase();
+        if (w5 === currentGoldenPath[0] && w4 === currentGoldenPath[1]) {
+            checkWinShrink();
         }
     }
-    function getTournamentStatus() {
-        let now = new Date();
-        let y = now.getFullYear(), m = now.getMonth(), d = now.getDate();
-        let currentTotalMins = now.getHours() * 60 + now.getMinutes();
-        let schedule = [15*60, 18*60, 21*60];
-        let isLive = false;
-        let activeSlotId = null;
-        let activeDate = null;
-        for(let t of schedule) {
-            let diff = currentTotalMins - t;
-            if (diff >= 0 && diff <= 3) {
-                isLive = true;
-                activeSlotId = `${y}-${m}-${d}-${Math.floor(t/60)}`;
-                activeDate = new Date(y, m, d, Math.floor(t/60), t%60, 0);
+    function useHint() {
+        if (!currentGoldenPath) return;
+        const inputs5 = document.querySelectorAll('#row5 input');
+        const inputs4 = document.querySelectorAll('#row4 input');
+        let hintPlaced = false;
+        for (let i = 0; i < 5; i++) {
+            if (inputs5[i].value.toUpperCase() !== currentGoldenPath[0][i]) {
+                inputs5[i].value = currentGoldenPath[0][i];
+                inputs5[i].focus();
+                hintPlaced = true;
                 break;
             }
         }
-        if (isLive) return { active: true, msUntil: 0, label: "LIVE NOW", slotId: activeSlotId, dateObj: activeDate };
-        let nextIndex = schedule.findIndex(t => t > currentTotalMins - 4);
-        let targetTime, slotHour;
-        if (nextIndex === -1) {
-            targetTime = new Date(y, m, d + 1, 15, 0, 0);
-            slotHour = 15;
-        } else {
-            targetTime = new Date(y, m, d, Math.floor(schedule[nextIndex]/60), 0, 0);
-            slotHour = Math.floor(schedule[nextIndex]/60);
+        if (!hintPlaced) {
+            for (let i = 0; i < 4; i++) {
+                if (inputs4[i].value.toUpperCase() !== currentGoldenPath[1][i]) {
+                    inputs4[i].value = currentGoldenPath[1][i];
+                    inputs4[i].focus();
+                    hintPlaced = true;
+                    break;
+                }
+            }
         }
-        let slotId = `${targetTime.getFullYear()}-${targetTime.getMonth()}-${targetTime.getDate()}-${slotHour}`;
-        return { active: false, msUntil: targetTime - now, label: "Next Tournament", slotId: slotId, dateObj: targetTime };
-    }
-    function formatTime(ms) {
-        if(ms <= 0) return "00:00:00";
-        let total = Math.floor(ms / 1000);
-        let h = Math.floor(total / 3600);
-        let m = Math.floor((total % 3600) / 60);
-        let s = total % 60;
-        return `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
-    }
-    function renderCompeteView() {
-        const area = document.getElementById('compete-area');
-        if (tourneyState.active) { renderTourneyBracket(); return; }
-        let status = getTournamentStatus();
-        let btnHTML = '';
-        if (playedTournaments[status.slotId]) {
-            btnHTML = `<button class="btn-join" disabled>Tournament Completed</button>`;
-        } else if (status.active) {
-            btnHTML = `<button class="btn-join" onclick="joinTournament('${status.slotId}')">JOIN TOURNAMENT</button>`;
-        } else {
-            btnHTML = `<button class="btn-join" disabled>Starts in <span id="compete-countdown">${formatTime(status.msUntil)}</span></button>`;
+        if (hintPlaced) {
+            scoreTracker.current = Math.max(0, scoreTracker.current - 3);
+            updateScoreDisplay();
+            startHintTimer();
         }
-        area.innerHTML = `
-            <div class="compete-card">
-                <div class="compete-title">Tournament Mode</div>
-                <p style="color:var(--text-dim);font-size:15px;line-height:1.5;">Face off against 11 challengers.<br>3 elimination rounds. Only 1 champion.</p>
-                <div class="compete-timer">${status.active ? 'LIVE NOW' : 'NEXT: '+formatTime(status.msUntil)}</div>
-                ${btnHTML}
-            </div>
-            <div class="compete-card" style="padding: 15px;">
-                <h3 style="margin-bottom:10px; font-size:14px; color:var(--text-dim); text-transform:uppercase;">Daily Schedule</h3>
-                <div style="display:flex; justify-content:space-between; font-weight:bold; color:var(--text);">
-                    <span>3:00 PM</span> <span>6:00 PM</span> <span>9:00 PM</span>
+        checkAutoSubmit();
+    }
+    function isValidShrink(word1, word2) {
+        let pool = word1.split('');
+        for (let char of word2) {
+            let idx = pool.indexOf(char);
+            if (idx === -1) return false;
+            pool.splice(idx, 1);
+        }
+        return pool.length === 1;
+    }
+    function checkWinShrink() {
+        const w6 = currentPuzzle.start;
+        const w5 = Array.from(document.querySelectorAll('#row5 input')).map(i=>i.value).join('').toUpperCase();
+        const w4 = Array.from(document.querySelectorAll('#row4 input')).map(i=>i.value).join('').toUpperCase();
+        const w3 = currentPuzzle.end;
+        const msg = document.getElementById('message');
+        if (w5.length !== 5 || w4.length !== 4) {
+            msg.textContent = "Fill in all the boxes";
+            msg.style.color = "var(--error)";
+            return;
+        }
+        if (!isValidShrink(w6, w5) || !isValidShrink(w5, w4) || !isValidShrink(w4, w3) ||
+            !currentPuzzle.v5.includes(w5) || !currentPuzzle.v4.includes(w4)) {
+            msg.textContent = "Invalid word or shrink";
+            msg.style.color = "var(--error)";
+            return;
+        }
+        msg.textContent = "Brilliant!";
+        const submitBtn = document.getElementById('submitBtn');
+        const hintBtn = document.getElementById('hintBtn');
+        if (submitBtn) submitBtn.style.display = 'none';
+        if (hintBtn) hintBtn.style.display = 'none';
+        clearTimeout(hintTimerShrink);
+        winGame();
+    }
+    function startShrinkage() {
+        const container = document.getElementById('puzzle-container');
+        container.innerHTML = `
+            <div class="shrinkage-wrapper">
+                <div class="row" id="row6">
+                    <div class="box static"></div><div class="box static"></div><div class="box static"></div><div class="box static"></div><div class="box static"></div><div class="box static"></div>
                 </div>
+                <div class="row" id="row5">
+                    <input type="text" maxlength="1" class="box" autocomplete="off" spellcheck="false"><input type="text" maxlength="1" class="box" autocomplete="off" spellcheck="false"><input type="text" maxlength="1" class="box" autocomplete="off" spellcheck="false"><input type="text" maxlength="1" class="box" autocomplete="off" spellcheck="false"><input type="text" maxlength="1" class="box" autocomplete="off" spellcheck="false">
+                </div>
+                <div class="row" id="row4">
+                    <input type="text" maxlength="1" class="box" autocomplete="off" spellcheck="false"><input type="text" maxlength="1" class="box" autocomplete="off" spellcheck="false"><input type="text" maxlength="1" class="box" autocomplete="off" spellcheck="false"><input type="text" maxlength="1" class="box" autocomplete="off" spellcheck="false">
+                </div>
+                <div class="row" id="row3">
+                    <div class="box static-end"></div><div class="box static-end"></div><div class="box static-end"></div>
+                </div>
+                <button class="btn submit-btn" id="submitBtn" onclick="checkWinShrink()">SUBMIT</button>
+                <button class="btn hint-btn" id="hintBtn" onclick="useHint()">HINT</button>
+                <div id="message"></div>
             </div>
         `;
-    }
-    function startCompeteTimer() { stopCompeteTimer(); tourneyTimerInt = setInterval(() => { if(!tourneyState.active && currentMode === 'compete') renderCompeteView(); }, 1000); }
-    function stopCompeteTimer() { clearInterval(tourneyTimerInt); }
-    function joinTournament(slotId) {
-        tourneyState.active = true; tourneyState.slotId = slotId; tourneyState.round = 1;
-        let gShuffled = [...games].sort(()=>Math.random()-0.5);
-        tourneyState.games = [gShuffled[0], gShuffled[1], gShuffled[2]];
-        const aiNames = ["Quantum", "Cyber", "Nexus", "Neon", "Void", "Glitch", "Pulse", "Zenith", "Apex", "Nova", "Echo"];
-        tourneyState.players = [{ name: "YOU", isMe: true, score: 0, status: 'alive' }];
-        let bots = [...aiNames].sort(()=>Math.random()-0.5).slice(0, 11);
-        bots.forEach(b => tourneyState.players.push({ name: b, isMe: false, score: 0, status: 'alive' }));
-        playedTournaments[slotId] = true;
-        localStorage.setItem('mindflex_tournaments', JSON.stringify(playedTournaments));
-        renderTourneyBracket();
-    }
-    function renderTourneyBracket() {
-        const area = document.getElementById('compete-area');
-        let rTitle = tourneyState.round === 1 ? "Round 1 (Top 8 Advance)" : tourneyState.round === 2 ? "Semi-Finals (Top 5 Advance)" : "Finale (Winner Takes All)";
-        let me = tourneyState.players.find(p => p.isMe);
-        let btnHTML = '';
-        if (me.status === 'eliminated') {
-            rTitle = "Eliminated";
-            btnHTML = `<button class="btn-join" onclick="endTournament()" style="background:var(--surface-hi);color:white;">LEAVE TOURNAMENT</button>`;
-        } else if (tourneyState.round > 3) {
-            rTitle = "Tournament Complete";
-            btnHTML = `<button class="btn-join" onclick="endTournament()">CLAIM TROPHY & EXIT</button>`;
-        } else {
-            let gameToPlay = tourneyState.games[tourneyState.round - 1];
-            btnHTML = `<button class="btn-join" onclick="launchGame('${gameToPlay.id}')">PLAY ${gameToPlay.name.toUpperCase()}</button>`;
-        }
-        let lbHTML = `<div class="leaderboard">`;
-        let cutoff = tourneyState.round === 1 ? 8 : (tourneyState.round === 2 ? 5 : 1);
-        if(tourneyState.round > 3) cutoff = 1;
-        tourneyState.players.forEach((p, i) => {
-            let isCut = i === cutoff - 1 && tourneyState.round <= 3;
-            lbHTML += `<div class="lb-row ${p.isMe?'me':''} ${p.status==='eliminated'?'eliminated':''} ${isCut?'cutoff':''}"><span>#${i+1} ${p.name}</span><span>${p.score}</span></div>`;
-        });
-        lbHTML += `</div>`;
-        area.innerHTML = `<div class="compete-card" style="padding: 15px;"><div class="compete-title" style="font-size:20px; color:var(--text);">${rTitle}</div>${btnHTML}${lbHTML}</div>`;
-    }
-    function handleTourneyScore(score) {
-        let me = tourneyState.players.find(p => p.isMe); me.score = score;
-        tourneyState.players.forEach(p => { if(!p.isMe && p.status === 'alive') { let min = tourneyState.round === 1 ? 30 : (tourneyState.round === 2 ? 40 : 60); let max = tourneyState.round === 1 ? 80 : (tourneyState.round === 2 ? 90 : 98); p.score = Math.floor(Math.random() * (max - min)) + min; } });
-        tourneyState.players.sort((a,b) => { if(a.status === 'eliminated' && b.status === 'alive') return 1; if(b.status === 'eliminated' && a.status === 'alive') return -1; return b.score - a.score; });
-        let cutoff = tourneyState.round === 1 ? 8 : (tourneyState.round === 2 ? 5 : 1);
-        tourneyState.players.forEach((p, i) => { if (i >= cutoff) p.status = 'eliminated'; });
-        tourneyState.round++;
-        if (tourneyState.round > 3 && me.status === 'alive' && tourneyState.players[0].isMe) {
-            let now = new Date();
-            let dateStr = now.toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
-            let timeStr = getTournamentStatus().dateObj.toLocaleTimeString('en-US', {hour:'numeric', minute:'2-digit'});
-            trophies.push({ date: dateStr, time: timeStr });
-            localStorage.setItem('mindflex_trophies', JSON.stringify(trophies));
-        }
-        renderTourneyBracket();
-    }
-    function endTournament() { tourneyState.active = false; renderCompeteView(); }
-    function renderMenu() {
-        if(currentMode === 'compete') return;
-        const grid = document.getElementById('menu-grid');
-        grid.innerHTML = '';
-        games.forEach(g => {
-            let scoreStr = '';
-            let isLocked = false;
-            let btnText = 'Play';
-            let btnClass = '';
-            if (currentMode === 'daily') {
-                let dScore = dailyScores[todayKey][g.id];
-                if (dScore !== undefined) {
-                    scoreStr = `Today: ${dScore}`;
-                    isLocked = true;
-                    btnText = 'Played';
-                    btnClass = 'played';
-                } else {
-                    scoreStr = `Not Played Today`;
-                }
-            } else {
-                let score = highScores[g.id] || 0;
-                scoreStr = score > 0 ? `High Score: ${score}` : 'Not Played';
-                if(score > 0) btnClass = 'played';
-            }
-            grid.innerHTML += `
-                <div class="card ${isLocked ? 'locked' : ''}">
-                    <div class="icon-box">${g.icon}</div>
-                    <div class="card-title">${g.name}</div>
-                    <div class="card-score">${scoreStr}</div>
-                    <button class="btn ${btnClass}" onclick="launchGame('${g.id}')">${btnText}</button>
-                </div>
-            `;
-        });
-    }
-    function launchGame(id) {
-        if(currentMode === 'daily' && dailyScores[todayKey][id] !== undefined) return;
-        activeGameId = id;
-        const game = games.find(g => g.id === id);
-        if(currentMode === 'daily') rngState = getDailySeed() + parseInt(id.replace('g',''));
-        document.getElementById('modal-title').innerText = game.name;
-        document.getElementById('puzzle-container').innerHTML = '';
-        document.getElementById('puzzle-container').className = '';
-        document.getElementById('game-desc').innerText = '';
-        document.getElementById('inst-title').innerText = game.name;
-        document.getElementById('inst-desc').innerText = game.desc;
-        document.getElementById('instruction-screen').style.display = 'flex';
-        document.getElementById('game-modal').classList.add('active');
-        scoreTracker.current = 100;
-        scoreTracker.active = false;
-        updateScoreDisplay();
-        clearInterval(scoreTracker.timer);
-        if(gameVars.req) cancelAnimationFrame(gameVars.req);
-        gameVars = {};
-    }
-    function startGameplay() {
-        document.getElementById('instruction-screen').style.display = 'none';
-        scoreTracker.active = true;
-        const game = games.find(g => g.id === activeGameId);
-        if(activeGameId === 'g13') document.getElementById('puzzle-container').classList.add('wide-mode');
-        game.setup();
-    }
-    function updateScoreDisplay() {
-        const display = document.getElementById('live-score');
-        display.innerText = Math.floor(scoreTracker.current);
-        if(scoreTracker.current < 40) display.style.color = 'var(--danger)';
-        else if(scoreTracker.current < 70) display.style.color = '#f59e0b';
-        else display.style.color = 'var(--success)';
-    }
-    function startLiveTimer(speedMs = 1000, deduct = 2) {
-        scoreTracker.timer = setInterval(() => {
-            if (!scoreTracker.active) return;
-            scoreTracker.current = Math.max(0, scoreTracker.current - deduct);
-            updateScoreDisplay();
-            if (scoreTracker.current === 0) handleMistake(0);
-        }, speedMs);
-    }
-    function finalizeScore(finalScore) {
-        if (currentMode === 'compete') { handleTourneyScore(finalScore); return; }
-        if (currentMode === 'daily') {
-            dailyScores[todayKey][activeGameId] = finalScore;
-            localStorage.setItem('mindflex_daily_scores', JSON.stringify(dailyScores));
-        } else {
-            if (finalScore > (highScores[activeGameId] || 0)) {
-                highScores[activeGameId] = finalScore;
-                localStorage.setItem('mindflex_inf_pro_scores', JSON.stringify(highScores));
-            }
-        }
-    }
-    function handleMistake(penalty = 15) {
-        if (!scoreTracker.active) return;
-        scoreTracker.current = Math.max(0, scoreTracker.current - penalty);
-        updateScoreDisplay();
-        const modal = document.getElementById('game-modal');
-        modal.style.backgroundColor = '#450a0a';
-        setTimeout(() => modal.style.backgroundColor = 'var(--bg)', 200);
-        if (scoreTracker.current === 0) {
-            scoreTracker.active = false;
-            clearInterval(scoreTracker.timer);
-            if(gameVars.req) cancelAnimationFrame(gameVars.req);
-            document.getElementById('game-desc').innerText = "Out of points!";
-            finalizeScore(0);
-            setTimeout(() => { document.getElementById('game-modal').classList.remove('active'); renderMenu(); }, 1500);
-        }
-    }
-    function winGame() {
-        if(!scoreTracker.active) return;
-        scoreTracker.active = false;
-        clearInterval(scoreTracker.timer);
-        if(gameVars.req) cancelAnimationFrame(gameVars.req);
-        let finalScore = Math.floor(scoreTracker.current);
-        finalizeScore(finalScore);
-        throwConfetti();
-        document.getElementById('game-desc').innerText = "Brilliant!";
-        setTimeout(() => { document.getElementById('game-modal').classList.remove('active'); renderMenu(); }, 2000);
-    }
-    function quitGame() {
-        scoreTracker.active = false;
-        clearInterval(scoreTracker.timer);
-        if(gameVars.req) cancelAnimationFrame(gameVars.req);
-        document.getElementById('game-modal').classList.remove('active');
-        document.getElementById('game-modal').style.backgroundColor = 'var(--bg)';
-        if (currentMode === 'compete') {
-            finalizeScore(0);
-        } else if(currentMode === 'daily' && document.getElementById('instruction-screen').style.display === 'none') {
-            if(dailyScores[todayKey][activeGameId] === undefined) finalizeScore(0);
-            renderMenu();
-        }
-    }
-    function throwConfetti() {
-        const colors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#a855f7'];
-        for(let i=0; i<60; i++) {
-            let c = document.createElement('div');
-            c.className = 'confetti';
-            c.style.left = Math.random() * 100 + 'vw';
-            c.style.backgroundColor = colors[Math.floor(Math.random()*colors.length)];
-            c.style.animationDuration = (Math.random() * 1.5 + 1) + 's';
-            document.body.appendChild(c);
-            setTimeout(() => c.remove(), 2500);
-        }
-    }
-    function openStats() {
-        document.getElementById('stats-modal').classList.add('active');
-        const body = document.getElementById('stats-body');
-        body.innerHTML = '';
-        let trophyHTML = `<div class="stat-card"><h3>Tournament Trophies</h3>`;
-        if(trophies.length === 0) {
-            trophyHTML += `<p style="font-size:13px;color:var(--text-dim);">No trophies yet. Join a tournament!</p>`;
-        } else {
-            trophies.forEach(t => {
-                trophyHTML += `<div class="stat-row"><div>${svgTrophy} <span style="font-weight:bold;color:var(--accent);">Champion</span></div> <div style="font-size:12px;color:var(--text-dim);">${t.date} ${t.time}</div></div>`;
+        const allInputs = document.querySelectorAll('#puzzle-container input.box');
+        allInputs.forEach((input, index) => {
+            input.addEventListener('input', () => {
+                input.value = input.value.replace(/[^a-zA-Z]/g, '').toUpperCase();
+                if (input.value && index < allInputs.length - 1) allInputs[index + 1].focus();
+                checkAutoSubmit();
             });
-        }
-        trophyHTML += `</div>`;
-        let totalScoresByDay = {};
-        let gameAverages = {};
-        let gameCounts = {};
-        Object.keys(dailyScores).forEach(date => {
-            let dayTotal = 0;
-            Object.keys(dailyScores[date]).forEach(gId => {
-                let score = dailyScores[date][gId];
-                dayTotal += score;
-                gameAverages[gId] = (gameAverages[gId] || 0) + score;
-                gameCounts[gId] = (gameCounts[gId] || 0) + 1;
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && !input.value && index > 0) allInputs[index - 1].focus();
             });
-            totalScoresByDay[date] = dayTotal;
         });
-        let bestGameId = null; let bestAvg = -1;
-        Object.keys(gameAverages).forEach(gId => {
-            let avg = gameAverages[gId] / gameCounts[gId];
-            if(avg > bestAvg) { bestAvg = avg; bestGameId = gId; }
-        });
-        let historyHTML = `<div class="stat-card"><h3>Daily Totals</h3>`;
-        let sortedDates = Object.keys(totalScoresByDay).sort().reverse();
-        if(sortedDates.length === 0) historyHTML += `<p style="color:var(--text-dim);font-size:13px;">Play a daily game to see stats.</p>`;
-        sortedDates.forEach(d => {
-            historyHTML += `<div class="stat-row"><span>${d === todayKey ? 'Today' : d}</span><span style="color:var(--success);font-weight:bold;">${totalScoresByDay[d]} pts</span></div>`;
-        });
-        historyHTML += `</div>`;
-        let todayHTML = `<div class="stat-card"><h3>Today's Games</h3>`;
-        const todayScores = dailyScores[todayKey] || {};
-        games.forEach(g => {
-            const score = todayScores[g.id] !== undefined ? todayScores[g.id] : '—';
-            todayHTML += `<div class="stat-row" style="align-items:center; gap:12px;">
-                <div style="width:32px;height:32px;">${g.icon}</div>
-                <span style="flex:1">${g.name}</span>
-                <span style="font-weight:bold; color:${score==='—' ? 'var(--text-dim)' : 'var(--success)'}">${score}</span>
-            </div>`;
-        });
-        todayHTML += `</div>`;
-        let bestHTML = '';
-        if(bestGameId) {
-            let g = games.find(x => x.id === bestGameId);
-            bestHTML = `<div class="stat-card"><h3>Strongest Puzzle</h3><div style="display:flex; align-items:center;"><div class="best-game-icon">${g.icon}</div><div><div style="font-weight:bold;">${g.name}</div><div style="font-size:12px; color:var(--text-dim);">Average: ${Math.round(bestAvg)} pts</div></div></div></div>`;
-        }
-        let avgHTML = `<div class="stat-card"><h3>Average Scores</h3>`;
-        games.forEach(g => {
-            if(gameCounts[g.id]) {
-                let avg = Math.round(gameAverages[g.id] / gameCounts[g.id]);
-                avgHTML += `<div class="stat-row"><span>${g.name}</span><span>${avg}</span></div>`;
-            }
-        });
-        avgHTML += `</div>`;
-        body.innerHTML = trophyHTML + bestHTML + historyHTML + todayHTML + avgHTML;
+        loadRandomPuzzle();
+        startLiveTimer(2500, 1);
     }
-    function closeStats() { document.getElementById('stats-modal').classList.remove('active'); }
-    function dismissWelcome() {
-        const modal = document.getElementById('welcome-modal');
-        modal.style.display = 'none';
-        localStorage.setItem('mindflex_v13_welcome_seen', 'true');
-    }
-    function viewWhatsNew() { dismissWelcome(); openAbout(); }
 
-    // ====================== ORIGINAL GAMES ======================
+    // ====================== ORIGINAL GAMES (unchanged) ======================
     function startGridRecall() {
         const container = document.getElementById('puzzle-container');
         const board = document.createElement('div');
@@ -1938,8 +1951,7 @@
             }
         }, 1000);
     }
-
-    // ====================== WORD SEARCH FRENZY ======================
+    // ====================== WORD SEARCH FRENZY (auto-finish when all 3 words found) ======================
     function startWordSearchFrenzy() {
         const container = document.getElementById('puzzle-container');
         container.innerHTML = `
@@ -1950,8 +1962,8 @@
                 <div id="frenzy-grid-container">
                     <div id="frenzy-grid"></div>
                 </div>
-                <div id="frenzy-message">TAP UNDER TO FINISH</div>
-                <button id="frenzy-restart-btn">PLAY AGAIN</button>
+                <div id="frenzy-message"></div>
+                <button id="frenzy-restart-btn" style="display:none;"></button>
             </div>
         `;
         frenzyInitGame();
@@ -2082,10 +2094,9 @@
                 document.getElementById('frenzy-word-' + matchedWord).classList.add('found');
                 selectedElements.forEach(el => { el.classList.remove('selected'); el.classList.add('found'); });
                 if(foundWords.length === wordsToFind.length) {
-                    messageEl.style.display = "block";
-                    restartBtn.style.display = "inline-block";
-                    restartBtn.innerText = "CLAIM SCORE";
-                    restartBtn.onclick = winGame;
+                    // AUTO FINISH - no tap needed
+                    winGame();
+                    return;
                 }
             } else {
                 clearSelection();
@@ -2103,7 +2114,6 @@
         }
         initGame();
     }
-
     // ====================== SLICE IT! CARTOON EDITION ======================
     function startSlice() {
         const container = document.getElementById('puzzle-container');
@@ -2116,21 +2126,17 @@
                     <path d="M 10 65 Q 50 45 90 45" fill="none" stroke="#2d3436" stroke-width="14" stroke-linecap="round"/>
                     <path d="M 10 65 Q 50 45 90 45" fill="none" stroke="#ffffff" stroke-width="6" stroke-linecap="round"/>
                 </svg>
-
                 <div id="slice-ui-layer" style="position:absolute;top:10%;width:100%;text-align:center;pointer-events:none;z-index:5;">
                     <h1 id="slice-target-text" style="margin:0;font-size:2.8rem;color:#ffeaa7;text-shadow:-4px -4px 0 #2d3436,4px -4px 0 #2d3436,-4px 4px 0 #2d3436,4px 4px 0 #2d3436,0px 6px 0 #2d3436;letter-spacing:2px;">50%</h1>
                     <div id="slice-result-text" style="margin-top:10px;font-size:1.8rem;min-height:2.5rem;color:#fff;text-shadow:-3px -3px 0 #2d3436,3px -3px 0 #2d3436,-3px 3px 0 #2d3436,3px 3px 0 #2d3436;transition:all 0.2s ease;"></div>
                 </div>
-
                 <canvas id="slice-canvas" width="380" height="420" style="display:block;width:100%;height:100%;"></canvas>
             </div>
         `;
-
         const canvas = document.getElementById('slice-canvas');
         const ctx = canvas.getContext('2d');
         const targetText = document.getElementById('slice-target-text');
         const resultDiv = document.getElementById('slice-result-text');
-
         let square = { x: 0, y: 0, size: 220, color: '#ff9f43' };
         let targetPercent = 50;
         let state = 'WAITING';
@@ -2140,7 +2146,6 @@
         let particles = [];
         let bottomPiece = { yOffset: 0, velocity: 0, gravity: 0.9, rotation: 0, rotVelocity: 0 };
         let topPiece = { yOffset: 0, velocity: 0 };
-
         function sliceResize() {
             canvas.width = 380;
             canvas.height = 420;
@@ -2148,7 +2153,6 @@
             square.x = (380 - square.size) / 2;
             square.y = (420 - square.size) / 2 + 20;
         }
-
         function nextRound() {
             targetPercent = Math.floor(Math.random() * 15 + 3) * 5;
             targetText.innerText = `${targetPercent}%`;
@@ -2159,7 +2163,6 @@
             topPiece = { yOffset: 0, velocity: 0 };
             points = [];
         }
-
         function spawnConfetti(startX, endX, yLeft, yRight) {
             const numParticles = 12;
             const colors = ['#55efc4', '#81ecec', '#fab1a0', '#ffeaa7', '#fd79a8'];
@@ -2178,19 +2181,16 @@
                 });
             }
         }
-
         function startSwipe(e) {
             if (state !== 'WAITING') return;
             isSwiping = true;
             points = [];
             addPoint(e);
         }
-
         function moveSwipe(e) {
             if (!isSwiping) return;
             addPoint(e);
         }
-
         function addPoint(e) {
             e.preventDefault();
             const rect = canvas.getBoundingClientRect();
@@ -2198,7 +2198,6 @@
             const clientY = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
             points.push({ x: clientX, y: clientY });
         }
-
         function endSwipe(e) {
             if (!isSwiping || state !== 'WAITING') return;
             isSwiping = false;
@@ -2227,7 +2226,6 @@
                 points = [];
             }
         }
-
         function evaluateCut(actual) {
             state = 'FALLING';
             let diff = Math.abs(targetPercent - actual);
@@ -2238,17 +2236,13 @@
             else if (diff <= 20) { message = "OKAY!"; color = "#fab1a0"; }
             else { message = "WAY OFF!"; color = "#ff7675"; }
             resultDiv.innerHTML = `<span style="color:${color}">${actual}% — ${message}</span>`;
-
-            // NEW ACCURACY-BASED SCORING (no timer deduction)
             let gameScore = Math.max(0, 100 - diff);
             scoreTracker.current = gameScore;
             updateScoreDisplay();
-
             setTimeout(() => {
                 winGame();
             }, 1600);
         }
-
         function drawSquareShape(ctx, y1, y2, isTop) {
             ctx.beginPath();
             if (isTop) {
@@ -2270,16 +2264,13 @@
             ctx.lineJoin = "round";
             ctx.stroke();
         }
-
         function sliceDraw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-
             ctx.fillStyle = "#2d3436";
             ctx.font = "bold 18px 'Fredoka One', cursive";
             ctx.textAlign = "right";
             ctx.fillText("100%", square.x - 15, square.y + 15);
             ctx.fillText("0%", square.x - 15, square.y + square.size);
-
             ctx.strokeStyle = "rgba(45, 52, 54, 0.3)";
             ctx.lineWidth = 4;
             ctx.setLineDash([10, 10]);
@@ -2288,7 +2279,6 @@
             ctx.moveTo(square.x - 10, square.y + square.size); ctx.lineTo(square.x + square.size + 10, square.y + square.size);
             ctx.stroke();
             ctx.setLineDash([]);
-
             if (state === 'WAITING') {
                 drawSquareShape(ctx, square.y + square.size, square.y + square.size, true);
             } else if (state === 'FALLING' && cutLine) {
@@ -2299,12 +2289,10 @@
                 bottomPiece.yOffset += bottomPiece.velocity;
                 bottomPiece.velocity += bottomPiece.gravity;
                 bottomPiece.rotation += bottomPiece.rotVelocity;
-
                 ctx.save();
                 ctx.translate(0, Math.min(0, topPiece.yOffset));
                 drawSquareShape(ctx, cutLine.yLeft, cutLine.yRight, true);
                 ctx.restore();
-
                 ctx.save();
                 ctx.translate(square.x + square.size/2, square.y + square.size/2 + bottomPiece.yOffset);
                 ctx.rotate(bottomPiece.rotation);
@@ -2312,7 +2300,6 @@
                 drawSquareShape(ctx, cutLine.yLeft, cutLine.yRight, false);
                 ctx.restore();
             }
-
             for (let i = particles.length - 1; i >= 0; i--) {
                 let p = particles[i];
                 p.x += p.vx;
@@ -2330,7 +2317,6 @@
                 ctx.restore();
                 if (p.y > canvas.height + 50) particles.splice(i, 1);
             }
-
             if (points.length > 1) {
                 ctx.lineCap = "round";
                 ctx.lineJoin = "round";
@@ -2340,7 +2326,6 @@
                 ctx.lineWidth = 20;
                 ctx.strokeStyle = "#2d3436";
                 ctx.stroke();
-
                 ctx.beginPath();
                 ctx.moveTo(points[0].x, points[0].y);
                 for (let i = 1; i < points.length; i++) ctx.lineTo(points[i].x, points[i].y);
@@ -2348,28 +2333,560 @@
                 ctx.strokeStyle = "#ffffff";
                 ctx.stroke();
             }
-
             if (!isSwiping && points.length > 0) {
                 points.shift();
                 points.shift();
             }
-
             requestAnimationFrame(sliceDraw);
         }
-
         canvas.addEventListener('touchstart', startSwipe, {passive: false});
         canvas.addEventListener('touchmove', moveSwipe, {passive: false});
         canvas.addEventListener('touchend', endSwipe);
         canvas.addEventListener('mousedown', startSwipe);
         canvas.addEventListener('mousemove', moveSwipe);
         canvas.addEventListener('mouseup', endSwipe);
-
         sliceResize();
         nextRound();
         sliceDraw();
-
-        // NO live timer for Slice It! — score is 100 - difference only
     }
+    // ====================== MINI CROSSWORD (clue text is now dark gray) ======================
+    function startMiniCrossword() {
+        const container = document.getElementById('puzzle-container');
+        container.innerHTML = `
+            <div class="clue-bar" id="clue-bar">
+                <span class="clue-dir" id="clue-dir"></span>
+                <span id="clue-text">Tap a square to begin</span>
+            </div>
+            <div class="btn-container">
+                <button id="hint-btn" class="action-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 18h6"></path>
+                        <path d="M10 22h4"></path>
+                        <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"></path>
+                    </svg>
+                    <span>Hint</span>
+                </button>
+            </div>
+            <div id="grid" class="grid"></div>
+            <div class="keyboard" id="keyboard"></div>
+            <div id="message"></div>
+        `;
+
+        const puzzleBank = [
+            { answers: "SOMEOPENLENDODDS", across: ["An unspecified amount", "Not closed", "Let someone borrow", "The chances of an event"], down: ["Flying without a copilot", "Newspaper opinion section", "Fix or repair", "Brings to a close"] },
+            { answers: "WHATHAVEIRONPENT", across: ["Question word", "Possess or own", "Metal for forging", "___ up (frustrated)"], down: ["Indiana Jones's weapon", "Fast-running rabbit", "Shakespeare's river", "Camping shelter"] },
+            { answers: "BLOBRAVEOMENWEND", across: ["Drop of paint", "Wild dance party", "Sign of things to come", "Make one's way"], down: ["Forehead", "Weak, like an excuse", "Baking appliance", "Curve or flex"] },
+            { answers: "STOPARTSWATSSPOT", across: ["Red Light", "School Subject Involving Paint", "Pre-800 number system", "Place To Think"], down: ["Machinery With Spinning Blades", "——Door", "Palindromic name", "Whispering Onomatopoeia"] },
+            { answers: "STARHOMEOMENWENT", across: ["Night sky light", "Where you live", "Superstitious sign", "Departed"], down: ["Netflix presentation", "Dusty old volume", "Sunday chorus word", "Lease out"] },
+            { answers: "PIERIDLENOSESLED", across: ["Ocean boardwalk", "Not currently in use", "Facial body part", "Used in the winter to slide down hills"], down: ["What you knock down while bowling", "A famous person you look up to ", "Other than that", "Saxophone Mouthpiece"] },
+            { answers: "FLEWRIVEONESGENT", across: ["Traveled by plane", "Split or tear apart", "Dollar bills", "Polite fellow, for short"], down: ["Hopping amphibian", "Draw a straight ___", "Flat and level", "Direction of the sunset"] },
+            { answers: "WASPECHONEATTSMS", across: ["Hurts to get stung by", "Sound bouncing off walls to repeat", "Tidy", "Traffic Signal Management System"], down: ["Past tense of go", "One’s in a deck of cards", "A lie to deceive someone into believing", "—— and pans"] },
+            { answers: "ALTONORDNCAAHTML", across: ["—— Saxophone", "Means north in many European languages", "College Basketball", "Classic script language"], down: ["A name, not Anne", "Shorter way of spelling locked", "Light rail vehicle", "Old Norse word for ancestral property or inherited land rights"] }
+        ];
+
+        let activeIndex = 0;
+        let activeDirection = 'across';
+        let onCooldown = false;
+        let clues = {};
+        let answers = "";
+        let hintTimer;
+
+        const gridEl = document.getElementById('grid');
+        const hintBtn = document.getElementById('hint-btn');
+        const msgEl = document.getElementById('message');
+        const clueBar = document.getElementById('clue-bar');
+        const cells = [];
+
+        for (let i = 0; i < 16; i++) {
+            let cell = document.createElement('div');
+            cell.className = 'cell';
+            cell.addEventListener('click', () => {
+                if (activeIndex === i) { activeDirection = activeDirection === 'across' ? 'down' : 'across'; }
+                else { activeIndex = i; }
+                updateGridState();
+            });
+            gridEl.appendChild(cell);
+            cells.push(cell);
+        }
+
+        const kbLayout = [['Q','W','E','R','T','Y','U','I','O','P'], ['A','S','D','F','G','H','J','K','L'], ['DEL','Z','X','C','V','B','N','M']];
+        const kbContainer = document.getElementById('keyboard');
+        kbLayout.forEach(row => {
+            let rowEl = document.createElement('div');
+            rowEl.className = 'keyboard-row';
+            row.forEach(key => {
+                let keyEl = document.createElement('button');
+                keyEl.className = 'key' + (key === 'DEL' ? ' wide' : '');
+                keyEl.textContent = key;
+                keyEl.addEventListener('click', () => handleInput(key));
+                rowEl.appendChild(keyEl);
+            });
+            kbContainer.appendChild(rowEl);
+        });
+
+        function initGame() {
+            let lastIdx = localStorage.getItem('lastMiniPuzzleIndex');
+            lastIdx = lastIdx !== null ? parseInt(lastIdx) : -1;
+            let newIndex;
+            do { newIndex = Math.floor(Math.random() * puzzleBank.length); } while (newIndex === lastIdx);
+            localStorage.setItem('lastMiniPuzzleIndex', newIndex);
+
+            const selected = puzzleBank[newIndex];
+            clues = { across: selected.across, down: selected.down };
+            answers = selected.answers;
+            updateGridState();
+        }
+
+        function updateGridState() {
+            cells.forEach(c => c.classList.remove('cell-active', 'word-active'));
+            let row = Math.floor(activeIndex / 4);
+            let col = activeIndex % 4;
+            if (activeDirection === 'across') {
+                for (let i = 0; i < 4; i++) cells[row * 4 + i].classList.add('word-active');
+                document.getElementById('clue-dir').textContent = (row + 1) + "A";
+                document.getElementById('clue-text').textContent = clues.across[row];
+            } else {
+                for (let i = 0; i < 4; i++) cells[i * 4 + col].classList.add('word-active');
+                document.getElementById('clue-dir').textContent = (col + 1) + "D";
+                document.getElementById('clue-text').textContent = clues.down[col];
+            }
+            cells[activeIndex].classList.add('cell-active');
+        }
+
+        function handleInput(key) {
+            if (msgEl.innerText !== "") return;
+            if (key === 'DEL') {
+                if (cells[activeIndex].textContent !== '') {
+                    cells[activeIndex].textContent = '';
+                    cells[activeIndex].classList.remove('correct', 'incorrect');
+                } else {
+                    moveIndex(-1);
+                    cells[activeIndex].textContent = '';
+                    cells[activeIndex].classList.remove('correct', 'incorrect');
+                }
+            } else {
+                cells[activeIndex].textContent = key;
+                if (key === answers[activeIndex]) {
+                    cells[activeIndex].classList.add('correct');
+                    cells[activeIndex].classList.remove('incorrect');
+                } else {
+                    cells[activeIndex].classList.add('incorrect');
+                    cells[activeIndex].classList.remove('correct');
+                }
+                moveIndex(1);
+            }
+            updateGridState();
+            checkWin();
+        }
+
+        function moveIndex(step) {
+            let row = Math.floor(activeIndex / 4), col = activeIndex % 4;
+            if (activeDirection === 'across') {
+                let newCol = col + step;
+                if (newCol >= 0 && newCol < 4) activeIndex = row * 4 + newCol;
+            } else {
+                let newRow = row + step;
+                if (newRow >= 0 && newRow < 4) activeIndex = newRow * 4 + col;
+            }
+        }
+
+        hintBtn.addEventListener('click', () => {
+            if(onCooldown) return;
+            let wrong = [];
+            for(let i=0; i<16; i++) { if(cells[i].textContent !== answers[i]) wrong.push(i); }
+            if(wrong.length === 0) return;
+            let target = activeIndex;
+            if(cells[target].textContent === answers[target]) target = wrong[Math.floor(Math.random()*wrong.length)];
+            activeIndex = target;
+            cells[target].textContent = answers[target];
+            cells[target].classList.add('correct');
+            updateGridState();
+            checkWin();
+            if (msgEl.innerText === "") {
+                onCooldown = true;
+                hintBtn.classList.add('cooldown');
+                let time = 10;
+                hintTimer = setInterval(() => {
+                    time--;
+                    hintBtn.querySelector('span').textContent = time > 0 ? `Wait ${time}s` : 'Hint';
+                    if(time <= 0) { clearInterval(hintTimer); onCooldown = false; hintBtn.classList.remove('cooldown'); hintBtn.querySelector('span').textContent = 'Hint'; }
+                }, 1000);
+            }
+        });
+
+        function checkWin() {
+            if (cells.map(c => c.textContent).join('') === answers) {
+                msgEl.innerText = "Great!";
+                cells.forEach(c => c.classList.remove('cell-active', 'word-active'));
+                hintBtn.style.display = 'none';
+                clueBar.style.display = 'none';
+                clearInterval(hintTimer);
+                winGame();
+            }
+        }
+
+        initGame();
+        startLiveTimer(1200, 1);
+    }
+
+    // ====================== CORE GAME FUNCTIONS ======================
+    function openAbout() { document.getElementById('about-modal').classList.add('active'); }
+    function closeAbout() { document.getElementById('about-modal').classList.remove('active'); }
+    function toggleMode() {
+        currentModeIndex = (currentModeIndex + 1) % modeList.length;
+        currentMode = modeList[currentModeIndex];
+        const btn = document.getElementById('mode-toggle');
+        const statsBtn = document.getElementById('stats-btn');
+        let label = currentMode.charAt(0).toUpperCase() + currentMode.slice(1);
+        btn.innerHTML = label;
+        btn.className = `mode-btn ${currentMode}`;
+        statsBtn.style.display = (currentMode === 'daily' || currentMode === 'compete') ? 'block' : 'none';
+        const grid = document.getElementById('menu-grid');
+        const competeArea = document.getElementById('compete-area');
+        if (currentMode === 'compete') {
+            grid.style.display = 'none';
+            competeArea.style.display = 'flex';
+            renderCompeteView();
+            startCompeteTimer();
+        } else {
+            stopCompeteTimer();
+            grid.style.display = 'grid';
+            competeArea.style.display = 'none';
+            renderMenu();
+        }
+    }
+    function getTournamentStatus() {
+        let now = new Date();
+        let y = now.getFullYear(), m = now.getMonth(), d = now.getDate();
+        let currentTotalMins = now.getHours() * 60 + now.getMinutes();
+        let schedule = [15*60, 18*60, 21*60];
+        let isLive = false;
+        let activeSlotId = null;
+        let activeDate = null;
+        for(let t of schedule) {
+            let diff = currentTotalMins - t;
+            if (diff >= 0 && diff <= 3) {
+                isLive = true;
+                activeSlotId = `${y}-${m}-${d}-${Math.floor(t/60)}`;
+                activeDate = new Date(y, m, d, Math.floor(t/60), t%60, 0);
+                break;
+            }
+        }
+        if (isLive) return { active: true, msUntil: 0, label: "LIVE NOW", slotId: activeSlotId, dateObj: activeDate };
+        let nextIndex = schedule.findIndex(t => t > currentTotalMins - 4);
+        let targetTime, slotHour;
+        if (nextIndex === -1) {
+            targetTime = new Date(y, m, d + 1, 15, 0, 0);
+            slotHour = 15;
+        } else {
+            targetTime = new Date(y, m, d, Math.floor(schedule[nextIndex]/60), 0, 0);
+            slotHour = Math.floor(schedule[nextIndex]/60);
+        }
+        let slotId = `${targetTime.getFullYear()}-${targetTime.getMonth()}-${targetTime.getDate()}-${slotHour}`;
+        return { active: false, msUntil: targetTime - now, label: "Next Tournament", slotId: slotId, dateObj: targetTime };
+    }
+    function formatTime(ms) {
+        if(ms <= 0) return "00:00:00";
+        let total = Math.floor(ms / 1000);
+        let h = Math.floor(total / 3600);
+        let m = Math.floor((total % 3600) / 60);
+        let s = total % 60;
+        return `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+    }
+    function renderCompeteView() {
+        const area = document.getElementById('compete-area');
+        if (tourneyState.active) { renderTourneyBracket(); return; }
+        let status = getTournamentStatus();
+        let btnHTML = '';
+        if (playedTournaments[status.slotId]) {
+            btnHTML = `<button class="btn-join" disabled>Tournament Completed</button>`;
+        } else if (status.active) {
+            btnHTML = `<button class="btn-join" onclick="joinTournament('${status.slotId}')">JOIN TOURNAMENT</button>`;
+        } else {
+            btnHTML = `<button class="btn-join" disabled>Starts in <span id="compete-countdown">${formatTime(status.msUntil)}</span></button>`;
+        }
+        area.innerHTML = `
+            <div class="compete-card">
+                <div class="compete-title">Tournament Mode</div>
+                <p style="color:var(--text-dim);font-size:15px;line-height:1.5;">Face off against 11 challengers.<br>3 elimination rounds. Only 1 champion.</p>
+                <div class="compete-timer">${status.active ? 'LIVE NOW' : 'NEXT: '+formatTime(status.msUntil)}</div>
+                ${btnHTML}
+            </div>
+            <div class="compete-card" style="padding: 15px;">
+                <h3 style="margin-bottom:10px; font-size:14px; color:var(--text-dim); text-transform:uppercase;">Daily Schedule</h3>
+                <div style="display:flex; justify-content:space-between; font-weight:bold; color:var(--text);">
+                    <span>3:00 PM</span> <span>6:00 PM</span> <span>9:00 PM</span>
+                </div>
+            </div>
+        `;
+    }
+    function startCompeteTimer() { stopCompeteTimer(); tourneyTimerInt = setInterval(() => { if(!tourneyState.active && currentMode === 'compete') renderCompeteView(); }, 1000); }
+    function stopCompeteTimer() { clearInterval(tourneyTimerInt); }
+    function joinTournament(slotId) {
+        tourneyState.active = true; tourneyState.slotId = slotId; tourneyState.round = 1;
+        let gShuffled = [...games].sort(()=>Math.random()-0.5);
+        tourneyState.games = [gShuffled[0], gShuffled[1], gShuffled[2]];
+        const aiNames = ["Quantum", "Cyber", "Nexus", "Neon", "Void", "Glitch", "Pulse", "Zenith", "Apex", "Nova", "Echo"];
+        tourneyState.players = [{ name: "YOU", isMe: true, score: 0, status: 'alive' }];
+        let bots = [...aiNames].sort(()=>Math.random()-0.5).slice(0, 11);
+        bots.forEach(b => tourneyState.players.push({ name: b, isMe: false, score: 0, status: 'alive' }));
+        playedTournaments[slotId] = true;
+        localStorage.setItem('mindflex_tournaments', JSON.stringify(playedTournaments));
+        renderTourneyBracket();
+    }
+    function renderTourneyBracket() {
+        const area = document.getElementById('compete-area');
+        let rTitle = tourneyState.round === 1 ? "Round 1 (Top 8 Advance)" : tourneyState.round === 2 ? "Semi-Finals (Top 5 Advance)" : "Finale (Winner Takes All)";
+        let me = tourneyState.players.find(p => p.isMe);
+        let btnHTML = '';
+        if (me.status === 'eliminated') {
+            rTitle = "Eliminated";
+            btnHTML = `<button class="btn-join" onclick="endTournament()" style="background:var(--surface-hi);color:white;">LEAVE TOURNAMENT</button>`;
+        } else if (tourneyState.round > 3) {
+            rTitle = "Tournament Complete";
+            btnHTML = `<button class="btn-join" onclick="endTournament()">CLAIM TROPHY & EXIT</button>`;
+        } else {
+            let gameToPlay = tourneyState.games[tourneyState.round - 1];
+            btnHTML = `<button class="btn-join" onclick="launchGame('${gameToPlay.id}')">PLAY ${gameToPlay.name.toUpperCase()}</button>`;
+        }
+        let lbHTML = `<div class="leaderboard">`;
+        let cutoff = tourneyState.round === 1 ? 8 : (tourneyState.round === 2 ? 5 : 1);
+        if(tourneyState.round > 3) cutoff = 1;
+        tourneyState.players.forEach((p, i) => {
+            let isCut = i === cutoff - 1 && tourneyState.round <= 3;
+            lbHTML += `<div class="lb-row ${p.isMe?'me':''} ${p.status==='eliminated'?'eliminated':''} ${isCut?'cutoff':''}"><span>#${i+1} ${p.name}</span><span>${p.score}</span></div>`;
+        });
+        lbHTML += `</div>`;
+        area.innerHTML = `<div class="compete-card" style="padding: 15px;"><div class="compete-title" style="font-size:20px; color:var(--text);">${rTitle}</div>${btnHTML}${lbHTML}</div>`;
+    }
+    function handleTourneyScore(score) {
+        let me = tourneyState.players.find(p => p.isMe); me.score = score;
+        tourneyState.players.forEach(p => { if(!p.isMe && p.status === 'alive') { let min = tourneyState.round === 1 ? 30 : (tourneyState.round === 2 ? 40 : 60); let max = tourneyState.round === 1 ? 80 : (tourneyState.round === 2 ? 90 : 98); p.score = Math.floor(Math.random() * (max - min)) + min; } });
+        tourneyState.players.sort((a,b) => { if(a.status === 'eliminated' && b.status === 'alive') return 1; if(b.status === 'eliminated' && a.status === 'alive') return -1; return b.score - a.score; });
+        let cutoff = tourneyState.round === 1 ? 8 : (tourneyState.round === 2 ? 5 : 1);
+        tourneyState.players.forEach((p, i) => { if (i >= cutoff) p.status = 'eliminated'; });
+        tourneyState.round++;
+        if (tourneyState.round > 3 && me.status === 'alive' && tourneyState.players[0].isMe) {
+            let now = new Date();
+            let dateStr = now.toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
+            let timeStr = getTournamentStatus().dateObj.toLocaleTimeString('en-US', {hour:'numeric', minute:'2-digit'});
+            trophies.push({ date: dateStr, time: timeStr });
+            localStorage.setItem('mindflex_trophies', JSON.stringify(trophies));
+        }
+        renderTourneyBracket();
+    }
+    function endTournament() { tourneyState.active = false; renderCompeteView(); }
+    function renderMenu() {
+        if(currentMode === 'compete') return;
+        const grid = document.getElementById('menu-grid');
+        grid.innerHTML = '';
+        games.forEach(g => {
+            let scoreStr = '';
+            let isLocked = false;
+            let btnText = 'Play';
+            let btnClass = '';
+            if (currentMode === 'daily') {
+                let dScore = dailyScores[todayKey][g.id];
+                if (dScore !== undefined) {
+                    scoreStr = `Today: ${dScore}`;
+                    isLocked = true;
+                    btnText = 'Played';
+                    btnClass = 'played';
+                } else {
+                    scoreStr = `Not Played Today`;
+                }
+            } else {
+                let score = highScores[g.id] || 0;
+                scoreStr = score > 0 ? `High Score: ${score}` : 'Not Played';
+                if(score > 0) btnClass = 'played';
+            }
+            grid.innerHTML += `
+                <div class="card ${isLocked ? 'locked' : ''}">
+                    <div class="icon-box">${g.icon}</div>
+                    <div class="card-title">${g.name}</div>
+                    <div class="card-score">${scoreStr}</div>
+                    <button class="btn ${btnClass}" onclick="launchGame('${g.id}')">${btnText}</button>
+                </div>
+            `;
+        });
+    }
+    function launchGame(id) {
+        if(currentMode === 'daily' && dailyScores[todayKey][id] !== undefined) return;
+        activeGameId = id;
+        const game = games.find(g => g.id === id);
+        if(currentMode === 'daily') rngState = getDailySeed() + parseInt(id.replace('g',''));
+        document.getElementById('modal-title').innerText = game.name;
+        document.getElementById('puzzle-container').innerHTML = '';
+        document.getElementById('puzzle-container').className = '';
+        document.getElementById('game-desc').innerText = '';
+        document.getElementById('inst-title').innerText = game.name;
+        document.getElementById('inst-desc').innerText = game.desc;
+        document.getElementById('instruction-screen').style.display = 'flex';
+        document.getElementById('game-modal').classList.add('active');
+        scoreTracker.current = 100;
+        scoreTracker.active = false;
+        updateScoreDisplay();
+        clearInterval(scoreTracker.timer);
+        if(gameVars.req) cancelAnimationFrame(gameVars.req);
+        gameVars = {};
+    }
+    function startGameplay() {
+        document.getElementById('instruction-screen').style.display = 'none';
+        scoreTracker.active = true;
+        const game = games.find(g => g.id === activeGameId);
+        if(activeGameId === 'g13') document.getElementById('puzzle-container').classList.add('wide-mode');
+        game.setup();
+    }
+    function updateScoreDisplay() {
+        const display = document.getElementById('live-score');
+        display.innerText = Math.floor(scoreTracker.current);
+        if(scoreTracker.current < 40) display.style.color = 'var(--danger)';
+        else if(scoreTracker.current < 70) display.style.color = '#f59e0b';
+        else display.style.color = 'var(--success)';
+    }
+    function startLiveTimer(speedMs = 1000, deduct = 2) {
+        scoreTracker.timer = setInterval(() => {
+            if (!scoreTracker.active) return;
+            scoreTracker.current = Math.max(0, scoreTracker.current - deduct);
+            updateScoreDisplay();
+            if (scoreTracker.current === 0) handleMistake(0);
+        }, speedMs);
+    }
+    function finalizeScore(finalScore) {
+        if (currentMode === 'compete') { handleTourneyScore(finalScore); return; }
+        if (currentMode === 'daily') {
+            dailyScores[todayKey][activeGameId] = finalScore;
+            localStorage.setItem('mindflex_daily_scores', JSON.stringify(dailyScores));
+        } else {
+            if (finalScore > (highScores[activeGameId] || 0)) {
+                highScores[activeGameId] = finalScore;
+                localStorage.setItem('mindflex_inf_pro_scores', JSON.stringify(highScores));
+            }
+        }
+    }
+    function handleMistake(penalty = 15) {
+        if (!scoreTracker.active) return;
+        scoreTracker.current = Math.max(0, scoreTracker.current - penalty);
+        updateScoreDisplay();
+        const modal = document.getElementById('game-modal');
+        modal.style.backgroundColor = '#450a0a';
+        setTimeout(() => modal.style.backgroundColor = 'var(--bg)', 200);
+        if (scoreTracker.current === 0) {
+            scoreTracker.active = false;
+            clearInterval(scoreTracker.timer);
+            if(gameVars.req) cancelAnimationFrame(gameVars.req);
+            document.getElementById('game-desc').innerText = "Out of points!";
+            finalizeScore(0);
+            setTimeout(() => { document.getElementById('game-modal').classList.remove('active'); renderMenu(); }, 1500);
+        }
+    }
+    function winGame() {
+        if(!scoreTracker.active) return;
+        scoreTracker.active = false;
+        clearInterval(scoreTracker.timer);
+        if(gameVars.req) cancelAnimationFrame(gameVars.req);
+        let finalScore = Math.floor(scoreTracker.current);
+        finalizeScore(finalScore);
+        throwConfetti();
+        document.getElementById('game-desc').innerText = "Brilliant!";
+        setTimeout(() => { document.getElementById('game-modal').classList.remove('active'); renderMenu(); }, 2000);
+    }
+    function quitGame() {
+        scoreTracker.active = false;
+        clearInterval(scoreTracker.timer);
+        if(gameVars.req) cancelAnimationFrame(gameVars.req);
+        document.getElementById('game-modal').classList.remove('active');
+        document.getElementById('game-modal').style.backgroundColor = 'var(--bg)';
+        if (currentMode === 'compete') {
+            finalizeScore(0);
+        } else if(currentMode === 'daily' && document.getElementById('instruction-screen').style.display === 'none') {
+            if(dailyScores[todayKey][activeGameId] === undefined) finalizeScore(0);
+            renderMenu();
+        }
+    }
+    function throwConfetti() {
+        const colors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#a855f7'];
+        for(let i=0; i<60; i++) {
+            let c = document.createElement('div');
+            c.className = 'confetti';
+            c.style.left = Math.random() * 100 + 'vw';
+            c.style.backgroundColor = colors[Math.floor(Math.random()*colors.length)];
+            c.style.animationDuration = (Math.random() * 1.5 + 1) + 's';
+            document.body.appendChild(c);
+            setTimeout(() => c.remove(), 2500);
+        }
+    }
+    function openStats() {
+        document.getElementById('stats-modal').classList.add('active');
+        const body = document.getElementById('stats-body');
+        body.innerHTML = '';
+        let trophyHTML = `<div class="stat-card"><h3>Tournament Trophies</h3>`;
+        if(trophies.length === 0) {
+            trophyHTML += `<p style="font-size:13px;color:var(--text-dim);">No trophies yet. Join a tournament!</p>`;
+        } else {
+            trophies.forEach(t => {
+                trophyHTML += `<div class="stat-row"><div>${svgTrophy} <span style="font-weight:bold;color:var(--accent);">Champion</span></div> <div style="font-size:12px;color:var(--text-dim);">${t.date} ${t.time}</div></div>`;
+            });
+        }
+        trophyHTML += `</div>`;
+        let totalScoresByDay = {};
+        let gameAverages = {};
+        let gameCounts = {};
+        Object.keys(dailyScores).forEach(date => {
+            let dayTotal = 0;
+            Object.keys(dailyScores[date]).forEach(gId => {
+                let score = dailyScores[date][gId];
+                dayTotal += score;
+                gameAverages[gId] = (gameAverages[gId] || 0) + score;
+                gameCounts[gId] = (gameCounts[gId] || 0) + 1;
+            });
+            totalScoresByDay[date] = dayTotal;
+        });
+        let bestGameId = null; let bestAvg = -1;
+        Object.keys(gameAverages).forEach(gId => {
+            let avg = gameAverages[gId] / gameCounts[gId];
+            if(avg > bestAvg) { bestAvg = avg; bestGameId = gId; }
+        });
+        let historyHTML = `<div class="stat-card"><h3>Daily Totals</h3>`;
+        let sortedDates = Object.keys(totalScoresByDay).sort().reverse();
+        if(sortedDates.length === 0) historyHTML += `<p style="color:var(--text-dim);font-size:13px;">Play a daily game to see stats.</p>`;
+        sortedDates.forEach(d => {
+            historyHTML += `<div class="stat-row"><span>${d === todayKey ? 'Today' : d}</span><span style="color:var(--success);font-weight:bold;">${totalScoresByDay[d]} pts</span></div>`;
+        });
+        historyHTML += `</div>`;
+        let todayHTML = `<div class="stat-card"><h3>Today's Games</h3>`;
+        const todayScores = dailyScores[todayKey] || {};
+        games.forEach(g => {
+            const score = todayScores[g.id] !== undefined ? todayScores[g.id] : '—';
+            todayHTML += `<div class="stat-row" style="align-items:center; gap:12px;">
+                <div style="width:32px;height:32px;">${g.icon}</div>
+                <span style="flex:1">${g.name}</span>
+                <span style="font-weight:bold; color:${score==='—' ? 'var(--text-dim)' : 'var(--success)'}">${score}</span>
+            </div>`;
+        });
+        todayHTML += `</div>`;
+        let bestHTML = '';
+        if(bestGameId) {
+            let g = games.find(x => x.id === bestGameId);
+            bestHTML = `<div class="stat-card"><h3>Strongest Puzzle</h3><div style="display:flex; align-items:center;"><div class="best-game-icon">${g.icon}</div><div><div style="font-weight:bold;">${g.name}</div><div style="font-size:12px; color:var(--text-dim);">Average: ${Math.round(bestAvg)} pts</div></div></div></div>`;
+        }
+        let avgHTML = `<div class="stat-card"><h3>Average Scores</h3>`;
+        games.forEach(g => {
+            if(gameCounts[g.id]) {
+                let avg = Math.round(gameAverages[g.id] / gameCounts[g.id]);
+                avgHTML += `<div class="stat-row"><span>${g.name}</span><span>${avg}</span></div>`;
+            }
+        });
+        avgHTML += `</div>`;
+        body.innerHTML = trophyHTML + bestHTML + historyHTML + todayHTML + avgHTML;
+    }
+    function closeStats() { document.getElementById('stats-modal').classList.remove('active'); }
+    function dismissWelcome() {
+        const modal = document.getElementById('welcome-modal');
+        modal.style.display = 'none';
+        localStorage.setItem('mindflex_v13_welcome_seen', 'true');
+    }
+    function viewWhatsNew() { dismissWelcome(); openAbout(); }
 
     // FINAL INIT
     renderMenu();
