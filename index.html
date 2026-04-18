@@ -51,7 +51,6 @@
         .card-score { font-size: 11px; color: var(--text-dim); margin-bottom: 10px; height: 12px; }
         .btn { width: 100%; padding: 8px 0; border: none; border-radius: 8px; font-weight: 700; font-size: 13px; background: var(--surface-hi); color: #fff; cursor: pointer; text-transform: uppercase; }
         .card .btn.played { background: var(--primary); }
-        /* Tournament Area */
         .compete-area { display: none; flex-direction: column; align-items: center; gap: 20px; width: 100%; }
         .compete-card { background: var(--surface); border-radius: 14px; padding: 20px; width: 100%; border: 1px solid #334155; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
         .compete-title { font-size: 26px; font-weight: 900; color: var(--warning); margin-bottom: 10px; letter-spacing: 1px; text-transform: uppercase; }
@@ -96,403 +95,137 @@
         .best-game-icon { width: 32px; height: 32px; display: inline-block; vertical-align: middle; margin-right: 10px; }
         .confetti { position: fixed; top: -10px; width: 8px; height: 8px; z-index: 9999; animation: fall linear forwards; }
         @keyframes fall { to { transform: translateY(110vh) rotate(720deg); } }
-        .pipe-svg { width: 100%; height: 100%; transition: transform 0.2s ease; }
-        .cubes-target { display: flex; justify-content: center; gap: 8px; margin-bottom: 25px; padding: 10px; background: rgba(0,0,0,0.3); border-radius: 8px; }
-        .cubes-col { display: flex; flex-direction: column-reverse; justify-content: flex-start; align-items: center; width: 80px; height: 180px; background: rgba(255,255,255,0.05); border-radius: 8px; padding: 4px; gap: 4px; cursor: pointer; border: 2px solid transparent; transition: 0.2s;}
-        .cubes-col.selected { border-color: var(--primary); background: rgba(59, 130, 246, 0.1); }
-        .cube-block { width: 100%; height: 54px; border-radius: 6px; box-shadow: inset 0 2px 4px rgba(255,255,255,0.3), 0 4px 6px rgba(0,0,0,0.4); }
-        .cube-target-block { width: 20px; height: 20px; border-radius: 3px; }
-        .cubes-target-col { display: flex; flex-direction: column-reverse; justify-content: flex-start; gap: 2px; width: 20px; height: 64px; background: rgba(255,255,255,0.05); padding: 1px;}
-  
-        /* Welcome modal */
-        #welcome-modal {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(11, 15, 25, 0.96);
-            z-index: 2000;
-            display: none;
-            align-items: center;
-            justify-content: center;
+        /* CHAIN REACTION EXACT STYLES - NO CHANGES */
+        #puzzle-container #chain-game-container {
+            flex:1;display:flex;flex-direction:column;width:100%;height:100%;position:relative;background:radial-gradient(circle at 50% 0%, #1f1f22 0%, #09090b 80%);
         }
-        /* ====================== WORD SEARCH FRENZY v1.4 + SLICE IT! v1.5 + SHRINKAGE + MINI CROSSWORD ====================== */
-        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@600;800&display=swap');
-        #puzzle-container #frenzy-game-container {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(15px);
-            padding: 25px 20px;
-            border-radius: 20px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-            text-align: center;
-            max-width: 380px;
-            width: 100%;
-            position: relative;
-            z-index: 10;
-            margin: 0 auto;
+        #puzzle-container header {
+            display: flex;justify-content: space-between;align-items: center;padding: 12px 20px;background: rgba(9, 9, 11, 0.8);backdrop-filter: blur(12px);border-bottom: 1px solid rgba(255, 255, 255, 0.05);z-index: 10;position: relative;
         }
-        #puzzle-container h1 {
-            font-family: 'Nunito', sans-serif;
-            color: #ff6b81;
-            font-size: 30px;
-            margin: 0 0 8px 0;
-            text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+        #puzzle-container #logo-container {
+            width: 50px;height: 50px;background: #18181b;border-radius: 12px;border: 1px solid rgba(255,255,255,0.1);display: flex;flex-direction:column;align-items: center;justify-content: center;box-shadow: 0 4px 12px rgba(0,0,0,0.4);padding: 4px;
         }
-        #puzzle-container .instructions {
-            color: #2f3542;
-            margin-bottom: 15px;
-            font-size: 14px;
-            font-weight: 800;
+        #puzzle-container #hint-btn {
+            background: #18181b;color: #f4f4f5;border: 1px solid rgba(255,255,255,0.1);padding: 8px 16px;border-radius: 20px;font-weight: 700;font-size: 0.85rem;cursor: pointer;display: flex;align-items: center;gap: 6px;transition: all 0.2s;box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
-        #frenzy-word-list {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
+        #puzzle-container #hint-btn svg { width: 16px; height: 16px; fill: #8b5cf6; filter: drop-shadow(0 0 3px rgba(139,92,246,0.5)); transition: transform 0.2s; }
+        #puzzle-container #hint-btn:active { transform: scale(0.95); background: #27272a; }
+        #puzzle-container #hint-btn.disabled { opacity: 0.6; cursor: not-allowed; pointer-events: none; }
+        #puzzle-container #hint-btn.disabled svg { fill: #71717a; filter: none; }
+        #puzzle-container #board-container { flex: 1;display: flex;flex-direction: column;align-items: center;justify-content: center;padding: 20px 10px;gap: 12px; }
+        #puzzle-container .chain-link { display: flex; justify-content: center; align-items: center; height: 20px; }
+        #puzzle-container .chain-link svg { width: 18px; height: 18px; stroke: #3f3f46; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; fill: none; transition: all 0.4s; }
+        #puzzle-container .chain-link.active svg { stroke: #8b5cf6; transform: scale(1.2) translateY(2px); filter: drop-shadow(0 4px 6px rgba(139,92,246,0.5)); }
+        #puzzle-container .word-row { display: flex; gap: 4px; padding: 10px; border-radius: 12px; transition: all 0.3s ease; position: relative; }
+        #puzzle-container .word-row.active-row { background: rgba(139,92,246,0.15); box-shadow: 0 0 0 1px rgba(139,92,246,0.3), 0 8px 20px rgba(0,0,0,0.3); transform: scale(1.02); }
+        #puzzle-container .letter-line {
+            width: 28px; height: 38px; border-bottom: 3px solid #3f3f46;
+            display: flex; justify-content: center; align-items: flex-end; padding-bottom: 2px;
+            font-size: 1.4rem; font-weight: 800; text-transform: uppercase; color: transparent;
+            transition: all 0.2s; position: relative;
         }
-        .frenzy-word {
-            padding: 6px 14px;
-            background: white;
-            border: 2px solid #f1f2f6;
-            border-radius: 20px;
-            font-family: 'Nunito', sans-serif;
-            font-size: 15px;
-            font-weight: 800;
-            color: #2f3542;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+        #puzzle-container .letter-line.revealed { color: #8b5cf6; border-bottom-color: #8b5cf6; text-shadow: 0 0 12px rgba(139,92,246,0.5); }
+        #puzzle-container .letter-line.first-letter { color: #8b5cf6; border-bottom-color: #8b5cf6; opacity: 0.8; }
+        #puzzle-container .letter-line.typed { color: #e4e4e7; border-bottom-color: #e4e4e7; }
+        #puzzle-container .active-row .letter-line.empty-line::after {
+            content: ''; position: absolute; bottom: -3px; left: 0; width: 100%; height: 3px;
+            background: #8b5cf6; opacity: 0.3; animation: pulse-line 1.5s infinite;
         }
-        .frenzy-word.found {
-            background: #7bed9f;
-            border-color: #7bed9f;
-            color: #2f3542;
-            text-decoration: line-through;
-            transform: scale(0.9) rotate(-3deg);
-            box-shadow: none;
+        #puzzle-container #keyboard {
+            padding: 15px 6px 25px 6px; background: rgba(15, 15, 17, 0.95);
+            border-top: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(10px); z-index: 5;
         }
-        #frenzy-grid-container {
-            display: flex;
-            justify-content: center;
+        #puzzle-container .keyboard-row { display: flex; justify-content: center; gap: 6px; margin-bottom: 8px; }
+        #puzzle-container .key {
+            background: #27272a; color: #f4f4f5; border: none; border-radius: 8px;
+            height: 58px; flex: 1; font-size: 1.3rem; font-weight: 700; cursor: pointer;
+            display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 0 #18181b;
         }
-        #frenzy-grid {
-            display: grid;
-            gap: 4px;
-            background: rgba(255, 255, 255, 0.5);
-            padding: 8px;
-            border-radius: 14px;
-            touch-action: none;
-            box-shadow: inset 0 4px 10px rgba(0,0,0,0.05);
+        #puzzle-container .key:active { background: #3f3f46; transform: translateY(4px); box-shadow: 0 0 0 #18181b; }
+        #puzzle-container .key.wide { flex: 1.5; font-size: 1rem; background: #3f3f46; box-shadow: 0 4px 0 #1f1f22; }
+        #puzzle-container .key svg { width: 22px; height: 22px; stroke: white; stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+        #puzzle-container .overlay {
+            position: absolute; inset: 0; background: rgba(9, 9, 11, 0.95);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 100; opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
+            backdrop-filter: blur(10px); padding: 20px;
         }
-        .frenzy-cell {
-            width: 30px;
-            height: 30px;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Nunito', sans-serif;
-            font-size: 18px;
-            font-weight: 800;
-            color: #2f3542;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.15s ease;
-            box-shadow: 0 3px 0px rgba(0,0,0,0.1);
+        #puzzle-container .overlay.show { opacity: 1; pointer-events: auto; }
+        #puzzle-container .win-icon {
+            width: 70px; height: 70px; stroke: #8b5cf6; stroke-width: 2; fill: none;
+            stroke-linecap: round; stroke-linejoin: round; margin-bottom: 15px;
+            filter: drop-shadow(0 0 20px rgba(139,92,246,0.5));
+            animation: float 3s ease-in-out infinite, pulse-glow 2s infinite alternate;
         }
-        @media (max-width: 450px) {
-            .frenzy-cell { width: 26px; height: 26px; font-size: 16px; border-radius: 6px;}
-            #puzzle-container h1 { font-size: 24px; }
-            #puzzle-container #frenzy-game-container { padding: 20px 15px; }
+        #puzzle-container #win-screen h2 { font-size: 2.2rem; font-weight: 900; letter-spacing: 2px; color: white; text-align: center; margin-bottom: 10px; }
+        #puzzle-container .final-time { font-size: 1.2rem; color: white; margin-bottom: 30px; font-weight: bold; background: rgba(255,255,255,0.05); padding: 8px 20px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); }
+        #puzzle-container .menu-btn {
+            background: #27272a; color: white; border: 1px solid rgba(255,255,255,0.1);
+            width: 100%; max-width: 250px; padding: 15px; border-radius: 12px;
+            font-size: 1.1rem; font-weight: bold; margin-bottom: 12px; cursor: pointer;
+            transition: all 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
-        .frenzy-cell:active {
-            transform: translateY(3px);
-            box-shadow: 0 0px 0px rgba(0,0,0,0.1);
+        #puzzle-container .menu-btn.primary { background: #8b5cf6; color: white; border-color: #8b5cf6; box-shadow: 0 4px 15px rgba(139,92,246,0.5); }
+        #puzzle-container .menu-btn:active { transform: scale(0.96); }
+        #puzzle-container .score-box {
+            width: 100%; max-width: 350px; background: #18181b;
+            border-radius: 16px; padding: 20px; border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-        .frenzy-cell.selected {
-            background: #eccc68;
-            color: #2f3542;
-            transform: scale(1.15) translateY(-2px);
-            box-shadow: 0 5px 12px rgba(236, 204, 104, 0.6);
-            z-index: 2;
+        #puzzle-container .score-box h3 { text-align: center; color: #8b5cf6; font-size: 1.5rem; margin-bottom: 15px; font-weight: 900; }
+        #puzzle-container .lb-list { scrollbar-width: thin; scrollbar-color: #8b5cf6 #09090b; }
+        #puzzle-container .lb-list::-webkit-scrollbar { width: 6px; }
+        #puzzle-container .lb-list::-webkit-scrollbar-thumb { background-color: #8b5cf6; border-radius: 10px; }
+        #puzzle-container #all-scores-list { max-height: 286px; overflow-y: auto; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 10px; }
+        #puzzle-container .lb-row {
+            display: flex; justify-content: space-between; align-items: center;
+            height: 52px; border-bottom: 1px solid rgba(255,255,255,0.05); padding: 0 5px;
         }
-        .frenzy-cell.found {
-            background: #7bed9f;
-            color: #2f3542;
-            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        #puzzle-container .lb-row:last-child { border-bottom: none; }
+        #puzzle-container .lb-rank { font-weight: bold; color: #8b5cf6; width: 35px; }
+        #puzzle-container .lb-time { font-weight: 900; font-size: 1.1rem; flex: 1; text-align: left; }
+        #puzzle-container .lb-date { font-size: 0.75rem; color: #71717a; text-align: right; line-height: 1.2; }
+        #puzzle-container .sort-dropdown {
+            width: 100%; padding: 10px; background: #27272a; color: white;
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;
+            font-size: 0.9rem; font-weight: bold; outline: none; margin-bottom: 10px; cursor: pointer;
         }
-        @keyframes popIn {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-        #frenzy-message {
-            margin-top: 15px;
-            font-family: 'Nunito', sans-serif;
-            font-size: 26px;
-            color: #ff6b81;
-            min-height: 35px;
-            text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
-            animation: bounce 1s infinite alternate;
-            display: none;
-        }
-        @keyframes bounce {
-            from { transform: translateY(0); }
-            to { transform: translateY(-8px); }
-        }
-        #frenzy-restart-btn {
-            margin-top: 10px;
-            padding: 12px 25px;
-            font-family: 'Nunito', sans-serif;
-            font-size: 18px;
-            background: #ff6b81;
-            color: white;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            display: none;
-            box-shadow: 0 5px 0px #d63031, 0 12px 15px rgba(255, 107, 129, 0.4);
-            transition: all 0.2s;
-            margin-bottom: 5px;
-        }
-        #frenzy-restart-btn:hover {
-            transform: translateY(2px);
-            box-shadow: 0 3px 0px #d63031, 0 8px 12px rgba(255, 107, 129, 0.4);
-        }
-        #frenzy-restart-btn:active {
-            transform: translateY(5px);
-            box-shadow: 0 0px 0px #d63031;
-        }
-        /* ====================== SLICE IT! v1.5 STYLES ====================== */
-        .slice-wrapper {
-            position: relative;
-            width: 100%;
-            height: 420px;
-            max-width: 380px;
-            margin: 20px auto 0;
-            background: #74b9ff;
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-        }
-        .slice-wrapper h1 {
-            font-family: 'Fredoka One', cursive;
-        }
-        .slice-wrapper #slice-result-text {
-            font-family: 'Fredoka One', cursive;
-        }
-        /* ====================== SHRINKAGE STYLES ====================== */
-        #puzzle-container .shrinkage-wrapper {
-            width: 100%;
-            max-width: 380px;
-            margin: 0 auto;
-        }
-        #puzzle-container .row {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 12px;
-            justify-content: center;
-        }
-        #puzzle-container .box {
-            width: 50px;
-            height: 50px;
-            border: 2px solid #334155;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            font-weight: bold;
-            text-transform: uppercase;
-            background: #1e293b;
-            color: #f8fafc;
-            box-sizing: border-box;
-        }
-        #puzzle-container input.box {
-            outline: none;
-            caret-color: transparent;
-        }
-        #puzzle-container input.box:focus {
-            border-color: #38bdf8;
-        }
-        #puzzle-container .static {
-            background: #059669;
-            border-color: transparent;
-        }
-        #puzzle-container .static-end {
-            background: #d97706;
-            border-color: transparent;
-        }
-        #puzzle-container .btn {
-            color: white;
-            border: none;
-            padding: 16px 32px;
-            font-size: 18px;
-            font-weight: bold;
-            border-radius: 30px;
-            margin-top: 30px;
-            cursor: pointer;
-            width: 100%;
-            max-width: 300px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            transition: opacity 0.3s;
-        }
-        #puzzle-container .submit-btn {
-            background: #2563eb;
-        }
-        #puzzle-container .hint-btn {
-            background: #7c3aed;
-            margin-top: 15px;
-            display: none;
-        }
-        #puzzle-container #message {
-            margin-top: 25px;
-            font-weight: bold;
-            font-size: 18px;
-            text-align: center;
-            height: 24px;
-        }
-        #puzzle-container .modal {
-            display: none;
-            position: fixed;
-            z-index: 10;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(15, 23, 42, 0.9);
-            justify-content: center;
-            align-items: center;
-        }
-        #puzzle-container .modal-content {
-            background: #1e293b;
-            border: 1px solid #334155;
-            border-radius: 16px;
-            padding: 25px;
-            width: 85%;
-            max-width: 350px;
-        }
-
-        /* ====================== MINI CROSSWORD STYLES (FIXED - now scoped with .mini-crossword-mode so it NEVER touches other games) ====================== */
-        .clue-bar {
-            width: 100%;
-            max-width: 320px;
-            min-height: 44px;
-            background: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 8px 12px;
-            margin-bottom: 10px;
-            box-sizing: border-box;
-            text-align: center;
-            font-size: 15px;
-            font-weight: 600;
-        }
-        .clue-dir {
-            color: #2563eb;
-            margin-right: 8px;
-            text-transform: uppercase;
-            font-size: 13px;
-            font-weight: 800;
-        }
-        #puzzle-container #clue-text {
-            color: #374151;
-        }
-        .btn-container {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 12px;
-            height: 34px;
-        }
-        .action-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            background-color: #ffffff;
-            border: 2px solid #2563eb;
-            color: #2563eb;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-        .action-btn.cooldown {
-            border-color: #9ca3af;
-            color: #9ca3af;
-            cursor: not-allowed;
-            background-color: #f3f4f6;
-        }
-        #puzzle-container.mini-crossword-mode .grid {
-            display: grid;
-            grid-template-columns: repeat(4, 55px);
-            grid-template-rows: repeat(4, 55px);
-            gap: 2px;
-            background-color: #111827;
-            border: 4px solid #111827;
-            border-radius: 6px;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-        #puzzle-container.mini-crossword-mode .cell {
-            background-color: #ffffff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 32px;
-            font-weight: bold;
-            text-transform: uppercase;
-            cursor: pointer;
-            user-select: none;
-        }
-        #puzzle-container.mini-crossword-mode .cell.word-active { background-color: #fef08a; }
-        #puzzle-container.mini-crossword-mode .cell.correct { background-color: #bbf7d0; color: #166534; }
-        #puzzle-container.mini-crossword-mode .cell.incorrect { background-color: #e5e7eb; color: #4b5563; }
-        #puzzle-container.mini-crossword-mode .cell.cell-active { background-color: #fde047 !important; color: #000 !important; }
-        #puzzle-container.mini-crossword-mode .keyboard {
-            width: 100%;
-            max-width: 400px;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            margin-bottom: 10px;
-        }
-        #puzzle-container.mini-crossword-mode .keyboard-row {
-            display: flex;
-            justify-content: center;
-            gap: 5px;
-        }
-        #puzzle-container.mini-crossword-mode .key {
-            background-color: #d1d5db;
-            border: none;
-            border-radius: 6px;
-            padding: 10px 0;
-            font-size: 18px;
-            font-weight: bold;
-            color: #1f2937;
-            cursor: pointer;
-            flex: 1;
-            max-width: 40px;
-            user-select: none;
-            touch-action: manipulation;
-        }
-        #puzzle-container.mini-crossword-mode .key:active { background-color: #9ca3af; }
-        #puzzle-container.mini-crossword-mode .key.wide { flex: 1.5; max-width: 60px; font-size: 14px; }
-        #puzzle-container.mini-crossword-mode #message {
-            min-height: 24px;
-            font-weight: bold;
-            font-size: 20px;
-            text-align: center;
-            color: #16a34a;
-        }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+        @keyframes pulse-glow { 0% { filter: drop-shadow(0 0 10px rgba(139,92,246,0.5)); } 100% { filter: drop-shadow(0 0 25px rgba(139,92,246,0.8)); } }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-8px) rotate(-1deg); } 40% { transform: translateX(8px) rotate(1deg); } 60% { transform: translateX(-4px) rotate(-0.5deg); } 80% { transform: translateX(4px) rotate(0.5deg); } }
+        .shake { animation: shake 0.4s both; }
+        @keyframes type-pop { 0%, 100% { transform: scale(1) translateY(0); } 40% { transform: scale(1.2) translateY(-6px); } }
+        .pop { animation: type-pop 0.25s forwards; }
+        @keyframes reveal-cascade { 0% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(1.15); opacity: 1; text-shadow: 0 0 20px #8b5cf6; } 100% { transform: scale(1); text-shadow: 0 0 12px rgba(139,92,246,0.5); } }
+        .reveal-anim { animation: reveal-cascade 0.4s forwards; }
+        @keyframes pulse-line { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.8; } }
+        /* FIXES FOR WORD SEARCH FRENZY, SHRINKAGE, MINI CROSSWORD */
+        .shrinkage-wrapper { width: 100%; max-width: 340px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+        .shrinkage-wrapper .row { display: flex; gap: 8px; }
+        .shrinkage-wrapper .box { width: 48px; height: 48px; background: var(--surface-hi); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 900; color: #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.3); }
+        .shrinkage-wrapper .box.static { background: #0f172a; color: #64748b; pointer-events: none; }
+        .shrinkage-wrapper .box.static-end { background: var(--success); color: #000; pointer-events: none; }
+        .shrinkage-wrapper .btn { margin-top: 8px; width: 100%; }
+        #frenzy-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 4px; width: 100%; max-width: 340px; margin: 20px auto; }
+        .frenzy-cell { background: var(--surface-hi); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 800; color: #fff; aspect-ratio: 1; cursor: pointer; }
+        .frenzy-cell.selected { background: var(--primary) !important; }
+        .frenzy-cell.found { background: var(--success) !important; color: #000; }
+        #frenzy-word-list { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 10px 0; }
+        .frenzy-word { background: var(--surface); padding: 6px 16px; border-radius: 9999px; font-weight: 700; font-size: 15px; white-space: nowrap; }
+        .frenzy-word.found { background: var(--success); color: #000; }
+        #frenzy-message { font-size: 18px; font-weight: bold; color: var(--success); margin-top: 20px; text-align: center; }
+        .clue-bar { width: 100%; max-width: 340px; background: var(--surface); padding: 12px 16px; border-radius: 12px; display: flex; align-items: center; gap: 12px; margin-bottom: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+        .clue-dir { font-weight: 900; color: var(--accent); font-size: 18px; background: rgba(139,92,246,0.15); padding: 4px 10px; border-radius: 6px; }
+        #grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; width: 100%; max-width: 340px; }
+        #grid .cell { aspect-ratio: 1; background: var(--surface-hi); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 900; color: #fff; box-shadow: inset 0 2px 6px rgba(0,0,0,0.3); }
+        #grid .cell.cell-active { box-shadow: 0 0 0 4px var(--primary); }
+        #grid .cell.word-active { background: rgba(139,92,246,0.2); }
+        #grid .cell.correct { background: var(--success) !important; color: #000 !important; }
+        .keyboard { width: 100%; max-width: 340px; margin-top: 20px; }
+        .keyboard-row { display: flex; justify-content: center; gap: 5px; margin-bottom: 6px; }
+        .key { background: #27272a; color: #fff; border: none; border-radius: 8px; height: 52px; flex: 1; font-size: 22px; font-weight: 700; box-shadow: 0 4px 0 #18181b; }
+        .key.wide { flex: 1.8; font-size: 18px; }
+        .action-btn { background: var(--surface-hi); color: var(--text); border: none; padding: 10px 20px; border-radius: 9999px; display: flex; align-items: center; gap: 8px; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -521,7 +254,6 @@
                 <p id="inst-desc">Instructions go here.</p>
                 <button class="play-btn-huge" onclick="startGameplay()">PLAY</button>
             </div>
-    
             <div class="game-desc" id="game-desc"></div>
             <div id="puzzle-container"></div>
         </div>
@@ -545,6 +277,13 @@
             </div>
             <div class="stat-card">
                 <h3>Update Log</h3>
+                <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.6</span>
+                        <span style="font-size: 13px; color: var(--text-dim);">Apr 18 2026</span>
+                    </div>
+                    <span style="font-size: 14px; color: var(--text);">Added Chain Reaction!</span>
+                </div>
                 <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;">
                     <div style="display: flex; align-items: center; gap: 10px;">
                         <span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.5</span>
@@ -588,17 +327,6 @@
                     <span style="font-size: 14px; color: var(--text);">Base game</span>
                 </div>
             </div>
-        </div>
-    </div>
-    <!-- v1.3 Welcome Popup -->
-    <div id="welcome-modal">
-        <div style="width: 90%; max-width: 340px; background: var(--surface); border-radius: 24px; padding: 32px 24px; text-align: center; box-shadow: 0 20px 40px -10px rgba(59, 130, 246, 0.5);">
-            <div style="font-size: 42px; font-weight: 900; letter-spacing: 2px; background: linear-gradient(135deg, #3b82f6, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 12px;">MINDFLEX</div>
-            <h2 style="font-size: 29px; font-weight: 900; letter-spacing: -0.5px; background: linear-gradient(90deg, #3b82f6, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 12px;">Welcome to v1.3!</h2>
-            <p style="color: var(--text); font-size: 16px; margin-bottom: 8px; line-height: 1.45;">Color Finder upgraded with full color + advanced shade slider!</p>
-            <p style="color: var(--text-dim); font-size: 15px; margin-bottom: 32px;">No time pressure after the 5-second memorize phase.</p>
-            <button onclick="viewWhatsNew()" style="width: 100%; background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: #fff; padding: 16px 0; border-radius: 9999px; font-size: 17px; font-weight: 800; border: none; margin-bottom: 12px; box-shadow: 0 6px 20px rgba(59,130,246,.4);">View What’s New</button>
-            <button onclick="dismissWelcome()" style="width: 100%; background: var(--surface-hi); color: var(--text-dim); padding: 16px 0; border-radius: 9999px; font-size: 17px; font-weight: 700; border: none;">Not Now</button>
         </div>
     </div>
 </div>
@@ -652,7 +380,8 @@
         wordfrenzy: `<svg viewBox="0 0 100 100" width="100%" height="100%"><defs><filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><circle cx="42" cy="42" r="16" stroke="#7bed9f" stroke-width="8" fill="none" filter="url(#glow)"/><line x1="54" y1="54" x2="72" y2="72" stroke="#7bed9f" stroke-width="8" stroke-linecap="round" filter="url(#glow)"/></svg>`,
         slice: `<svg viewBox="0 0 100 100" width="100%" height="100%"><circle cx="50" cy="50" r="45" fill="#fdcb6e" stroke="#2d3436" stroke-width="6"/><path d="M 25 30 L 75 30 L 75 48 L 25 58 Z" fill="#ff7675" stroke="#2d3436" stroke-width="6" stroke-linejoin="round"/><path d="M 25 68 L 75 58 L 75 80 L 25 80 Z" fill="#d63031" stroke="#2d3436" stroke-width="6" stroke-linejoin="round"/><path d="M 10 65 Q 50 45 90 45" fill="none" stroke="#2d3436" stroke-width="14" stroke-linecap="round"/><path d="M 10 65 Q 50 45 90 45" fill="none" stroke="#ffffff" stroke-width="6" stroke-linecap="round"/></svg>`,
         shrinkage: `<svg viewBox="0 0 100 100" width="100%" height="100%"><rect x="10" y="10" width="80" height="80" rx="12" fill="#1e293b" stroke="#38bdf8" stroke-width="8"/><circle cx="50" cy="50" r="28" fill="rgba(16,185,129,0.1)" stroke="#10b981" stroke-width="6"/><text x="50" y="62" font-size="38" font-weight="800" fill="#f8fafc" text-anchor="middle" font-family="-apple-system,sans-serif">S</text></svg>`,
-        miniCrossword: `<svg viewBox="0 0 100 100" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" rx="8" fill="#111827"/><rect x="5" y="5" width="42" height="42" rx="2" fill="#f8fafc"/><rect x="52" y="5" width="42" height="42" rx="2" fill="#f8fafc"/><rect x="5" y="52" width="42" height="42" rx="2" fill="#f8fafc"/><rect x="52" y="52" width="42" height="42" rx="2" fill="#3b82f6"/><line x1="26" y1="5" x2="26" y2="47" stroke="#e5e7eb" stroke-width="1"/><line x1="5" y1="26" x2="47" y2="26" stroke="#e5e7eb" stroke-width="1"/></svg>`
+        miniCrossword: `<svg viewBox="0 0 100 100" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" rx="8" fill="#111827"/><rect x="5" y="5" width="42" height="42" rx="2" fill="#f8fafc"/><rect x="52" y="5" width="42" height="42" rx="2" fill="#f8fafc"/><rect x="5" y="52" width="42" height="42" rx="2" fill="#f8fafc"/><rect x="52" y="52" width="42" height="42" rx="2" fill="#3b82f6"/><line x1="26" y1="5" x2="26" y2="47" stroke="#e5e7eb" stroke-width="1"/><line x1="5" y1="26" x2="47" y2="26" stroke="#e5e7eb" stroke-width="1"/></svg>`,
+        chainReaction: `<svg viewBox="0 0 100 100" width="100%" height="100%"><text x="50" y="42" font-size="19" font-weight="900" fill="#8b5cf6" text-anchor="middle" font-family="-apple-system, sans-serif" letter-spacing="2">CHAIN</text><text x="50" y="68" font-size="19" font-weight="900" fill="#c026d3" text-anchor="middle" font-family="-apple-system, sans-serif" letter-spacing="3">R———</text></svg>`
     };
     const wordList = ["BRAIN", "LOGIC", "SMART", "FOCUS", "SWIFT", "THINK", "SOLVE", "SPEED", "TRAIN", "POWER", "QUICK", "REACT", "PROVE", "NINJA", "CROWN", "EAGLE", "FLAME", "GIANT", "HEART", "INDEX", "JUMBO", "KNACK", "LASER", "MAGIC", "NOBLE", "OCEAN", "PILOT", "QUEST", "RIDER", "SUPER", "TIGER", "UNITY", "VALOR", "WATCH", "XENON", "YOUTH", "ZEBRA", "CHAMP", "FLASH", "GHOST"];
     const unscrambleList = ["PUZZLE", "GENIUS", "MEMORY", "SYSTEM", "WONDER", "EXPERT", "NEURON", "WIZARD", "MATRIX", "CIPHER", "ENIGMA", "CODING", "GAMING", "MASTER", "ACTION", "BREEZE", "COSMOS", "DRAGON", "ENERGY", "FALCON", "GALAXY", "HEROIC", "IMPACT", "JUNGLE", "KNIGHT", "LEGEND", "METEOR", "NECTAR", "ORACLE", "PLANET", "QUARTZ", "ROCKET", "SPHERE", "TEMPLE", "UTOPIA", "VORTEX", "WEAPON", "ZYGOTE"];
@@ -682,7 +411,8 @@
         { id: 'g22', name: 'Word Search Frenzy', icon: svgs.wordfrenzy, desc: 'Find the 3 hidden words by swiping in any direction on the 8x8 grid!', setup: startWordSearchFrenzy },
         { id: 'g23', name: 'Slice', icon: svgs.slice, desc: 'Swipe to slice the square exactly at the target percentage!', setup: startSlice },
         { id: 'g24', name: 'Shrinkage', icon: svgs.shrinkage, desc: 'Shrink a 6-letter word down to 3 letters by dropping one letter each time. Every row must be a real word!', setup: startShrinkage },
-        { id: 'g25', name: 'Mini Crossword', icon: svgs.miniCrossword, desc: 'Fill the 4x4 grid using across and down clues!', setup: startMiniCrossword }
+        { id: 'g25', name: 'Mini Crossword', icon: svgs.miniCrossword, desc: 'Fill the 4x4 grid using across and down clues!', setup: startMiniCrossword },
+        { id: 'g26', name: 'Chain Reaction', icon: svgs.chainReaction, desc: 'Guess the next word that logically continues the chain. (eg. Rain -> Bow, Bow -> Tie)', setup: startChainReaction }
     ];
     let highScores = JSON.parse(localStorage.getItem('mindflex_inf_pro_scores') || '{}');
     let dailyScores = JSON.parse(localStorage.getItem('mindflex_daily_scores') || '{}');
@@ -694,13 +424,10 @@
     let gameVars = {};
     let tourneyState = { active: false, round: 1, slotId: null, games: [], players: [] };
     let tourneyTimerInt = null;
-
-    /* ====================== RESET FUNCTION - THIS WAS THE MAIN CAUSE OF EVERY GAME BEING SCREWED ====================== */
     function resetPuzzleContainer() {
         const pc = document.getElementById('puzzle-container');
-        pc.style.cssText = '';           // clears ALL inline styles from previous games
-        pc.className = '';               // clears ALL extra classes (wide-mode, mini-crossword-mode, etc.)
-        // force base styles back
+        pc.style.cssText = '';
+        pc.className = '';
         pc.style.width = '100%';
         pc.style.maxWidth = '350px';
         pc.style.display = 'flex';
@@ -708,8 +435,7 @@
         pc.style.alignItems = 'center';
         pc.style.flexDirection = 'column';
     }
-
-    /* ====================== SHRINKAGE GAME LOGIC ====================== */
+    /* ====================== SHRINKAGE ====================== */
     const puzzles = [
         { start: "BADGER", end: "EAR", v5: ["BREAD","BADGE","DEBAR","GRADE","RAGED"], v4: ["BEAR","BARE","BEAD","READ","DARE","DEAR","GEAR","RAGE","DRAG","GRAD","BRAD","GARB","GRAB"] },
         { start: "PLANES", end: "PAN", v5: ["PANEL","PANES","NAPES","SNEAP"], v4: ["PANE","NAPE","PANS","NAPS","SNAP","SPAN"] },
@@ -772,7 +498,7 @@
             checkWinShrink();
         }
     }
-    function useHint() {
+    function useHintShrink() {
         if (!currentGoldenPath) return;
         const inputs5 = document.querySelectorAll('#row5 input');
         const inputs4 = document.querySelectorAll('#row4 input');
@@ -853,7 +579,7 @@
                     <div class="box static-end"></div><div class="box static-end"></div><div class="box static-end"></div>
                 </div>
                 <button class="btn submit-btn" id="submitBtn" onclick="checkWinShrink()">SUBMIT</button>
-                <button class="btn hint-btn" id="hintBtn" onclick="useHint()">HINT</button>
+                <button class="btn hint-btn" id="hintBtn" onclick="useHintShrink()">HINT</button>
                 <div id="message"></div>
             </div>
         `;
@@ -871,8 +597,7 @@
         loadRandomPuzzle();
         startLiveTimer(2500, 1);
     }
-
-    // ====================== ORIGINAL GAMES (unchanged) ======================
+    /* ====================== GRID RECALL ====================== */
     function startGridRecall() {
         const container = document.getElementById('puzzle-container');
         const board = document.createElement('div');
@@ -900,6 +625,7 @@
             gameVars.locked = false; startLiveTimer(500, 1);
         }, 2000);
     }
+    /* ====================== WORD SEARCH ====================== */
     function startWordSearch() {
         const targetWord = wordList[Math.floor(random() * wordList.length)];
         document.getElementById('game-desc').innerText = `Spell: ${targetWord}`;
@@ -940,6 +666,7 @@
         });
         container.appendChild(board); startLiveTimer(500, 1);
     }
+    /* ====================== COLOR SORT ====================== */
     function startColorSort() {
         const container = document.getElementById('puzzle-container');
         container.style.flexDirection = 'row'; container.style.gap = '8px'; container.style.height = '200px';
@@ -971,6 +698,7 @@
         }
         renderBars(); startLiveTimer(500, 1);
     }
+    /* ====================== MATH SPRINT ====================== */
     function startMathSprint() {
         const container = document.getElementById('puzzle-container');
         gameVars.stage = 0;
@@ -1001,6 +729,7 @@
         }
         nextEquation(); startLiveTimer(1000, 1);
     }
+    /* ====================== REACTION ====================== */
     function startReaction() {
         const container = document.getElementById('puzzle-container');
         container.innerHTML = '';
@@ -1026,6 +755,7 @@
         };
         container.appendChild(pad);
     }
+    /* ====================== ODD SHAPE OUT ====================== */
     function startOddShape() {
         const container = document.getElementById('puzzle-container');
         const board = document.createElement('div');
@@ -1042,6 +772,7 @@
         }
         container.appendChild(board); startLiveTimer(500, 1);
     }
+    /* ====================== ODD COLOR OUT ====================== */
     function startOddColor() {
         const container = document.getElementById('puzzle-container');
         const board = document.createElement('div');
@@ -1060,6 +791,7 @@
         }
         container.appendChild(board); startLiveTimer(500, 1);
     }
+    /* ====================== SIMON ====================== */
     function startSimon() {
         const container = document.getElementById('puzzle-container');
         const board = document.createElement('div');
@@ -1089,6 +821,7 @@
             else if (gameVars.input.length === seq.length) winGame();
         }
     }
+    /* ====================== UNSCRAMBLE ====================== */
     function startUnscramble() {
         const targetStr = unscrambleList[Math.floor(random() * unscrambleList.length)];
         const target = targetStr.split('');
@@ -1118,6 +851,7 @@
         }
         draw(); container.appendChild(board); startLiveTimer(1000, 1);
     }
+    /* ====================== ORDER TAP ====================== */
     function startOrderTap() {
         const container = document.getElementById('puzzle-container');
         const board = document.createElement('div');
@@ -1137,6 +871,7 @@
         });
         container.appendChild(board); startLiveTimer(1000, 1);
     }
+    /* ====================== MEMORY PAIRS ====================== */
     function startPairs() {
         const container = document.getElementById('puzzle-container');
         const board = document.createElement('div');
@@ -1170,6 +905,7 @@
         });
         container.appendChild(board); startLiveTimer(1000, 1);
     }
+    /* ====================== SHAPE COUNT ====================== */
     function startShapeCount() {
         const container = document.getElementById('puzzle-container');
         let starCount = Math.floor(random()*4) + 4;
@@ -1205,6 +941,7 @@
         container.appendChild(grid);
         startLiveTimer(500, 1);
     }
+    /* ====================== LOCK PICK ====================== */
     function startLockPick() {
         const container = document.getElementById('puzzle-container');
         gameVars.stage = 0;
@@ -1250,6 +987,7 @@
         };
         startLiveTimer(1000, 1);
     }
+    /* ====================== SNAKE LOGIC ====================== */
     function startSnake() {
         const container = document.getElementById('puzzle-container');
         const board = document.createElement('div');
@@ -1328,6 +1066,7 @@
         container.appendChild(resetBtn);
         startLiveTimer(2000, 1);
     }
+    /* ====================== VALVES ====================== */
     function startValves() {
         const container = document.getElementById('puzzle-container');
         const board = document.createElement('div');
@@ -1412,6 +1151,7 @@
         checkFlow();
         startLiveTimer(2000, 1);
     }
+    /* ====================== CUBES ====================== */
     function startCubes() {
         const container = document.getElementById('puzzle-container');
         const colors = ['#ef4444', '#3b82f6', '#10b981', '#f59e0b', '#8b5cf6', '#06b6d4', '#ec4899'];
@@ -1493,6 +1233,7 @@
         container.appendChild(playArea);
         startLiveTimer(1000, 1);
     }
+    /* ====================== WASH AWAY ====================== */
     function startWashAway() {
         const container = document.getElementById('puzzle-container');
         const board = document.createElement('div');
@@ -1543,6 +1284,7 @@
         container.appendChild(board);
         startLiveTimer(500, 1);
     }
+    /* ====================== WIRES ====================== */
     function startWires() {
         const container = document.getElementById('puzzle-container');
         container.style.width = '100%';
@@ -1642,6 +1384,7 @@
         }
         startLiveTimer(1000, 1);
     }
+    /* ====================== FLOOD PAINT ====================== */
     function startFloodPaint() {
         const container = document.getElementById('puzzle-container');
         container.innerHTML = '';
@@ -1714,6 +1457,7 @@
         document.getElementById('game-desc').innerText = 'Tap any block to flood from the center!';
         startLiveTimer(1000, 1);
     }
+    /* ====================== SPELL ====================== */
     function startSpellingBee() {
         const container = document.getElementById('puzzle-container');
         container.innerHTML = '';
@@ -1767,6 +1511,7 @@
         container.appendChild(board);
         startLiveTimer(500, 1);
     }
+    /* ====================== COLOR FINDER ====================== */
     function startColorFinder() {
         const container = document.getElementById('puzzle-container');
         container.innerHTML = '';
@@ -1965,7 +1710,7 @@
             }
         }, 1000);
     }
-    // ====================== WORD SEARCH FRENZY (auto-finish when all 3 words found) ======================
+    /* ====================== WORD SEARCH FRENZY ====================== */
     function startWordSearchFrenzy() {
         const container = document.getElementById('puzzle-container');
         container.innerHTML = `
@@ -2127,7 +1872,7 @@
         }
         initGame();
     }
-    // ====================== SLICE IT! CARTOON EDITION ======================
+    /* ====================== SLICE ====================== */
     function startSlice() {
         const container = document.getElementById('puzzle-container');
         container.innerHTML = `
@@ -2362,7 +2107,7 @@
         nextRound();
         sliceDraw();
     }
-    // ====================== MINI CROSSWORD (now properly scoped) ======================
+    /* ====================== MINI CROSSWORD ====================== */
     function startMiniCrossword() {
         const container = document.getElementById('puzzle-container');
         container.innerHTML = `
@@ -2384,33 +2129,27 @@
             <div class="keyboard" id="keyboard"></div>
             <div id="message"></div>
         `;
-
-        // ADD THE MODE CLASS SO ONLY MINI CROSSWORD USES THE WHITE/BIG CELL STYLES
         container.classList.add('mini-crossword-mode');
-
         const puzzleBank = [
             { answers: "SOMEOPENLENDODDS", across: ["An unspecified amount", "Not closed", "Let someone borrow", "The chances of an event"], down: ["Flying without a copilot", "Newspaper opinion section", "Fix or repair", "Brings to a close"] },
             { answers: "WHATHAVEIRONPENT", across: ["Question word", "Possess or own", "Metal for forging", "___ up (frustrated)"], down: ["Indiana Jones's weapon", "Fast-running rabbit", "Shakespeare's river", "Camping shelter"] },
             { answers: "BLOBRAVEOMENWEND", across: ["Drop of paint", "Wild dance party", "Sign of things to come", "Make one's way"], down: ["Forehead", "Weak, like an excuse", "Baking appliance", "Curve or flex"] },
             { answers: "STOPARTSWATSSPOT", across: ["Red Light", "School Subject Involving Paint", "Pre-800 number system", "Place To Think"], down: ["Machinery With Spinning Blades", "——Door", "Palindromic name", "Whispering Onomatopoeia"] },
-            { answers: "PIERIDLENOSESLED", across: ["Ocean boardwalk", "Not currently in use", "Facial body part", "Used in the winter to slide down hills"], down: ["What you knock down while bowling", "A famous person you look up to ", "Other than that", "Saxophone Mouthpiece"] },      
+            { answers: "PIERIDLENOSESLED", across: ["Ocean boardwalk", "Not currently in use", "Facial body part", "Used in the winter to slide down hills"], down: ["What you knock down while bowling", "A famous person you look up to ", "Other than that", "Saxophone Mouthpiece"] },
             { answers: "WASPECHONEATTSMS", across: ["Hurts to get stung by", "Sound bouncing off walls to repeat", "Tidy", "Traffic Signal Management System"], down: ["Past tense of go", "One’s in a deck of cards", "A lie to deceive someone into believing", "—— and pans"] },
             { answers: "ALTONORDNCAAHTML", across: ["—— Saxophone", "Means north in many European languages", "College Basketball", "Classic script language"], down: ["A name, not Anne", "Shorter way of spelling locked", "Light rail vehicle", "Old Norse word for ancestral property or inherited land rights"] }
         ];
-
         let activeIndex = 0;
         let activeDirection = 'across';
         let onCooldown = false;
         let clues = {};
         let answers = "";
         let hintTimer;
-
         const gridEl = document.getElementById('grid');
         const hintBtn = document.getElementById('hint-btn');
         const msgEl = document.getElementById('message');
         const clueBar = document.getElementById('clue-bar');
         const cells = [];
-
         for (let i = 0; i < 16; i++) {
             let cell = document.createElement('div');
             cell.className = 'cell';
@@ -2422,7 +2161,6 @@
             gridEl.appendChild(cell);
             cells.push(cell);
         }
-
         const kbLayout = [['Q','W','E','R','T','Y','U','I','O','P'], ['A','S','D','F','G','H','J','K','L'], ['DEL','Z','X','C','V','B','N','M']];
         const kbContainer = document.getElementById('keyboard');
         kbLayout.forEach(row => {
@@ -2437,20 +2175,17 @@
             });
             kbContainer.appendChild(rowEl);
         });
-
         function initGame() {
             let lastIdx = localStorage.getItem('lastMiniPuzzleIndex');
             lastIdx = lastIdx !== null ? parseInt(lastIdx) : -1;
             let newIndex;
             do { newIndex = Math.floor(Math.random() * puzzleBank.length); } while (newIndex === lastIdx);
             localStorage.setItem('lastMiniPuzzleIndex', newIndex);
-
             const selected = puzzleBank[newIndex];
             clues = { across: selected.across, down: selected.down };
             answers = selected.answers;
             updateGridState();
         }
-
         function updateGridState() {
             cells.forEach(c => c.classList.remove('cell-active', 'word-active'));
             let row = Math.floor(activeIndex / 4);
@@ -2466,7 +2201,6 @@
             }
             cells[activeIndex].classList.add('cell-active');
         }
-
         function handleInput(key) {
             if (msgEl.innerText !== "") return;
             if (key === 'DEL') {
@@ -2492,7 +2226,6 @@
             updateGridState();
             checkWin();
         }
-
         function moveIndex(step) {
             let row = Math.floor(activeIndex / 4), col = activeIndex % 4;
             if (activeDirection === 'across') {
@@ -2503,7 +2236,6 @@
                 if (newRow >= 0 && newRow < 4) activeIndex = newRow * 4 + col;
             }
         }
-
         hintBtn.addEventListener('click', () => {
             if(onCooldown) return;
             let wrong = [];
@@ -2527,7 +2259,6 @@
                 }, 1000);
             }
         });
-
         function checkWin() {
             if (cells.map(c => c.textContent).join('') === answers) {
                 msgEl.innerText = "Great!";
@@ -2538,12 +2269,322 @@
                 winGame();
             }
         }
-
         initGame();
         startLiveTimer(1200, 1);
     }
-
-    // ====================== CORE GAME FUNCTIONS ======================
+    /* ====================== CHAIN REACTION ====================== */
+    let chainWords, currentIndex = 1, currentGuess = "", hintAvailable = true, hintInterval, isGameOver = false, hintLockedLength = 0, gameClockInterval, elapsedSeconds = 0;
+    const arrowSVG = `<svg viewBox="0 0 24 24"><line x1="12" y1="4" x2="12" y2="20"></line><polyline points="18 14 12 20 6 14"></polyline></svg>`;
+    const allChains = [
+        ["WATER", "FALL", "DOWN", "TOWN", "HALL"], ["SUN", "LIGHT", "HOUSE", "BOAT", "RIDE"], ["RAIN", "BOW", "TIE", "CLIP", "ART"],
+        ["NIGHT", "TIME", "LINE", "DANCE", "STEP"], ["STAR", "FISH", "BOWL", "CUT", "OUT"], ["FIRE", "WOOD", "WORK", "SHOP", "LIFT"],
+        ["PAPER", "CLIP", "BOARD", "WALK", "WAY"], ["SAND", "BOX", "CAR", "WASH", "ROOM"], ["FOOT", "BALL", "BOY", "SCOUT", "CAMP"],
+        ["AIR", "PORT", "HOLE", "PUNCH", "CARD"], ["DAY", "LIGHT", "HOUSE", "WORK", "OUT"], ["GREEN", "HOUSE", "FLY", "TRAP", "DOOR"],
+        ["BLACK", "BIRD", "SEED", "POD", "CAST"], ["WHITE", "WASH", "OUT", "LOUD", "VOICE"], ["BLUE", "BERRY", "JAM", "PACK", "RAT"],
+        ["RED", "TAPE", "WORM", "HOLE", "PUNCH"], ["COLD", "PLAY", "PEN", "NAME", "TAG"], ["HOT", "DOG", "HOUSE", "GUEST", "ROOM"],
+        ["ICE", "CREAM", "PUFF", "PASTRY", "CHEF"], ["SOFT", "WARE", "HOUSE", "BOAT", "YARD"], ["HARD", "DRIVE", "WAY", "SIDE", "WALK"],
+        ["JUMP", "SUIT", "CASE", "LOAD", "DOWN"], ["HIGH", "SCHOOL", "BUS", "STOP", "SIGN"], ["LOW", "BLOW", "OUT", "BACK", "PACK"],
+        ["FAST", "FOOD", "CHAIN", "MAIL", "BOX"], ["HAND", "BAG", "PIPE", "LINE", "UP"], ["EAR", "RING", "TONE", "DEAF", "MUTE"],
+        ["EYE", "BALL", "PARK", "WAY", "OUT"],
+        ["BED", "BUG", "BITE", "SIZE", "UP"], ["CAT", "WALK", "WAY", "OUT", "SIDE"], ["DOG", "HOUSE", "WORK", "OUT", "FIT"],
+        ["WATER", "BOTTLE", "NECK", "TIE", "CLIP"], ["APPLE", "TREE", "HOUSE", "WORK", "OUT"], ["LONE", "WOLF", "PACK", "MULE", "KICK"],
+        ["LIFE", "TIME", "OUT", "LINE", "UP"], ["OVER", "TIME", "SHEET", "MUSIC", "BOX"], ["ANY", "TIME", "PIECE", "WORK", "SHOP"],
+        ["SOME", "DAY", "LIGHT", "HOUSE", "BOAT"], ["EVERY", "ONE", "WAY", "SIDE", "WALK"], ["NO", "BODY", "GUARD", "RAIL", "ROAD"],
+        ["GRAND", "MOTHER", "BOARD", "GAME", "PLAN"], ["CHAIR", "MAN", "HOLE", "PUNCH", "CARD"], ["TABLE", "TOP", "HAT", "TRICK", "PLAY"],
+        ["DESK", "TOP", "DOG", "HOUSE", "CAT"], ["PEN", "NAME", "TAG", "ALONG", "SIDE"], ["WALL", "PAPER", "BOY", "BAND", "STAND"],
+        ["FLOOR", "BOARD", "ROOM", "MATE", "SHIP"], ["CEILING", "FAN", "CLUB", "HOUSE", "WIFE"], ["ROOF", "TOP", "HEAVY", "WEIGHT", "LIFT"],
+        ["WINDOW", "SHOP", "LIFT", "OFF", "BEAT"], ["FRONT", "DOOR", "STEP", "LADDER", "BACK"], ["BACK", "BONE", "HEAD", "LIGHT", "HOUSE"],
+        ["SIDE", "KICK", "BACK", "FIRE", "WOOD"]
+    ];
+    function startChainReaction() {
+        resetPuzzleContainer();
+        const container = document.getElementById('puzzle-container');
+        container.innerHTML = `
+<div id="chain-game-container" style="flex:1;display:flex;flex-direction:column;width:100%;height:100%;position:relative;background:radial-gradient(circle at 50% 0%, #1f1f22 0%, #09090b 80%);">
+<header>
+    <div id="logo-container" style="width:50px;height:50px;background:#18181b;border-radius:12px;border:1px solid rgba(255,255,255,0.1);display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,0.4);padding:4px;color:#8b5cf6;font-weight:900;letter-spacing:1px;line-height:1;text-align:center;">
+        CHAIN<br><span style="font-size:22px;background:linear-gradient(135deg,#8b5cf6,#c026d3);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:3px;">R-</span>
+    </div>
+    <button id="hint-btn" onclick="useHint()">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M11.2 2.4l-7.5 11.2c-.3.4-.1 1 .4 1h6.3v7c0 .5.7.8 1.1.4l7.5-11.2c.3-.4.1-1-.4-1h-6.3v-7c0-.5-.7-.8-1.1-.4z"/></svg>
+        <span id="hint-text">HINT</span>
+    </button>
+</header>
+<div id="board-container"></div>
+<div id="keyboard">
+    <div class="keyboard-row">
+        <button class="key" onclick="handleKey('Q')">Q</button><button class="key" onclick="handleKey('W')">W</button><button class="key" onclick="handleKey('E')">E</button><button class="key" onclick="handleKey('R')">R</button><button class="key" onclick="handleKey('T')">T</button><button class="key" onclick="handleKey('Y')">Y</button><button class="key" onclick="handleKey('U')">U</button><button class="key" onclick="handleKey('I')">I</button><button class="key" onclick="handleKey('O')">O</button><button class="key" onclick="handleKey('P')">P</button>
+    </div>
+    <div class="keyboard-row">
+        <button class="key" onclick="handleKey('A')">A</button><button class="key" onclick="handleKey('S')">S</button><button class="key" onclick="handleKey('D')">D</button><button class="key" onclick="handleKey('F')">F</button><button class="key" onclick="handleKey('G')">G</button><button class="key" onclick="handleKey('H')">H</button><button class="key" onclick="handleKey('J')">J</button><button class="key" onclick="handleKey('K')">K</button><button class="key" onclick="handleKey('L')">L</button>
+    </div>
+    <div class="keyboard-row">
+        <button class="key wide" onclick="handleKey('ENTER')"><svg viewBox="0 0 24 24"><path d="M9 10l-5 5 5 5"></path><path d="M4 15h12a4 4 0 0 0 4-4V5"></path></svg></button>
+        <button class="key" onclick="handleKey('Z')">Z</button><button class="key" onclick="handleKey('X')">X</button><button class="key" onclick="handleKey('C')">C</button><button class="key" onclick="handleKey('V')">V</button><button class="key" onclick="handleKey('B')">B</button><button class="key" onclick="handleKey('N')">N</button><button class="key" onclick="handleKey('M')">M</button>
+        <button class="key wide" onclick="handleKey('DEL')"><svg viewBox="0 0 24 24"><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path><line x1="18" y1="9" x2="12" y2="15"></line><line x1="12" y1="9" x2="18" y2="15"></line></svg></button>
+    </div>
+</div>
+<div id="win-screen" class="overlay">
+    <svg class="win-icon" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+    <h2>CHAIN<br>COMPLETE</h2>
+    <div class="final-time" id="final-time-text">Time: 00:00</div>
+    <button class="menu-btn primary" onclick="showTop5()">View Top 5 Times</button>
+    <button class="menu-btn" onclick="returnToMenu()">Return to Menu</button>
+</div>
+<div id="top5-screen" class="overlay">
+    <div class="score-box">
+        <h3>TOP 5 TIMES</h3>
+        <div id="top5-list" class="lb-list"></div>
+    </div>
+    <button class="menu-btn" style="margin-top: 20px; max-width: 200px;" onclick="closeTop5()">Close</button>
+    <button class="menu-btn primary" style="max-width: 200px;" onclick="showAllScores()">View All</button>
+</div>
+<div id="all-scores-screen" class="overlay">
+    <div class="score-box">
+        <h3>ALL SCORES</h3>
+        <select id="score-sort" class="sort-dropdown" onchange="renderAllScores()">
+            <option value="best">Best to Worst</option>
+            <option value="worst">Worst to Best</option>
+            <option value="newest">Newest First</option>
+            <option value="oldest">Oldest First</option>
+        </select>
+        <div id="all-scores-list" class="lb-list"></div>
+    </div>
+    <button class="menu-btn" style="margin-top: 20px; max-width: 200px;" onclick="closeAllScores()">Back</button>
+</div>
+</div>`;
+        chainWords = allChains[Math.floor(Math.random() * allChains.length)];
+        currentIndex = 1;
+        currentGuess = "";
+        hintAvailable = true;
+        isGameOver = false;
+        hintLockedLength = 0;
+        elapsedSeconds = 0;
+        renderBoard();
+        startGameClock();
+        document.addEventListener('keydown', chainKeyHandler);
+    }
+    function chainKeyHandler(e) {
+        if (activeGameId !== 'g26') return;
+        const key = e.key.toUpperCase();
+        if (key === 'ENTER') handleKey('ENTER');
+        else if (key === 'BACKSPACE') handleKey('DEL');
+        else if (/^[A-Z]$/.test(key)) handleKey(key);
+    }
+    function renderBoard(animatedIndex = -1) {
+        const board = document.getElementById('board-container');
+        if (!board) return;
+        board.innerHTML = '';
+        let displayStart = Math.max(0, currentIndex - 1);
+        let displayEnd = currentIndex;
+        if (currentIndex >= chainWords.length) {
+            displayStart = chainWords.length - 2;
+            displayEnd = chainWords.length - 1;
+        }
+        for (let i = displayStart; i <= displayEnd; i++) {
+            const word = chainWords[i];
+            if (i > displayStart) {
+                const link = document.createElement('div');
+                link.className = 'chain-link active';
+                link.innerHTML = arrowSVG;
+                board.appendChild(link);
+            }
+            const row = document.createElement('div');
+            row.className = 'word-row';
+            row.id = `row-${i}`;
+            if (i === currentIndex && !isGameOver) row.classList.add('active-row');
+            for (let j = 0; j < word.length; j++) {
+                const line = document.createElement('div');
+                line.className = 'letter-line';
+                if (i < currentIndex) {
+                    line.textContent = word[j];
+                    line.classList.add('revealed');
+                    if (i === animatedIndex) { line.style.animationDelay = `${j * 0.08}s`; line.classList.add('reveal-anim'); }
+                } else if (i === currentIndex && !isGameOver) {
+                    if (j === 0) {
+                        line.textContent = word[0];
+                        line.classList.add('first-letter');
+                    } else {
+                        const typedChar = currentGuess[j - 1];
+                        if (typedChar) {
+                            line.textContent = typedChar;
+                            if (j - 1 < hintLockedLength) line.classList.add('revealed');
+                            else {
+                                line.classList.add('typed');
+                                if (j === currentGuess.length) line.classList.add('pop');
+                            }
+                        } else line.classList.add('empty-line');
+                    }
+                } else line.classList.add('locked');
+                row.appendChild(line);
+            }
+            board.appendChild(row);
+        }
+    }
+    function handleKey(key) {
+        if (isGameOver || currentIndex >= chainWords.length) return;
+        const targetWord = chainWords[currentIndex];
+        if (key === 'ENTER') checkGuess();
+        else if (key === 'DEL') {
+            if (currentGuess.length > hintLockedLength) {
+                currentGuess = currentGuess.slice(0, -1);
+                renderBoard();
+            }
+        } else {
+            if (currentGuess.length < targetWord.length - 1) {
+                currentGuess += key;
+                renderBoard();
+                if (currentGuess.length === targetWord.length - 1) setTimeout(checkGuess, 200);
+            }
+        }
+    }
+    function checkGuess() {
+        if (isGameOver || currentIndex >= chainWords.length) return;
+        const targetWord = chainWords[currentIndex];
+        const fullGuess = targetWord[0] + currentGuess;
+        if (fullGuess.length < targetWord.length) return;
+        if (fullGuess === targetWord) {
+            const solvedIndex = currentIndex;
+            currentIndex++;
+            currentGuess = "";
+            hintLockedLength = 0;
+            renderBoard(solvedIndex);
+            if (currentIndex === chainWords.length) {
+                isGameOver = true;
+                clearInterval(gameClockInterval);
+                saveTimeToLeaderboard();
+                let m = Math.floor(elapsedSeconds / 60).toString().padStart(2, '0');
+                let s = (elapsedSeconds % 60).toString().padStart(2, '0');
+                document.getElementById('final-time-text').textContent = `Time: ${m}:${s}`;
+                setTimeout(() => { document.getElementById('win-screen').classList.add('show'); }, 800);
+            }
+        } else {
+            const currentRow = document.getElementById(`row-${currentIndex}`);
+            if (currentRow) {
+                currentRow.classList.remove('shake');
+                void currentRow.offsetWidth;
+                currentRow.classList.add('shake');
+            }
+        }
+    }
+    function useHint() {
+        if (!hintAvailable || isGameOver || currentIndex >= chainWords.length) return;
+        const targetWord = chainWords[currentIndex];
+        let correctLength = 0;
+        for (let i = 0; i < currentGuess.length; i++) {
+            if (currentGuess[i] === targetWord[i + 1]) correctLength++;
+            else break;
+        }
+        if (correctLength < targetWord.length - 1) {
+            currentGuess = targetWord.substring(1, correctLength + 2);
+            hintLockedLength = currentGuess.length;
+            renderBoard();
+            if (currentGuess.length === targetWord.length - 1) setTimeout(checkGuess, 200);
+            startHintCooldown();
+        }
+    }
+    function startHintCooldown() {
+        hintAvailable = false;
+        let timeLeft = 10;
+        const btn = document.getElementById('hint-btn');
+        const text = document.getElementById('hint-text');
+        btn.classList.add('disabled');
+        text.textContent = `${timeLeft}s`;
+        hintInterval = setInterval(() => {
+            timeLeft--;
+            if (timeLeft <= 0 || isGameOver) {
+                clearInterval(hintInterval);
+                hintAvailable = true;
+                btn.classList.remove('disabled');
+                text.textContent = "HINT";
+            } else text.textContent = `${timeLeft}s`;
+        }, 1000);
+    }
+    function startGameClock() {
+        gameClockInterval = setInterval(() => {
+            if (!isGameOver) {
+                elapsedSeconds++;
+                if (elapsedSeconds % 3 === 0) {
+                    scoreTracker.current = Math.max(0, scoreTracker.current - 1);
+                    updateScoreDisplay();
+                }
+            }
+        }, 1000);
+    }
+    function saveTimeToLeaderboard() {
+        let times = JSON.parse(localStorage.getItem('chainTimes')) || [];
+        let now = new Date();
+        times.push({
+            seconds: elapsedSeconds,
+            date: now.toLocaleDateString(),
+            timeOfDay: now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+            timestamp: now.getTime()
+        });
+        localStorage.setItem('chainTimes', JSON.stringify(times));
+    }
+    function showTop5() {
+        document.getElementById('win-screen').classList.remove('show');
+        let times = JSON.parse(localStorage.getItem('chainTimes')) || [];
+        times.sort((a, b) => a.seconds - b.seconds);
+        let top5 = times.slice(0, 5);
+        let listHtml = document.getElementById('top5-list');
+        listHtml.innerHTML = '';
+        if (top5.length === 0) {
+            listHtml.innerHTML = '<div style="text-align:center; color:#71717a; padding: 10px;">No times yet!</div>';
+        } else {
+            top5.forEach((t, index) => listHtml.innerHTML += generateScoreHTML(t, index, true));
+        }
+        document.getElementById('top5-screen').classList.add('show');
+    }
+    function closeTop5() {
+        document.getElementById('top5-screen').classList.remove('show');
+        document.getElementById('win-screen').classList.add('show');
+    }
+    function showAllScores() {
+        document.getElementById('top5-screen').classList.remove('show');
+        document.getElementById('score-sort').value = 'best';
+        renderAllScores();
+        document.getElementById('all-scores-screen').classList.add('show');
+    }
+    function closeAllScores() {
+        document.getElementById('all-scores-screen').classList.remove('show');
+        document.getElementById('top5-screen').classList.add('show');
+    }
+    function renderAllScores() {
+        let times = JSON.parse(localStorage.getItem('chainTimes')) || [];
+        let sortType = document.getElementById('score-sort').value;
+        times.forEach((t, i) => { if(!t.timestamp) t.timestamp = i; });
+        if (sortType === 'best') times.sort((a, b) => a.seconds - b.seconds);
+        else if (sortType === 'worst') times.sort((a, b) => b.seconds - a.seconds);
+        else if (sortType === 'newest') times.sort((a, b) => b.timestamp - a.timestamp);
+        else if (sortType === 'oldest') times.sort((a, b) => a.timestamp - a.timestamp);
+        let listHtml = document.getElementById('all-scores-list');
+        listHtml.innerHTML = '';
+        if (times.length === 0) {
+            listHtml.innerHTML = '<div style="text-align:center; color:#71717a; padding: 20px;">No times yet!</div>';
+        } else {
+            times.forEach((t, index) => {
+                let isRanked = (sortType === 'best' || sortType === 'worst');
+                listHtml.innerHTML += generateScoreHTML(t, index, isRanked);
+            });
+        }
+    }
+    function generateScoreHTML(t, index, isRanked) {
+        let m = Math.floor(t.seconds / 60).toString().padStart(2, '0');
+        let s = (t.seconds % 60).toString().padStart(2, '0');
+        let rankStr = isRanked ? `#${index + 1}` : '-';
+        return `
+            <div class="lb-row">
+                <span class="lb-rank">${rankStr}</span>
+                <span class="lb-time">${m}:${s}</span>
+                <span class="lb-date">${t.date}<br>${t.timeOfDay}</span>
+            </div>
+        `;
+    }
+    function returnToMenu() {
+        quitGame();
+    }
+    /* ====================== CORE FUNCTIONS ====================== */
     function openAbout() { document.getElementById('about-modal').classList.add('active'); }
     function closeAbout() { document.getElementById('about-modal').classList.remove('active'); }
     function toggleMode() {
@@ -2726,7 +2767,7 @@
     }
     function launchGame(id) {
         if(currentMode === 'daily' && dailyScores[todayKey][id] !== undefined) return;
-        resetPuzzleContainer();               // <--- THIS WAS MISSING BEFORE - fixes every single game
+        resetPuzzleContainer();
         activeGameId = id;
         const game = games.find(g => g.id === id);
         if(currentMode === 'daily') rngState = getDailySeed() + parseInt(id.replace('g',''));
@@ -2749,7 +2790,6 @@
         document.getElementById('instruction-screen').style.display = 'none';
         scoreTracker.active = true;
         const game = games.find(g => g.id === activeGameId);
-        if(activeGameId === 'g13') document.getElementById('puzzle-container').classList.add('wide-mode');
         game.setup();
     }
     function updateScoreDisplay() {
@@ -2812,6 +2852,7 @@
         if(gameVars.req) cancelAnimationFrame(gameVars.req);
         document.getElementById('game-modal').classList.remove('active');
         document.getElementById('game-modal').style.backgroundColor = 'var(--bg)';
+        document.removeEventListener('keydown', chainKeyHandler);
         if (currentMode === 'compete') {
             finalizeScore(0);
         } else if(currentMode === 'daily' && document.getElementById('instruction-screen').style.display === 'none') {
@@ -2896,19 +2937,7 @@
         body.innerHTML = trophyHTML + bestHTML + historyHTML + todayHTML + avgHTML;
     }
     function closeStats() { document.getElementById('stats-modal').classList.remove('active'); }
-    function dismissWelcome() {
-        const modal = document.getElementById('welcome-modal');
-        modal.style.display = 'none';
-        localStorage.setItem('mindflex_v13_welcome_seen', 'true');
-    }
-    function viewWhatsNew() { dismissWelcome(); openAbout(); }
-
-    // FINAL INIT
     renderMenu();
-    if (!localStorage.getItem('mindflex_v13_welcome_seen')) {
-        const welcomeEl = document.getElementById('welcome-modal');
-        if (welcomeEl) welcomeEl.style.display = 'flex';
-    }
 </script>
 </body>
 </html>
