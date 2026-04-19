@@ -112,7 +112,7 @@
         #puzzle-container #hint-btn:active { transform: scale(0.95); background: #27272a; }
         #puzzle-container #hint-btn.disabled { opacity: 0.6; cursor: not-allowed; pointer-events: none; }
         #puzzle-container #hint-btn.disabled svg { fill: #71717a; filter: none; }
-        #puzzle-container #board-container { flex: 1;display: flex;flex-direction: column;align-items: center;justify-content: center;padding: 20px 10px;gap: 12px; }
+        #puzzle-container #board-container { flex: 1;display: flex;flex-direction:column;align-items: center;justify-content: center;padding: 20px 10px;gap: 12px; }
         #puzzle-container .chain-link { display: flex; justify-content: center; align-items: center; height: 20px; }
         #puzzle-container .chain-link svg { width: 18px; height: 18px; stroke: #3f3f46; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; fill: none; transition: all 0.4s; }
         #puzzle-container .chain-link.active svg { stroke: #8b5cf6; transform: scale(1.2) translateY(2px); filter: drop-shadow(0 4px 6px rgba(139,92,246,0.5)); }
@@ -279,10 +279,17 @@
                 <h3>Update Log</h3>
                 <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;">
                     <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.7</span>
+                        <span style="font-size: 13px; color: var(--text-dim);">Apr 19 2026</span>
+                    </div>
+                    <span style="font-size: 14px; color: var(--text);">Snake Logic now supports smooth drag-to-draw path (tap still works perfectly)! Fixed score timer bug when switching games. Play smoother than ever!</span>
+                </div>
+                <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
                         <span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.6</span>
                         <span style="font-size: 13px; color: var(--text-dim);">Apr 18 2026</span>
                     </div>
-                    <span style="font-size: 14px; color: var(--text);">Added Chain Reaction! Fixed tournament times to 7AM, 2PM, 5PM, 8PM instead of 3PM, 6PM, 9PM</span>
+                    <span style="font-size: 14px; color: var(--text);">Added Chain Reaction!</span>
                 </div>
                 <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;">
                     <div style="display: flex; align-items: center; gap: 10px;">
@@ -1025,34 +1032,35 @@
         milestones.forEach((m, i) => { grid[m[0]*8 + m[1]] = i+1; });
         gameVars.currStep = 0; gameVars.pathIndex = 0; gameVars.userPath = [path[0]];
         let cells = [];
+        function selectCell(cell, i) {
+            let r = Math.floor(i / 8), c = i % 8;
+            let lastP = gameVars.userPath[gameVars.userPath.length-1];
+            let isAdj = Math.abs(lastP[0]-r) + Math.abs(lastP[1]-c) === 1;
+            if (gameVars.userPath.length > 1) {
+                let prevP = gameVars.userPath[gameVars.userPath.length-2];
+                if (prevP[0] === r && prevP[1] === c) {
+                    let popped = gameVars.userPath.pop();
+                    cells[popped[0]*8 + popped[1]].classList.remove('lit');
+                    gameVars.pathIndex--; return;
+                }
+            }
+            if (!isAdj || grid[i] === 'X' || cell.classList.contains('lit')) { handleMistake(2); return; }
+            gameVars.pathIndex++;
+            if (grid[i] && grid[i] > 0) {
+                let expectedNum = Math.floor((gameVars.pathIndex / (path.length-1)) * 7) + 1;
+                if(grid[i] > expectedNum + 1) { handleMistake(2); return; }
+            }
+            cell.classList.add('lit');
+            gameVars.userPath.push([r,c]);
+            if (gameVars.userPath.length === path.length) winGame();
+        }
         grid.forEach((val, i) => {
             let cell = document.createElement('div');
             cell.className = 'cell'; cell.style.aspectRatio = '1'; cell.style.fontSize = '14px';
             if (val === 'X') { cell.style.backgroundColor = '#111827'; }
             else if (val) { cell.innerText = val; }
             if (i === path[0][0]*8 + path[0][1]) cell.classList.add('lit');
-            cell.onclick = () => {
-                let r = Math.floor(i / 8), c = i % 8;
-                let lastP = gameVars.userPath[gameVars.userPath.length-1];
-                let isAdj = Math.abs(lastP[0]-r) + Math.abs(lastP[1]-c) === 1;
-                if (gameVars.userPath.length > 1) {
-                    let prevP = gameVars.userPath[gameVars.userPath.length-2];
-                    if (prevP[0] === r && prevP[1] === c) {
-                        let popped = gameVars.userPath.pop();
-                        cells[popped[0]*8 + popped[1]].classList.remove('lit');
-                        gameVars.pathIndex--; return;
-                    }
-                }
-                if (!isAdj || val === 'X' || cell.classList.contains('lit')) { handleMistake(2); return; }
-                gameVars.pathIndex++;
-                if (val > 0) {
-                    let expectedNum = Math.floor((gameVars.pathIndex / (path.length-1)) * 7) + 1;
-                    if(val > expectedNum + 1) { handleMistake(2); return; }
-                }
-                cell.classList.add('lit');
-                gameVars.userPath.push([r,c]);
-                if (gameVars.userPath.length === path.length) winGame();
-            };
+            cell.onclick = () => selectCell(cell, i);
             cells.push(cell); board.appendChild(cell);
         });
         container.appendChild(board);
@@ -1064,6 +1072,27 @@
             cells.forEach((c, i) => { if(i !== path[0][0]*8 + path[0][1]) c.classList.remove('lit'); });
         };
         container.appendChild(resetBtn);
+
+        // Drag support for Snake Logic - drag to extend path continuously (tap still works perfectly!)
+        let isDragging = false;
+        board.addEventListener('pointerdown', (e) => {
+            if (e.target.classList.contains('cell')) {
+                isDragging = true;
+            }
+        });
+        board.addEventListener('pointermove', (e) => {
+            if (!isDragging) return;
+            const targetCell = document.elementFromPoint(e.clientX, e.clientY);
+            if (targetCell && targetCell.classList.contains('cell')) {
+                const idx = cells.indexOf(targetCell);
+                if (idx !== -1 && !targetCell.classList.contains('lit')) {
+                    selectCell(targetCell, idx);
+                }
+            }
+        });
+        board.addEventListener('pointerup', () => { isDragging = false; });
+        board.addEventListener('pointerleave', () => { isDragging = false; });
+
         startLiveTimer(2000, 1);
     }
     /* ====================== VALVES ====================== */
@@ -2614,7 +2643,7 @@
         let now = new Date();
         let y = now.getFullYear(), m = now.getMonth(), d = now.getDate();
         let currentTotalMins = now.getHours() * 60 + now.getMinutes();
-        let schedule = [7*60, 14*60, 17*60, 20*60];
+        let schedule = [15*60, 18*60, 21*60];
         let isLive = false;
         let activeSlotId = null;
         let activeDate = null;
@@ -2670,7 +2699,7 @@
             <div class="compete-card" style="padding: 15px;">
                 <h3 style="margin-bottom:10px; font-size:14px; color:var(--text-dim); text-transform:uppercase;">Daily Schedule</h3>
                 <div style="display:flex; justify-content:space-between; font-weight:bold; color:var(--text);">
-                    <span>7:00 AM</span> <span>2:00 PM</span> <span>5:00 PM</span> <span>8:00 PM</span>
+                    <span>3:00 PM</span> <span>6:00 PM</span> <span>9:00 PM</span>
                 </div>
             </div>
         `;
@@ -2766,6 +2795,16 @@
         });
     }
     function launchGame(id) {
+        // Fixed score timer bug when switching games quickly
+        if (scoreTracker.timer) {
+            clearInterval(scoreTracker.timer);
+            scoreTracker.timer = null;
+        }
+        scoreTracker.active = false;
+        if (gameVars.req) {
+            cancelAnimationFrame(gameVars.req);
+            gameVars.req = null;
+        }
         if(currentMode === 'daily' && dailyScores[todayKey][id] !== undefined) return;
         resetPuzzleContainer();
         activeGameId = id;
