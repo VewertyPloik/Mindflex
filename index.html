@@ -2614,7 +2614,7 @@
         let now = new Date();
         let y = now.getFullYear(), m = now.getMonth(), d = now.getDate();
         let currentTotalMins = now.getHours() * 60 + now.getMinutes();
-        let schedule = [15*60, 18*60, 21*60];
+        let schedule = [12*60, 18*60, 24*60];
         let isLive = false;
         let activeSlotId = null;
         let activeDate = null;
@@ -2670,7 +2670,7 @@
             <div class="compete-card" style="padding: 15px;">
                 <h3 style="margin-bottom:10px; font-size:14px; color:var(--text-dim); text-transform:uppercase;">Daily Schedule</h3>
                 <div style="display:flex; justify-content:space-between; font-weight:bold; color:var(--text);">
-                    <span>3:00 PM</span> <span>6:00 PM</span> <span>9:00 PM</span>
+                    <span>12:00 PM</span> <span>6:00 PM</span> <span>12:00 AM</span>
                 </div>
             </div>
         `;
