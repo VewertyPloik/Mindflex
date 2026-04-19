@@ -226,6 +226,13 @@
         .key { background: #27272a; color: #fff; border: none; border-radius: 8px; height: 52px; flex: 1; font-size: 22px; font-weight: 700; box-shadow: 0 4px 0 #18181b; }
         .key.wide { flex: 1.8; font-size: 18px; }
         .action-btn { background: var(--surface-hi); color: var(--text); border: none; padding: 10px 20px; border-radius: 9999px; display: flex; align-items: center; gap: 8px; font-weight: bold; }
+        /* CUBES GAME STYLES */
+        .cubes-target { display: flex; gap: 30px; justify-content: center; margin: 20px 0 30px; }
+        .cubes-target-col { display: flex; flex-direction: column-reverse; align-items: center; gap: 6px; min-height: 140px; }
+        .cube-target-block { width: 58px; height: 32px; border-radius: 6px; box-shadow: 3px 3px 0 #111827, -1px -1px 0 #111827; }
+        .cubes-col { display: flex; flex-direction: column-reverse; gap: 6px; width: 72px; height: 240px; background: linear-gradient(#1e293b, #334155); border-radius: 16px; padding: 12px 8px 12px; border: 4px solid #475569; box-shadow: 0 10px 20px rgba(0,0,0,0.4); cursor: pointer; transition: all 0.2s; }
+        .cubes-col.selected { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(59,130,246,0.3); transform: scale(1.05); }
+        .cube-block { width: 58px; height: 32px; border-radius: 6px; box-shadow: 3px 3px 0 #111827, -1px -1px 0 #111827; transition: transform 0.25s cubic-bezier(0.68, -0.55, 0.27, 1.55); }
     </style>
 </head>
 <body>
@@ -277,6 +284,13 @@
             </div>
             <div class="stat-card">
                 <h3>Update Log</h3>
+                <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.8</span>
+                        <span style="font-size: 13px; color: var(--text-dim);">Apr 19 2026</span>
+                    </div>
+                    <span style="font-size: 14px; color: var(--text);">Bug fixes</span>
+                </div>
                 <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;">
                     <div style="display: flex; align-items: center; gap: 10px;">
                         <span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.7</span>
@@ -408,7 +422,7 @@
         { id: 'g11', name: 'Shape Count', icon: svgs.count, desc: 'Quickly count the requested shape and tap the correct number.', setup: startShapeCount },
         { id: 'g12', name: 'Lock Pick', icon: svgs.lock, desc: 'Tap exactly when the white line enters the green zone. (x3)', setup: startLockPick },
         { id: 'g13', name: 'Snake Logic', icon: svgs.snake, desc: 'Trace a continuous path from 1 to 8, filling every empty dark square. Do not cross X boxes.', setup: startSnake },
-        { id: 'g14', name: 'Valves', icon: svgs.valve, desc: 'Tap pipes to spin them. Connect the water flow from the top left to the green exit at the bottom right.', setup: startValves },
+        { id: 'g14', name: 'Valves', icon: svgs.valve, desc: 'Tap pipes to spin them. Connect the water flow from the top left to the green exit at the bottom right. (Bottom right must be facing out to the right, top left must be facing out to the left)', setup: startValves },
         { id: 'g16', name: 'Cubes', icon: svgs.cubes, desc: 'Move 1 top cube at a time to match the target arrangement shown above. Max 3 per stack.', setup: startCubes },
         { id: 'g17', name: 'Wash Away', icon: svgs.wash, desc: 'Tap the green squares in the 5x5 grid to clean them and make them shiny white!', setup: startWashAway },
         { id: 'g18', name: 'Wires', icon: svgs.wires, desc: 'Drag to connect the matching colored wires from left to right.', setup: startWires },
@@ -1044,11 +1058,11 @@
                     gameVars.pathIndex--; return;
                 }
             }
-            if (!isAdj || grid[i] === 'X' || cell.classList.contains('lit')) { handleMistake(2); return; }
+            if (!isAdj || grid[i] === 'X' || cell.classList.contains('lit')) { return; }
             gameVars.pathIndex++;
             if (grid[i] && grid[i] > 0) {
                 let expectedNum = Math.floor((gameVars.pathIndex / (path.length-1)) * 7) + 1;
-                if(grid[i] > expectedNum + 1) { handleMistake(2); return; }
+                if(grid[i] > expectedNum + 1) { return; }
             }
             cell.classList.add('lit');
             gameVars.userPath.push([r,c]);
@@ -1072,7 +1086,6 @@
             cells.forEach((c, i) => { if(i !== path[0][0]*8 + path[0][1]) c.classList.remove('lit'); });
         };
         container.appendChild(resetBtn);
-
         // Drag support for Snake Logic - drag to extend path continuously (tap still works perfectly!)
         let isDragging = false;
         board.addEventListener('pointerdown', (e) => {
@@ -1092,14 +1105,13 @@
         });
         board.addEventListener('pointerup', () => { isDragging = false; });
         board.addEventListener('pointerleave', () => { isDragging = false; });
-
         startLiveTimer(2000, 1);
     }
     /* ====================== VALVES ====================== */
     function startValves() {
         const container = document.getElementById('puzzle-container');
         const board = document.createElement('div');
-        const S = 6; const TOT = S * S;
+        const S = 3; const TOT = S * S;
         board.className = 'grid-board'; board.style.gridTemplateColumns = `repeat(${S}, 1fr)`; board.style.gap = '2px';
         const P_STR = [1,0,1,0]; const P_COR = [1,1,0,0];
         let grid = Array(TOT).fill(null);
@@ -1135,8 +1147,8 @@
             cellData[i].rot = Math.floor(random()*4);
         }
         let cells = [];
-        const svgStr = `<svg class="pipe-svg" viewBox="0 0 100 100"><rect x="40" y="0" width="20" height="100" fill="#8B4513"/></svg>`;
-        const svgCor = `<svg class="pipe-svg" viewBox="0 0 100 100"><path d="M 50 0 L 50 50 L 100 50" fill="none" stroke="#8B4513" stroke-width="20" stroke-linecap="square"/></svg>`;
+        const svgStr = `<svg class="pipe-svg" width="100%" height="100%" viewBox="0 0 100 100"><rect x="40" y="0" width="20" height="100" fill="#8B4513"/></svg>`;
+        const svgCor = `<svg class="pipe-svg" width="100%" height="100%" viewBox="0 0 100 100"><path d="M 50 0 L 50 50 L 100 50" fill="none" stroke="#8B4513" stroke-width="20" stroke-linecap="square"/></svg>`;
         function getPorts(data) {
             let p = [...data.type];
             for(let i=0; i<data.rot; i++) p.unshift(p.pop());
@@ -1188,20 +1200,20 @@
         let targetState = [[], [], []];
         for(let i=0; i<7; i++) {
             let col;
-            do { col = Math.floor(random()*3); } while(targetState[col].length >= 3);
+            do { col = Math.floor(random()*3); } while(targetState[col].length >= 5);
             targetState[col].push(pool[i]);
         }
         let currentState = JSON.parse(JSON.stringify(targetState));
         for(let i=0; i<35; i++) {
             let from = Math.floor(random()*3);
             let to = Math.floor(random()*3);
-            if(currentState[from].length > 0 && currentState[to].length < 3 && from !== to) {
+            if(currentState[from].length > 0 && currentState[to].length < 5 && from !== to) {
                 currentState[to].push(currentState[from].pop());
             }
         }
         while(JSON.stringify(currentState) === JSON.stringify(targetState)) {
             let from = Math.floor(random()*3); let to = Math.floor(random()*3);
-            if(currentState[from].length > 0 && currentState[to].length < 3 && from !== to) {
+            if(currentState[from].length > 0 && currentState[to].length < 5 && from !== to) {
                 currentState[to].push(currentState[from].pop());
             }
         }
@@ -1244,7 +1256,7 @@
                     } else if (gameVars.selectedCol === colIndex) {
                         gameVars.selectedCol = null; renderPlayArea();
                     } else {
-                        if(colArr.length < 3) {
+                        if(colArr.length < 5) {
                             let blockToMove = currentState[gameVars.selectedCol].pop();
                             currentState[colIndex].push(blockToMove);
                             gameVars.selectedCol = null;
@@ -2482,6 +2494,7 @@
                 isGameOver = true;
                 clearInterval(gameClockInterval);
                 saveTimeToLeaderboard();
+                finalizeScore(Math.floor(scoreTracker.current));
                 let m = Math.floor(elapsedSeconds / 60).toString().padStart(2, '0');
                 let s = (elapsedSeconds % 60).toString().padStart(2, '0');
                 document.getElementById('final-time-text').textContent = `Time: ${m}:${s}`;
@@ -2795,7 +2808,6 @@
         });
     }
     function launchGame(id) {
-        // Fixed score timer bug when switching games quickly
         if (scoreTracker.timer) {
             clearInterval(scoreTracker.timer);
             scoreTracker.timer = null;
