@@ -233,6 +233,176 @@
         .cubes-col { display: flex; flex-direction: column-reverse; gap: 6px; width: 72px; height: 240px; background: linear-gradient(#1e293b, #334155); border-radius: 16px; padding: 12px 8px 12px; border: 4px solid #475569; box-shadow: 0 10px 20px rgba(0,0,0,0.4); cursor: pointer; transition: all 0.2s; }
         .cubes-col.selected { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(59,130,246,0.3); transform: scale(1.05); }
         .cube-block { width: 58px; height: 32px; border-radius: 6px; box-shadow: 3px 3px 0 #111827, -1px -1px 0 #111827; transition: transform 0.25s cubic-bezier(0.68, -0.55, 0.27, 1.55); }
+        /* GROUPS GAME EXACT STYLES - COPIED VERBATIM */
+        :root {
+            --bg-dark: #121213;
+            --card-bg: #2b2b2c;
+            --card-hover: #3a3a3c;
+            --text-main: #ffffff;
+            --text-dark: #121213;
+            --selected: #565758;
+            --easy: #f9df6d;
+            --medium: #a0c35a;
+            --hard: #b0c4ef;
+            --extra: #ba81c5;
+        }
+        #groups-toast {
+            position: absolute;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--text-main);
+            color: var(--bg-dark);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            z-index: 50;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+        #groups-toast.show {
+            opacity: 1;
+        }
+        #groups-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            width: 100%;
+        }
+        .groups-card {
+            background: var(--card-bg);
+            color: var(--text-main);
+            aspect-ratio: 1 / 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+            border-radius: 8px;
+            cursor: pointer;
+            user-select: none;
+            transition: transform 0.1s, background 0.2s, color 0.2s, box-shadow 0.2s;
+            padding: 4px;
+            word-wrap: break-word;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+        .groups-card:active {
+            transform: scale(0.92);
+        }
+        .groups-card.selected {
+            background: var(--selected);
+            transform: scale(0.95);
+            box-shadow: inset 0 0 0 2px var(--text-main), 0 0 15px rgba(255,255,255,0.2);
+        }
+        .groups-card.wrong {
+            animation: groups-shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+        }
+        .groups-solved-bar {
+            grid-column: 1 / -1;
+            aspect-ratio: auto;
+            height: 75px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            color: var(--text-dark);
+            animation: groups-popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        .groups-solved-title {
+            font-weight: 900;
+            font-size: 16px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        .groups-solved-items {
+            font-weight: 500;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+        .groups-solved-bar.easy { background: var(--easy); }
+        .groups-solved-bar.medium { background: var(--medium); }
+        .groups-solved-bar.hard { background: var(--hard); }
+        .groups-solved-bar.extra { background: var(--extra); }
+        .groups-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 20px 15px;
+        }
+        .groups-btn {
+            background: transparent;
+            border: 1px solid var(--selected);
+            color: var(--text-main);
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .groups-btn:active {
+            background: var(--selected);
+        }
+        .groups-btn.active-submit {
+            background: var(--text-main);
+            color: var(--bg-dark);
+            border-color: var(--text-main);
+            box-shadow: 0 0 15px rgba(255,255,255,0.4);
+        }
+        @keyframes groups-shake {
+            10%, 90% { transform: translate3d(-2px, 0, 0); }
+            20%, 80% { transform: translate3d(4px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
+            40%, 60% { transform: translate3d(6px, 0, 0); }
+        }
+        @keyframes groups-popIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        #groups-message-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(18, 18, 19, 0.95);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s;
+        }
+        #groups-message-overlay.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+        #groups-message-text {
+            font-size: 42px;
+            font-weight: 900;
+            color: var(--text-main);
+            transform: scale(0.8);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        #groups-message-overlay.show #groups-message-text {
+            transform: scale(1);
+        }
+        /* v1.9 button outlines for Groups (exactly like selected cards) */
+        #deselect-btn:active,
+        #submit-btn:active {
+            box-shadow: inset 0 0 0 2px var(--text-main), 0 0 15px rgba(255,255,255,0.2) !important;
+            transform: scale(0.95) !important;
+        }
+        /* v1.9 fixed font size for Groups cards (never changes, even on correct answers) */
+        .groups-card {
+            font-size: 13px !important;
+        }
     </style>
 </head>
 <body>
@@ -284,6 +454,13 @@
             </div>
             <div class="stat-card">
                 <h3>Update Log</h3>
+                <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.9</span>
+                        <span style="font-size: 13px; color: var(--text-dim);">Apr 22 2026</span>
+                    </div>
+                    <span style="font-size: 14px; color: var(--text);">Added Groups!</span>
+                </div>
                 <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;">
                     <div style="display: flex; align-items: center; gap: 10px;">
                         <span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.8</span>
@@ -402,7 +579,8 @@
         slice: `<svg viewBox="0 0 100 100" width="100%" height="100%"><circle cx="50" cy="50" r="45" fill="#fdcb6e" stroke="#2d3436" stroke-width="6"/><path d="M 25 30 L 75 30 L 75 48 L 25 58 Z" fill="#ff7675" stroke="#2d3436" stroke-width="6" stroke-linejoin="round"/><path d="M 25 68 L 75 58 L 75 80 L 25 80 Z" fill="#d63031" stroke="#2d3436" stroke-width="6" stroke-linejoin="round"/><path d="M 10 65 Q 50 45 90 45" fill="none" stroke="#2d3436" stroke-width="14" stroke-linecap="round"/><path d="M 10 65 Q 50 45 90 45" fill="none" stroke="#ffffff" stroke-width="6" stroke-linecap="round"/></svg>`,
         shrinkage: `<svg viewBox="0 0 100 100" width="100%" height="100%"><rect x="10" y="10" width="80" height="80" rx="12" fill="#1e293b" stroke="#38bdf8" stroke-width="8"/><circle cx="50" cy="50" r="28" fill="rgba(16,185,129,0.1)" stroke="#10b981" stroke-width="6"/><text x="50" y="62" font-size="38" font-weight="800" fill="#f8fafc" text-anchor="middle" font-family="-apple-system,sans-serif">S</text></svg>`,
         miniCrossword: `<svg viewBox="0 0 100 100" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" rx="8" fill="#111827"/><rect x="5" y="5" width="42" height="42" rx="2" fill="#f8fafc"/><rect x="52" y="5" width="42" height="42" rx="2" fill="#f8fafc"/><rect x="5" y="52" width="42" height="42" rx="2" fill="#f8fafc"/><rect x="52" y="52" width="42" height="42" rx="2" fill="#3b82f6"/><line x1="26" y1="5" x2="26" y2="47" stroke="#e5e7eb" stroke-width="1"/><line x1="5" y1="26" x2="47" y2="26" stroke="#e5e7eb" stroke-width="1"/></svg>`,
-        chainReaction: `<svg viewBox="0 0 100 100" width="100%" height="100%"><text x="50" y="42" font-size="19" font-weight="900" fill="#8b5cf6" text-anchor="middle" font-family="-apple-system, sans-serif" letter-spacing="2">CHAIN</text><text x="50" y="68" font-size="19" font-weight="900" fill="#c026d3" text-anchor="middle" font-family="-apple-system, sans-serif" letter-spacing="3">R———</text></svg>`
+        chainReaction: `<svg viewBox="0 0 100 100" width="100%" height="100%"><text x="50" y="42" font-size="19" font-weight="900" fill="#8b5cf6" text-anchor="middle" font-family="-apple-system, sans-serif" letter-spacing="2">CHAIN</text><text x="50" y="68" font-size="19" font-weight="900" fill="#c026d3" text-anchor="middle" font-family="-apple-system, sans-serif" letter-spacing="3">R———</text></svg>`,
+        groups: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#3a3a3c"/><stop offset="100%" stop-color="#121213"/></linearGradient><filter id="glow"><feGaussianBlur stdDeviation="3" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><rect x="2" y="2" width="96" height="96" rx="20" fill="url(#bgGrad)" stroke="#565758" stroke-width="2"/><rect x="15" y="15" width="30" height="30" rx="6" fill="#f9df6d" filter="url(#glow)"/><rect x="55" y="15" width="30" height="30" rx="6" fill="#f9df6d" filter="url(#glow)"/><rect x="15" y="55" width="30" height="30" rx="6" fill="#f9df6d" filter="url(#glow)"/><rect x="55" y="55" width="30" height="30" rx="6" fill="#f9df6d" filter="url(#glow)"/><path d="M 45 30 L 55 30 M 30 45 L 30 55 M 70 45 L 70 55 M 45 70 L 55 70" stroke="#f9df6d" stroke-width="4" stroke-linecap="round" filter="url(#glow)"/></svg>`
     };
     const wordList = ["BRAIN", "LOGIC", "SMART", "FOCUS", "SWIFT", "THINK", "SOLVE", "SPEED", "TRAIN", "POWER", "QUICK", "REACT", "PROVE", "NINJA", "CROWN", "EAGLE", "FLAME", "GIANT", "HEART", "INDEX", "JUMBO", "KNACK", "LASER", "MAGIC", "NOBLE", "OCEAN", "PILOT", "QUEST", "RIDER", "SUPER", "TIGER", "UNITY", "VALOR", "WATCH", "XENON", "YOUTH", "ZEBRA", "CHAMP", "FLASH", "GHOST"];
     const unscrambleList = ["PUZZLE", "GENIUS", "MEMORY", "SYSTEM", "WONDER", "EXPERT", "NEURON", "WIZARD", "MATRIX", "CIPHER", "ENIGMA", "CODING", "GAMING", "MASTER", "ACTION", "BREEZE", "COSMOS", "DRAGON", "ENERGY", "FALCON", "GALAXY", "HEROIC", "IMPACT", "JUNGLE", "KNIGHT", "LEGEND", "METEOR", "NECTAR", "ORACLE", "PLANET", "QUARTZ", "ROCKET", "SPHERE", "TEMPLE", "UTOPIA", "VORTEX", "WEAPON", "ZYGOTE"];
@@ -433,7 +611,8 @@
         { id: 'g23', name: 'Slice', icon: svgs.slice, desc: 'Swipe to slice the square exactly at the target percentage!', setup: startSlice },
         { id: 'g24', name: 'Shrinkage', icon: svgs.shrinkage, desc: 'Shrink a 6-letter word down to 3 letters by dropping one letter each time. Every row must be a real word!', setup: startShrinkage },
         { id: 'g25', name: 'Mini Crossword', icon: svgs.miniCrossword, desc: 'Fill the 4x4 grid using across and down clues!', setup: startMiniCrossword },
-        { id: 'g26', name: 'Chain Reaction', icon: svgs.chainReaction, desc: 'Guess the next word that logically continues the chain. (eg. Rain -> Bow, Bow -> Tie)', setup: startChainReaction }
+        { id: 'g26', name: 'Chain Reaction', icon: svgs.chainReaction, desc: 'Guess the next word that logically continues the chain. (eg. Rain -> Bow, Bow -> Tie)', setup: startChainReaction },
+        { id: 'g27', name: 'Groups', icon: svgs.groups, desc: 'Group the 16 words into 4 categories of 4 related words!', setup: startGroups }
     ];
     let highScores = JSON.parse(localStorage.getItem('mindflex_inf_pro_scores') || '{}');
     let dailyScores = JSON.parse(localStorage.getItem('mindflex_daily_scores') || '{}');
@@ -2625,6 +2804,320 @@
     }
     function returnToMenu() {
         quitGame();
+        renderMenu(); /* FIXED: now refreshes menu so infinite high score appears immediately */
+    }
+    /* ====================== GROUPS ====================== */
+    function startGroups() {
+        resetPuzzleContainer();
+        const container = document.getElementById('puzzle-container');
+        container.innerHTML = `
+<div id="groups-toast"></div>
+<div id="play-area">
+    <div id="grid"></div>
+</div>
+<div class="controls">
+    <button class="btn" id="deselect-btn">Deselect</button>
+    <button class="btn" id="submit-btn">Submit</button>
+</div>
+<div id="groups-message-overlay">
+    <div id="groups-message-text">Good job!</div>
+</div>`;
+        // GROUPS GAME LOGIC (exact copy, only added MindFlex timer + winGame integration)
+        const allGames = [
+            [
+                { level: "easy", name: "FRUITS", items: ["APPLE", "BANANA", "ORANGE", "GRAPE"] },
+                { level: "medium", name: "CARD SUITS", items: ["HEART", "SPADE", "CLUB", "DIAMOND"] },
+                { level: "hard", name: "WALL STREET TERMS", items: ["BEAR", "BULL", "MARKET", "STOCK"] },
+                { level: "extra", name: "___ BOARD", items: ["DART", "KEY", "MOTHER", "SURF"] }
+            ],
+            [
+                { level: "easy", name: "SEASONS", items: ["SPRING", "SUMMER", "FALL", "WINTER"] },
+                { level: "medium", name: "COMPASS DIRECTIONS", items: ["NORTH", "SOUTH", "EAST", "WEST"] },
+                { level: "hard", name: "STATES OF MATTER", items: ["SOLID", "LIQUID", "GAS", "PLASMA"] },
+                { level: "extra", name: "THINGS WITH RINGS", items: ["SATURN", "TREE", "PHONE", "BATHTUB"] }
+            ],
+            [
+                { level: "easy", name: "PETS", items: ["DOG", "CAT", "FISH", "BIRD"] },
+                { level: "medium", name: "PARTS OF THE FACE", items: ["EYE", "EAR", "NOSE", "MOUTH"] },
+                { level: "hard", name: "CONSTELLATIONS", items: ["ORION", "URSA", "CYGNUS", "LYRA"] },
+                { level: "extra", name: "SYNONYMS FOR FAKE", items: ["SHAM", "BOGUS", "PHONY", "FORGED"] }
+            ],
+            [
+                { level: "easy", name: "TRANSPORTATION", items: ["CAR", "BUS", "TRAIN", "PLANE"] },
+                { level: "medium", name: "GAME WORDS", items: ["ROCK", "PAPER", "SCISSORS", "SHOOT"] },
+                { level: "hard", name: "VOCAL RANGES", items: ["SOPRANO", "ALTO", "TENOR", "BASS"] },
+                { level: "extra", name: "___ BELL", items: ["TACO", "LIBERTY", "COW", "DOOR"] }
+            ],
+            [
+                { level: "easy", name: "PRIMARY & SECONDARY COLORS", items: ["RED", "BLUE", "YELLOW", "GREEN"] },
+                { level: "medium", name: "INNER PLANETS", items: ["MERCURY", "VENUS", "EARTH", "MARS"] },
+                { level: "hard", name: "US COINS", items: ["PENNY", "NICKEL", "DIME", "QUARTER"] },
+                { level: "extra", name: "WORDS WITH SILENT 'K'", items: ["KNIGHT", "KNIFE", "KNEE", "KNOT"] }
+            ],
+            [
+                { level: "easy", name: "FARM ANIMALS", items: ["COW", "PIG", "SHEEP", "HORSE"] },
+                { level: "medium", name: "CHESS PIECES", items: ["PAWN", "ROOK", "KNIGHT", "BISHOP"] },
+                { level: "hard", name: "ZODIAC SIGNS", items: ["ARIES", "TAURUS", "GEMINI", "CANCER"] },
+                { level: "extra", name: "PALINDROMES", items: ["RACECAR", "LEVEL", "KAYAK", "RADAR"] }
+            ],
+            [
+                { level: "easy", name: "SHAPES", items: ["CIRCLE", "SQUARE", "TRIANGLE", "OVAL"] },
+                { level: "medium", name: "CONTINENTS", items: ["AFRICA", "ASIA", "EUROPE", "ANTARCTICA"] },
+                { level: "hard", name: "PROGRAMMING LANGUAGES", items: ["PYTHON", "JAVA", "RUBY", "C++"] },
+                { level: "extra", name: "SYNONYMS FOR FAST", items: ["QUICK", "RAPID", "SWIFT", "FLEET"] }
+            ],
+            [
+                { level: "easy", name: "CLOTHING", items: ["SHIRT", "PANTS", "SOCKS", "HAT"] },
+                { level: "medium", name: "FOOTWEAR", items: ["SHOES", "BOOTS", "SANDALS", "SLIPPERS"] },
+                { level: "hard", name: "PRECIOUS STONES", items: ["RUBY", "EMERALD", "SAPPHIRE", "DIAMOND"] },
+                { level: "extra", name: "TYPES OF CLOUDS", items: ["CUMULUS", "CIRRUS", "STRATUS", "NIMBUS"] }
+            ],
+            [
+                { level: "easy", name: "BREAKFAST", items: ["EGGS", "BACON", "TOAST", "PANCAKES"] },
+                { level: "medium", name: "EUROPEAN CAPITALS", items: ["PARIS", "LONDON", "ROME", "BERLIN"] },
+                { level: "hard", name: "OLYMPIC SPORTS", items: ["GYMNASTICS", "SWIMMING", "TRACK", "DIVING"] },
+                { level: "extra", name: "TYPES OF BRIDGES", items: ["SUSPENSION", "ARCH", "BEAM", "TRUSS"] }
+            ],
+            [
+                { level: "easy", name: "UTENSILS", items: ["FORK", "KNIFE", "SPOON", "SPATULA"] },
+                { level: "medium", name: "MAMMALS", items: ["WHALE", "ELEPHANT", "BEAR", "LION"] },
+                { level: "hard", name: "GREEK GODS", items: ["ZEUS", "APOLLO", "HERMES", "ARES"] },
+                { level: "extra", name: "TYPES OF WOOD", items: ["OAK", "MAPLE", "PINE", "MAHOGANY"] }
+            ],
+            [
+                { level: "easy", name: "SCHOOL SUBJECTS", items: ["MATH", "SCIENCE", "HISTORY", "ART"] },
+                { level: "medium", name: "INSECTS", items: ["ANT", "BEE", "BEETLE", "BUTTERFLY"] },
+                { level: "hard", name: "HUMAN BONES", items: ["FEMUR", "TIBIA", "SKULL", "PELVIS"] },
+                { level: "extra", name: "SYNONYMS FOR HAPPY", items: ["JOYFUL", "ELATED", "GLAD", "CHEERFUL"] }
+            ],
+            [
+                { level: "easy", name: "FINGERS", items: ["THUMB", "INDEX", "MIDDLE", "PINKY"] },
+                { level: "medium", name: "KITCHEN APPLIANCES", items: ["OVEN", "MICROWAVE", "TOASTER", "BLENDER"] },
+                { level: "hard", name: "ASIAN COUNTRIES", items: ["CHINA", "JAPAN", "INDIA", "THAILAND"] },
+                { level: "extra", name: "___ TIME", items: ["PART", "OVER", "PRIME", "BED"] }
+            ],
+            [
+                { level: "easy", name: "CONDIMENTS", items: ["KETCHUP", "MUSTARD", "MAYO", "RELISH"] },
+                { level: "medium", name: "FLOWERS", items: ["ROSE", "TULIP", "DAISY", "LILY"] },
+                { level: "hard", name: "NOBLE GASES", items: ["HELIUM", "NEON", "ARGON", "KRYPTON"] },
+                { level: "extra", name: "THINGS THAT ARE RED", items: ["BRICK", "BLOOD", "TOMATO", "MARS"] }
+            ],
+            [
+                { level: "easy", name: "VEGETABLES", items: ["CARROT", "BROCCOLI", "PEA", "CORN"] },
+                { level: "medium", name: "MUSICAL GENRES", items: ["ROCK", "JAZZ", "POP", "CLASSICAL"] },
+                { level: "hard", name: "CURRENCIES", items: ["DOLLAR", "EURO", "YEN", "PESO"] },
+                { level: "extra", name: "WORDS WITH DOUBLE O", items: ["BOOK", "MOON", "WOOD", "POOL"] }
+            ],
+            [
+                { level: "easy", name: "OFFICE SUPPLIES", items: ["PEN", "PAPER", "STAPLER", "CLIP"] },
+                { level: "medium", name: "BIRDS", items: ["EAGLE", "OWL", "HAWK", "PIGEON"] },
+                { level: "hard", name: "FICTIONAL WIZARDS", items: ["POTTER", "GANDALF", "MERLIN", "DUMBLEDORE"] },
+                { level: "extra", name: "___ STICK", items: ["GLOW", "POGO", "CHAP", "JOY"] }
+            ],
+            [
+                { level: "easy", name: "DAIRY", items: ["MILK", "CHEESE", "YOGURT", "BUTTER"] },
+                { level: "medium", name: "WEB BROWSERS", items: ["CHROME", "SAFARI", "EDGE", "FIREFOX"] },
+                { level: "hard", name: "MOUNTAIN RANGES", items: ["ALPS", "ANDES", "ROCKIES", "HIMALAYAS"] },
+                { level: "extra", name: "SYNONYMS FOR BIG", items: ["HUGE", "GIANT", "LARGE", "MASSIVE"] }
+            ],
+            [
+                { level: "easy", name: "BATHROOM ITEMS", items: ["SOAP", "TOWEL", "SHAMPOO", "BRUSH"] },
+                { level: "medium", name: "ART MOVEMENTS", items: ["CUBISM", "SURREALISM", "IMPRESSIONISM", "POP ART"] },
+                { level: "hard", name: "FAMOUS SHIPS", items: ["TITANIC", "MAYFLOWER", "SANTA MARIA", "NINA"] },
+                { level: "extra", name: "TYPES OF KNOTS", items: ["BOWLINE", "HITCH", "SQUARE", "SLIP"] }
+            ],
+            [
+                { level: "easy", name: "FURNITURE", items: ["CHAIR", "TABLE", "SOFA", "BED"] },
+                { level: "medium", name: "DOG BREEDS", items: ["PUG", "BEAGLE", "POODLE", "HUSKY"] },
+                { level: "hard", name: "DESERT ANIMALS", items: ["CAMEL", "MEERKAT", "SCORPION", "FENNEC"] },
+                { level: "extra", name: "WORDS STARTING WITH Q", items: ["QUAIL", "QUARTZ", "QUILT", "QUIRK"] }
+            ],
+            [
+                { level: "easy", name: "CANDY", items: ["CHOCOLATE", "GUMMY", "CARAMEL", "LICORICE"] },
+                { level: "medium", name: "BOARD GAMES", items: ["MONOPOLY", "SCRABBLE", "CLUE", "RISK"] },
+                { level: "hard", name: "MARTIAL ARTS", items: ["KARATE", "JUDO", "TAEKWONDO", "KUNG FU"] },
+                { level: "extra", name: "___ CAKE", items: ["PAN", "CUP", "POUND", "FRUIT"] }
+            ],
+            [
+                { level: "easy", name: "SPICES", items: ["CINNAMON", "NUTMEG", "CUMIN", "PAPRIKA"] },
+                { level: "medium", name: "CAR BRANDS", items: ["FORD", "HONDA", "TOYOTA", "CHEVY"] },
+                { level: "hard", name: "TYPES OF ROCKS", items: ["IGNEOUS", "SEDIMENTARY", "METAMORPHIC", "BASALT"] },
+                { level: "extra", name: "SYNONYMS FOR SMART", items: ["CLEVER", "BRIGHT", "SHARP", "QUICK"] }
+            ],
+            [
+                { level: "easy", name: "TOOLS", items: ["HAMMER", "WRENCH", "DRILL", "SAW"] },
+                { level: "medium", name: "STREAMING SERVICES", items: ["NETFLIX", "HULU", "MAX", "PEACOCK"] },
+                { level: "hard", name: "EGYPTIAN GODS", items: ["OSIRIS", "ANUBIS", "HORUS", "RA"] },
+                { level: "extra", name: "THINGS WITH TAILS", items: ["KITE", "COMET", "MONKEY", "COIN"] }
+            ],
+            [
+                { level: "easy", name: "TREES", items: ["OAK", "PINE", "MAPLE", "BIRCH"] },
+                { level: "medium", name: "SPORTS", items: ["SOCCER", "BASKETBALL", "TENNIS", "GOLF"] },
+                { level: "hard", name: "RIVERS", items: ["NILE", "AMAZON", "MISSISSIPPI", "THAMES"] },
+                { level: "extra", name: "___ GLASSES", items: ["SUN", "EYE", "SHOT", "WINE"] }
+            ],
+            [
+                { level: "easy", name: "REPTILES", items: ["SNAKE", "TURTLE", "LIZARD", "CROCODILE"] },
+                { level: "medium", name: "US PRESIDENTS", items: ["LINCOLN", "WASHINGTON", "KENNEDY", "ROOSEVELT"] },
+                { level: "hard", name: "CHEMICAL ELEMENTS", items: ["OXYGEN", "CARBON", "HYDROGEN", "NITROGEN"] },
+                { level: "extra", name: "PALINDROMES", items: ["CIVIC", "MADAM", "REFER", "ROTOR"] }
+            ],
+            [
+                { level: "easy", name: "COLORS", items: ["ORANGE", "PURPLE", "BROWN", "BLACK"] },
+                { level: "medium", name: "PLANETS", items: ["JUPITER", "SATURN", "URANUS", "NEPTUNE"] },
+                { level: "hard", name: "GEMS", items: ["OPAL", "JADE", "TOPAZ", "AMETHYST"] },
+                { level: "extra", name: "___ PAPER", items: ["WAX", "TOILET", "WALL", "SAND"] }
+            ],
+            [
+                { level: "easy", name: "WEATHER", items: ["RAIN", "SNOW", "WIND", "HAIL"] },
+                { level: "medium", name: "METALS", items: ["IRON", "COPPER", "SILVER", "GOLD"] },
+                { level: "hard", name: "MUSICAL INSTRUMENTS", items: ["PIANO", "GUITAR", "FLUTE", "DRUM"] },
+                { level: "extra", name: "THINGS WITH KEYS", items: ["LOCK", "KEYBOARD", "MAP", "CRYPTOGRAPHY"] }
+            ]
+        ];
+        let currentCategories = [];
+        let activeCards = [];
+        let solvedCategories = [];
+        let selectedCards = [];
+        let isAnimating = false;
+        const gridEl = document.getElementById('grid');
+        const toastEl = document.getElementById('groups-toast');
+        const overlayEl = document.getElementById('groups-message-overlay');
+        const deselectBtn = document.getElementById('deselect-btn');
+        const submitBtnEl = document.getElementById('submit-btn');
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+        function initGame() {
+            const gameIndex = Math.floor(Math.random() * allGames.length);
+            currentCategories = allGames[gameIndex];
+            activeCards = [];
+            currentCategories.forEach(cat => {
+                cat.items.forEach(item => activeCards.push(item));
+            });
+            activeCards = shuffleArray(activeCards);
+            renderBoard();
+            startLiveTimer(1200, 1); /* MindFlex timer integrated exactly as in other games */
+        }
+        function renderBoard() {
+            gridEl.innerHTML = '';
+            selectedCards = [];
+            updateSubmitButton();
+            solvedCategories.forEach(cat => {
+                const bar = document.createElement('div');
+                bar.className = `groups-solved-bar ${cat.level}`;
+                const title = document.createElement('div');
+                title.className = 'groups-solved-title';
+                title.innerText = cat.name;
+                const items = document.createElement('div');
+                items.className = 'groups-solved-items';
+                items.innerText = cat.items.join(', ');
+                bar.appendChild(title);
+                bar.appendChild(items);
+                gridEl.appendChild(bar);
+            });
+            activeCards.forEach(text => {
+                const card = document.createElement('div');
+                card.className = 'groups-card';
+                card.innerText = text;
+                card.addEventListener('click', () => handleCardClick(card, text));
+                gridEl.appendChild(card);
+            });
+        }
+        function handleCardClick(cardElement, text) {
+            if (isAnimating) return;
+            if (cardElement.classList.contains('selected')) {
+                cardElement.classList.remove('selected');
+                selectedCards = selectedCards.filter(c => c.text !== text);
+            } else {
+                if (selectedCards.length < 4) {
+                    cardElement.classList.add('selected');
+                    selectedCards.push({ element: cardElement, text: text });
+                }
+            }
+            updateSubmitButton();
+        }
+        function updateSubmitButton() {
+            if (selectedCards.length === 4) {
+                submitBtnEl.classList.add('active-submit');
+            } else {
+                submitBtnEl.classList.remove('active-submit');
+            }
+        }
+        function deselectAll() {
+            if (isAnimating) return;
+            selectedCards.forEach(c => c.element.classList.remove('selected'));
+            selectedCards = [];
+            updateSubmitButton();
+        }
+        function showToast(message) {
+            toastEl.innerText = message;
+            toastEl.classList.add('show');
+            setTimeout(() => {
+                toastEl.classList.remove('show');
+            }, 2000);
+        }
+        function checkSubmission() {
+            if (selectedCards.length !== 4 || isAnimating) return;
+            isAnimating = true;
+            const selectedTexts = selectedCards.map(c => c.text);
+            let maxOverlap = 0;
+            let matchedCategory = null;
+            currentCategories.forEach(cat => {
+                if (!solvedCategories.includes(cat)) {
+                    let overlapCount = 0;
+                    cat.items.forEach(item => {
+                        if (selectedTexts.includes(item)) overlapCount++;
+                    });
+                    if (overlapCount > maxOverlap) {
+                        maxOverlap = overlapCount;
+                        if (overlapCount === 4) {
+                            matchedCategory = cat;
+                        }
+                    }
+                }
+            });
+            if (maxOverlap === 4) {
+                solvedCategories.push(matchedCategory);
+                activeCards = activeCards.filter(item => !selectedTexts.includes(item));
+                setTimeout(() => {
+                    renderBoard();
+                    isAnimating = false;
+                    if (solvedCategories.length === 4) {
+                        setTimeout(() => {
+                            overlayEl.classList.add('show');
+                            setTimeout(() => {
+                                winGame(); /* MindFlex win integration - score saved + modal closes */
+                            }, 1400);
+                        }, 500);
+                    }
+                }, 300);
+            } else if (maxOverlap === 3) {
+                showToast("One away!");
+                triggerShake();
+            } else {
+                triggerShake();
+            }
+        }
+        function triggerShake() {
+            selectedCards.forEach(c => {
+                c.element.classList.add('groups-card.wrong');
+            });
+            setTimeout(() => {
+                selectedCards.forEach(c => {
+                    c.element.classList.remove('groups-card.wrong');
+                });
+                isAnimating = false;
+            }, 500);
+        }
+        // Attach button listeners (fixes onclick scope issue)
+        deselectBtn.addEventListener('click', deselectAll);
+        submitBtnEl.addEventListener('click', checkSubmission);
+        initGame();
     }
     /* ====================== CORE FUNCTIONS ====================== */
     function openAbout() { document.getElementById('about-modal').classList.add('active'); }
