@@ -96,336 +96,149 @@
         .confetti { position: fixed; top: -10px; width: 8px; height: 8px; z-index: 9999; animation: fall linear forwards; }
         @keyframes fall { to { transform: translateY(110vh) rotate(720deg); } }
 
-        /* CHAIN REACTION EXACT STYLES */
-        #puzzle-container #chain-game-container {
-            flex:1;display:flex;flex-direction:column;width:100%;height:100%;position:relative;background:radial-gradient(circle at 50% 0%, #1f1f22 0%, #09090b 80%);
-        }
-        #puzzle-container header {
-            display: flex;justify-content: space-between;align-items: center;padding: 12px 20px;background: rgba(9, 9, 11, 0.8);backdrop-filter: blur(12px);border-bottom: 1px solid rgba(255, 255, 255, 0.05);z-index: 10;position: relative;
-        }
-        #puzzle-container #logo-container {
-            width: 50px;height: 50px;background: #18181b;border-radius: 12px;border: 1px solid rgba(255,255,255,0.1);display: flex;flex-direction:column;align-items: center;justify-content: center;box-shadow: 0 4px 12px rgba(0,0,0,0.4);padding: 4px;
-        }
-        #puzzle-container #hint-btn {
-            background: #18181b;color: #f4f4f5;border: 1px solid rgba(255,255,255,0.1);padding: 8px 16px;border-radius: 20px;font-weight: 700;font-size: 0.85rem;cursor: pointer;display: flex;align-items: center;gap: 6px;transition: all 0.2s;box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-        #puzzle-container #hint-btn svg { width: 16px; height: 16px; fill: #8b5cf6; filter: drop-shadow(0 0 3px rgba(139,92,246,0.5)); transition: transform 0.2s; }
-        #puzzle-container #hint-btn:active { transform: scale(0.95); background: #27272a; }
-        #puzzle-container #hint-btn.disabled { opacity: 0.6; cursor: not-allowed; pointer-events: none; }
-        #puzzle-container #hint-btn.disabled svg { fill: #71717a; filter: none; }
-        #puzzle-container #board-container { flex: 1;display: flex;flex-direction:column;align-items: center;justify-content: center;padding: 20px 10px;gap: 12px; }
-        #puzzle-container .chain-link { display: flex; justify-content: center; align-items: center; height: 20px; }
-        #puzzle-container .chain-link svg { width: 18px; height: 18px; stroke: #3f3f46; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; fill: none; transition: all 0.4s; }
-        #puzzle-container .chain-link.active svg { stroke: #8b5cf6; transform: scale(1.2) translateY(2px); filter: drop-shadow(0 4px 6px rgba(139,92,246,0.5)); }
-        #puzzle-container .word-row { display: flex; gap: 4px; padding: 10px; border-radius: 12px; transition: all 0.3s ease; position: relative; }
-        #puzzle-container .word-row.active-row { background: rgba(139,92,246,0.15); box-shadow: 0 0 0 1px rgba(139,92,246,0.3), 0 8px 20px rgba(0,0,0,0.3); transform: scale(1.02); }
-        #puzzle-container .letter-line {
-            width: 28px; height: 38px; border-bottom: 3px solid #3f3f46;
-            display: flex; justify-content: center; align-items: flex-end; padding-bottom: 2px;
-            font-size: 1.4rem; font-weight: 800; text-transform: uppercase; color: transparent;
-            transition: all 0.2s; position: relative;
-        }
-        #puzzle-container .letter-line.revealed { color: #8b5cf6; border-bottom-color: #8b5cf6; text-shadow: 0 0 12px rgba(139,92,246,0.5); }
-        #puzzle-container .letter-line.first-letter { color: #8b5cf6; border-bottom-color: #8b5cf6; opacity: 0.8; }
-        #puzzle-container .letter-line.typed { color: #e4e4e7; border-bottom-color: #e4e4e7; }
-        #puzzle-container .active-row .letter-line.empty-line::after {
-            content: ''; position: absolute; bottom: -3px; left: 0; width: 100%; height: 3px;
-            background: #8b5cf6; opacity: 0.3; animation: pulse-line 1.5s infinite;
-        }
-        #puzzle-container #keyboard {
-            padding: 15px 6px 25px 6px; background: rgba(15, 15, 17, 0.95);
-            border-top: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(10px); z-index: 5;
-        }
-        #puzzle-container .keyboard-row { display: flex; justify-content: center; gap: 6px; margin-bottom: 8px; }
-        #puzzle-container .key {
-            background: #27272a; color: #f4f4f5; border: none; border-radius: 8px;
-            height: 58px; flex: 1; font-size: 1.3rem; font-weight: 700; cursor: pointer;
-            display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 0 #18181b;
-        }
-        #puzzle-container .key:active { background: #3f3f46; transform: translateY(4px); box-shadow: 0 0 0 #18181b; }
-        #puzzle-container .key.wide { flex: 1.5; font-size: 1rem; background: #3f3f46; box-shadow: 0 4px 0 #1f1f22; }
-        #puzzle-container .key svg { width: 22px; height: 22px; stroke: white; stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
-        #puzzle-container .overlay {
-            position: absolute; inset: 0; background: rgba(9, 9, 11, 0.95);
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            z-index: 100; opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
-            backdrop-filter: blur(10px); padding: 20px;
-        }
-        #puzzle-container .overlay.show { opacity: 1; pointer-events: auto; }
-        #puzzle-container .win-icon {
-            width: 70px; height: 70px; stroke: #8b5cf6; stroke-width: 2; fill: none;
-            stroke-linecap: round; stroke-linejoin: round; margin-bottom: 15px;
-            filter: drop-shadow(0 0 20px rgba(139,92,246,0.5));
-            animation: float 3s ease-in-out infinite, pulse-glow 2s infinite alternate;
-        }
-        #puzzle-container #win-screen h2 { font-size: 2.2rem; font-weight: 900; letter-spacing: 2px; color: white; text-align: center; margin-bottom: 10px; }
-        #puzzle-container .final-time { font-size: 1.2rem; color: white; margin-bottom: 30px; font-weight: bold; background: rgba(255,255,255,0.05); padding: 8px 20px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); }
-        #puzzle-container .menu-btn {
-            background: #27272a; color: white; border: 1px solid rgba(255,255,255,0.1);
-            width: 100%; max-width: 250px; padding: 15px; border-radius: 12px;
-            font-size: 1.1rem; font-weight: bold; margin-bottom: 12px; cursor: pointer;
-            transition: all 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-        #puzzle-container .menu-btn.primary { background: #8b5cf6; color: white; border-color: #8b5cf6; box-shadow: 0 4px 15px rgba(139,92,246,0.5); }
-        #puzzle-container .menu-btn:active { transform: scale(0.96); }
-        #puzzle-container .score-box {
-            width: 100%; max-width: 350px; background: #18181b;
-            border-radius: 16px; padding: 20px; border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        #puzzle-container .score-box h3 { text-align: center; color: #8b5cf6; font-size: 1.5rem; margin-bottom: 15px; font-weight: 900; }
-        #puzzle-container .lb-list { scrollbar-width: thin; scrollbar-color: #8b5cf6 #09090b; }
-        #puzzle-container .lb-list::-webkit-scrollbar { width: 6px; }
-        #puzzle-container .lb-list::-webkit-scrollbar-thumb { background-color: #8b5cf6; border-radius: 10px; }
-        #puzzle-container #all-scores-list { max-height: 286px; overflow-y: auto; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 10px; }
-        #puzzle-container .lb-row {
-            display: flex; justify-content: space-between; align-items: center;
-            height: 52px; border-bottom: 1px solid rgba(255,255,255,0.05); padding: 0 5px;
-        }
-        #puzzle-container .lb-row:last-child { border-bottom: none; }
-        #puzzle-container .lb-rank { font-weight: bold; color: #8b5cf6; width: 35px; }
-        #puzzle-container .lb-time { font-weight: 900; font-size: 1.1rem; flex: 1; text-align: left; }
-        #puzzle-container .lb-date { font-size: 0.75rem; color: #71717a; text-align: right; line-height: 1.2; }
-        #puzzle-container .sort-dropdown {
-            width: 100%; padding: 10px; background: #27272a; color: white;
-            border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;
-            font-size: 0.9rem; font-weight: bold; outline: none; margin-bottom: 10px; cursor: pointer;
-        }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
-        @keyframes pulse-glow { 0% { filter: drop-shadow(0 0 10px rgba(139,92,246,0.5)); } 100% { filter: drop-shadow(0 0 25px rgba(139,92,246,0.8)); } }
-        @keyframes shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-8px) rotate(-1deg); } 40% { transform: translateX(8px) rotate(1deg); } 60% { transform: translateX(-4px) rotate(-0.5deg); } 80% { transform: translateX(4px) rotate(0.5deg); } }
-        .shake { animation: shake 0.4s both; }
-        @keyframes type-pop { 0%, 100% { transform: scale(1) translateY(0); } 40% { transform: scale(1.2) translateY(-6px); } }
-        .pop { animation: type-pop 0.25s forwards; }
-        @keyframes reveal-cascade { 0% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(1.15); opacity: 1; text-shadow: 0 0 20px #8b5cf6; } 100% { transform: scale(1); text-shadow: 0 0 12px rgba(139,92,246,0.5); } }
-        .reveal-anim { animation: reveal-cascade 0.4s forwards; }
-        @keyframes pulse-line { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.8; } }
-
-        /* SHRINKAGE, WORD SEARCH FRENZY, MINI CROSSWORD, CUBES, GROUPS, LINKS STYLES (unchanged) */
-        .shrinkage-wrapper { width: 100%; max-width: 340px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
-        .shrinkage-wrapper .row { display: flex; gap: 8px; }
-        .shrinkage-wrapper .box { width: 48px; height: 48px; background: var(--surface-hi); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 900; color: #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.3); }
-        .shrinkage-wrapper .box.static { background: #0f172a; color: #64748b; pointer-events: none; }
-        .shrinkage-wrapper .box.static-end { background: var(--success); color: #000; pointer-events: none; }
-        .shrinkage-wrapper .btn { margin-top: 8px; width: 100%; }
-        #frenzy-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 4px; width: 100%; max-width: 340px; margin: 20px auto; }
-        .frenzy-cell { background: var(--surface-hi); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 800; color: #fff; aspect-ratio: 1; cursor: pointer; }
-        .frenzy-cell.selected { background: var(--primary) !important; }
-        .frenzy-cell.found { background: var(--success) !important; color: #000; }
-        #frenzy-word-list { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 10px 0; }
-        .frenzy-word { background: var(--surface); padding: 6px 16px; border-radius: 9999px; font-weight: 700; font-size: 15px; white-space: nowrap; }
-        .frenzy-word.found { background: var(--success); color: #000; }
-        #frenzy-message { font-size: 18px; font-weight: bold; color: var(--success); margin-top: 20px; text-align: center; }
-        .clue-bar { width: 100%; max-width: 340px; background: var(--surface); padding: 12px 16px; border-radius: 12px; display: flex; align-items: center; gap: 12px; margin-bottom: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
-        .clue-dir { font-weight: 900; color: var(--accent); font-size: 18px; background: rgba(139,92,246,0.15); padding: 4px 10px; border-radius: 6px; }
-        #grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; width: 100%; max-width: 340px; }
-        #grid .cell { aspect-ratio: 1; background: var(--surface-hi); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 900; color: #fff; box-shadow: inset 0 2px 6px rgba(0,0,0,0.3); }
-        #grid .cell.cell-active { box-shadow: 0 0 0 4px var(--primary); }
-        #grid .cell.word-active { background: rgba(139,92,246,0.2); }
-        #grid .cell.correct { background: var(--success) !important; color: #000 !important; }
-        .keyboard { width: 100%; max-width: 340px; margin-top: 20px; }
-        .keyboard-row { display: flex; justify-content: center; gap: 5px; margin-bottom: 6px; }
-        .key { background: #27272a; color: #fff; border: none; border-radius: 8px; height: 52px; flex: 1; font-size: 22px; font-weight: 700; box-shadow: 0 4px 0 #18181b; }
-        .key.wide { flex: 1.8; font-size: 18px; }
-        .action-btn { background: var(--surface-hi); color: var(--text); border: none; padding: 10px 20px; border-radius: 9999px; display: flex; align-items: center; gap: 8px; font-weight: bold; }
-        .cubes-target { display: flex; gap: 30px; justify-content: center; margin: 20px 0 30px; }
-        .cubes-target-col { display: flex; flex-direction: column-reverse; align-items: center; gap: 6px; min-height: 140px; }
-        .cube-target-block { width: 58px; height: 32px; border-radius: 6px; box-shadow: 3px 3px 0 #111827, -1px -1px 0 #111827; }
-        .cubes-col { display: flex; flex-direction: column-reverse; gap: 6px; width: 72px; height: 240px; background: linear-gradient(#1e293b, #334155); border-radius: 16px; padding: 12px 8px 12px; border: 4px solid #475569; box-shadow: 0 10px 20px rgba(0,0,0,0.4); cursor: pointer; transition: all 0.2s; }
-        .cubes-col.selected { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(59,130,246,0.3); transform: scale(1.05); }
-        .cube-block { width: 58px; height: 32px; border-radius: 6px; box-shadow: 3px 3px 0 #111827, -1px -1px 0 #111827; transition: transform 0.25s cubic-bezier(0.68, -0.55, 0.27, 1.55); }
-        :root { --bg-dark: #121213; --card-bg: #2b2b2c; --card-hover: #3a3a3c; --text-main: #ffffff; --text-dark: #121213; --selected: #565758; --easy: #f9df6d; --medium: #a0c35a; --hard: #b0c4ef; --extra: #ba81c5; }
-        #groups-toast { position: absolute; top: 100px; left: 50%; transform: translateX(-50%); background: var(--text-main); color: var(--bg-dark); padding: 10px 20px; border-radius: 8px; font-weight: bold; font-size: 14px; opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 50; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
-        #groups-toast.show { opacity: 1; }
-        #groups-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; width: 100%; }
-        .groups-card { background: var(--card-bg); color: var(--text-main); aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; text-align: center; font-weight: 700; font-size: 13px; text-transform: uppercase; border-radius: 8px; cursor: pointer; user-select: none; transition: transform 0.1s, background 0.2s, color 0.2s, box-shadow 0.2s; padding: 4px; word-wrap: break-word; box-shadow: 0 4px 6px rgba(0,0,0,0.2); }
-        .groups-card:active { transform: scale(0.92); }
-        .groups-card.selected { background: var(--selected); transform: scale(0.95); box-shadow: inset 0 0 0 2px var(--text-main), 0 0 15px rgba(255,255,255,0.2); }
-        .groups-card.wrong { animation: groups-shake 0.4s cubic-bezier(.36,.07,.19,.97) both; }
-        .groups-solved-bar { grid-column: 1 / -1; aspect-ratio: auto; height: 75px; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 8px; color: var(--text-dark); animation: groups-popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-        .groups-solved-title { font-weight: 900; font-size: 16px; text-transform: uppercase; margin-bottom: 4px; }
-        .groups-solved-items { font-weight: 500; font-size: 12px; text-transform: uppercase; }
-        .groups-solved-bar.easy { background: var(--easy); }
-        .groups-solved-bar.medium { background: var(--medium); }
-        .groups-solved-bar.hard { background: var(--hard); }
-        .groups-solved-bar.extra { background: var(--extra); }
-        .groups-controls { display: flex; justify-content: center; gap: 15px; padding: 20px 15px; }
-        .groups-btn { background: transparent; border: 1px solid var(--selected); color: var(--text-main); padding: 15px 25px; border-radius: 25px; font-size: 16px; font-weight: bold; cursor: pointer; transition: all 0.2s; }
-        .groups-btn:active { background: var(--selected); }
-        .groups-btn.active-submit { background: var(--text-main); color: var(--bg-dark); border-color: var(--text-main); box-shadow: 0 0 15px rgba(255,255,255,0.4); }
-        @keyframes groups-shake { 10%, 90% { transform: translate3d(-2px, 0, 0); } 20%, 80% { transform: translate3d(4px, 0, 0); } 30%, 50%, 70% { transform: translate3d(-6px, 0, 0); } 40%, 60% { transform: translate3d(6px, 0, 0); } }
-        @keyframes groups-popIn { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-        #groups-message-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(18, 18, 19, 0.95); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 100; opacity: 0; pointer-events: none; transition: opacity 0.5s; }
-        #groups-message-overlay.show { opacity: 1; pointer-events: all; }
-        #groups-message-text { font-size: 42px; font-weight: 900; color: var(--text-main); transform: scale(0.8); transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        #groups-message-overlay.show #groups-message-text { transform: scale(1); }
-        .links-container { display: flex; justify-content: center; gap: 12px; padding: 20px 10px; background: var(--surface); border-radius: 32px; box-shadow: inset 0 1px 3px rgba(0,0,0,0.5), 0 8px 20px rgba(0,0,0,0.3); margin-bottom: 20px; }
-        .links-column { display: flex; flex-direction: column; gap: 8px; width: 52px; cursor: pointer; transition: transform 0.1s; }
-        .links-column:active { transform: scale(0.96); }
-        .links-block { width: 52px; height: 52px; border-radius: 16px; transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1); box-shadow: 0 6px 0 rgba(0,0,0,0.3); }
-        .links-middle-highlight { position: relative; }
-        .links-middle-highlight::after { content: ''; position: absolute; bottom: -4px; left: 10%; width: 80%; height: 3px; background: var(--warning); border-radius: 2px; opacity: 0.6; }
-        .links-status { text-align: center; margin-top: 10px; font-size: 16px; font-weight: bold; color: var(--text-dim); }
-        .links-target-bar { background: var(--surface-hi); border-radius: 40px; padding: 8px 16px; margin-bottom: 15px; display: inline-block; width: auto; align-self: center; font-size: 14px; font-weight: bold; }
-
-        /* FIXED LIGHT UP STYLES - no scaling issues */
-        #puzzle-container.lightup-container {
-            width: 100%;
-            max-width: 100%;
-            background: transparent;
-        }
-        .lu-header-actions {
-            display: flex;
-            justify-content: flex-end;
-            width: 100%;
-            margin-bottom: 12px;
-            gap: 12px;
-        }
-        .lu-btn-icon {
-            background: var(--surface);
-            border: none;
-            color: var(--text);
-            width: 42px;
-            height: 42px;
-            border-radius: 12px;
-            cursor: pointer;
+        /* DAY POPUP & CALENDAR STYLES */
+        .day-popup, .calendar-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(11, 15, 25, 0.98);
+            z-index: 200;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: 0.2s;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            backdrop-filter: blur(12px);
         }
-        .lu-btn-icon:active { transform: scale(0.92); background: var(--surface-hi); }
-        .lu-btn-icon svg { width: 22px; height: 22px; fill: currentColor; }
-        .lu-grid {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 6px;
+        .day-popup-content, .calendar-content {
             background: var(--surface);
-            padding: 12px;
-            border-radius: 20px;
-            box-shadow: 0 12px 25px rgba(0,0,0,0.4);
-            margin-bottom: 15px;
-            width: 100%;
-        }
-        .lu-cell {
-            aspect-ratio: 1;
-            background: #2d2d3a;
-            border-radius: 10px;
-            cursor: pointer;
+            width: 90%;
+            max-width: 340px;
+            max-height: 85%;
+            border-radius: 28px;
+            padding: 20px;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.1s ease;
-            font-size: 20px;
-            font-weight: bold;
-            color: var(--text);
+            flex-direction: column;
+            border: 1px solid var(--surface-hi);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
             position: relative;
         }
-        .lu-cell.wall {
-            background: #111115;
-            cursor: default;
-            box-shadow: inset 0 0 8px rgba(0,0,0,0.5);
+        .day-popup-header, .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
-        .lu-cell.wall.error { color: var(--danger); text-shadow: 0 0 6px var(--danger); }
-        .lu-cell.illuminated { background: rgba(255, 213, 79, 0.3) !important; }
-        .lu-cell.conflict { background: rgba(255, 82, 82, 0.25) !important; }
-        .lu-bulb-icon {
-            width: 70%;
-            height: 70%;
-            fill: #ffd54f;
-            filter: drop-shadow(0 0 6px #ffd54f);
-            pointer-events: none;
-            animation: lufadein 0.2s ease-out;
+        .day-title {
+            font-size: 20px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
-        .lu-cell.conflict .lu-bulb-icon { fill: #ff5252; filter: drop-shadow(0 0 6px #ff5252); }
-        @keyframes lufadein {
-            from { opacity: 0; transform: scale(0.5); }
-            to { opacity: 1; transform: scale(1); }
+        .close-popup, .close-calendar {
+            background: none;
+            border: none;
+            color: var(--text-dim);
+            font-size: 28px;
+            cursor: pointer;
+            line-height: 1;
+            padding: 0 8px;
         }
-        .lu-hint-btn {
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
+            gap: 14px;
+            max-height: 60vh;
+            overflow-y: auto;
+            padding: 8px 4px;
+        }
+        .game-score-card {
+            background: var(--surface-hi);
+            border-radius: 16px;
+            padding: 10px 6px;
+            text-align: center;
+            transition: 0.1s;
+        }
+        .game-icon-mini {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 8px;
+        }
+        .game-name-mini {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-dim);
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow-x: hidden;
+            text-overflow: ellipsis;
+        }
+        .game-score-value {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--success);
+        }
+        .pagination-controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 15px 0 8px;
+        }
+        .page-btn {
             background: var(--surface-hi);
             border: none;
-            color: var(--text);
-            padding: 12px 18px;
-            border-radius: 28px;
-            font-weight: bold;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            transition: 0.2s;
-            margin-top: 5px;
-        }
-        .lu-hint-btn:active { transform: scale(0.95); background: var(--primary); }
-        .lu-hint-btn.cooldown { opacity: 0.6; pointer-events: none; }
-        .lu-instruc-modal {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(11, 15, 25, 0.98);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 200;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s;
-        }
-        .lu-instruc-modal.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-        .lu-modal-content {
-            background: var(--surface);
-            padding: 30px 25px;
-            border-radius: 28px;
-            max-width: 320px;
-            text-align: center;
-            border: 1px solid var(--surface-hi);
-        }
-        .lu-modal-content h3 {
-            color: var(--primary);
-            margin-bottom: 15px;
-        }
-        .lu-modal-content ul {
-            text-align: left;
-            margin: 20px 0;
-            padding-left: 20px;
-            color: var(--text-dim);
-            line-height: 1.5;
-        }
-        .lu-modal-content li { margin-bottom: 8px; }
-        .lu-close-modal {
-            background: var(--primary);
-            border: none;
-            padding: 10px 20px;
-            border-radius: 30px;
+            padding: 8px 20px;
+            border-radius: 40px;
             color: white;
             font-weight: bold;
             cursor: pointer;
         }
-        /* Random order toggle in update log */
-        .order-toggle {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 10px;
-            padding: 8px 0;
-            border-top: 1px solid rgba(255,255,255,0.1);
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            max-height: 60vh;
+            overflow-y: auto;
+            padding: 6px;
         }
-        .order-toggle label {
+        .calendar-day-btn {
+            background: var(--surface-hi);
+            border: none;
+            padding: 12px 6px;
+            border-radius: 14px;
+            color: var(--text);
             font-size: 13px;
-            color: var(--text-dim);
-        }
-        .order-toggle input {
-            transform: scale(1.2);
-            margin-left: 10px;
+            font-weight: 600;
+            text-align: center;
             cursor: pointer;
+            transition: 0.1s;
         }
-        /* Brighter champion trophy */
-        .champion-glow {
-            filter: drop-shadow(0 0 8px #ffaa00) drop-shadow(0 0 4px #ffdd55);
+        .calendar-day-btn:active { transform: scale(0.96); background: var(--primary); }
+        .daily-totals-list {
+            max-height: 250px;
+            overflow-y: auto;
         }
+        .daily-row-clickable {
+            cursor: pointer;
+            transition: background 0.1s;
+        }
+        .daily-row-clickable:active { background: rgba(59,130,246,0.2); }
+        .view-cal-btn {
+            margin-top: 10px;
+            background: var(--accent);
+            border: none;
+            padding: 8px;
+            border-radius: 30px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            width: 100%;
+        }
+        /* keep original styles for rest */
     </style>
 </head>
 <body>
@@ -478,29 +291,23 @@
             <div class="stat-card">
                 <h3>Update Log</h3>
                 <div class="order-toggle">
-                    <label>Random game order on refresh</label>
-                    <input type="checkbox" id="randomOrderToggle" onchange="toggleRandomOrder()">
+                    <label>Random game order</label>
+                    <input type="checkbox" id="randomOrderToggle" onchange="toggleRandomOrder()" checked>
                 </div>
                 <div id="update-log-list">
                     <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;">
                         <div style="display: flex; align-items: center; gap: 10px;">
                             <span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.12</span>
-                            <span style="font-size: 13px; color: var(--text-dim);">Coming Soon…</span>
+                            <span style="font-size: 13px; color: var(--text-dim);">May 9 2026</span>
                         </div>
-                        <span style="font-size: 14px; color: var(--text);">…</span>
+                        <span style="font-size: 14px; color: var(--text);">Better statistics layout and bug fixes</span>
                     </div>
                     <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;"><div style="display: flex; align-items: center; gap: 10px;"><span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.11</span><span style="font-size: 13px; color: var(--text-dim);">May 8 2026</span></div><span style="font-size: 14px; color: var(--text);"> Light Up bugs fixed! + Random game order toggle + Champion trophy glows! Tournament bugs fixed</span></div>
                     <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;"><div style="display: flex; align-items: center; gap: 10px;"><span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.10</span><span style="font-size: 13px; color: var(--text-dim);">May 8 2026</span></div><span style="font-size: 14px; color: var(--text);">Added Links and Added Light Up!</span></div>
                     <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;"><div style="display: flex; align-items: center; gap: 10px;"><span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.9</span><span style="font-size: 13px; color: var(--text-dim);">Apr 22 2026</span></div><span style="font-size: 14px; color: var(--text);">Added Groups!</span></div>
-                    <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;"><div style="display: flex; align-items: center; gap: 10px;"><span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.8</span><span style="font-size: 13px; color: var(--text-dim);">Apr 19 2026</span></div><span style="font-size: 14px; color: var(--text);">Bug fixes</span></div>
-                    <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;"><div style="display: flex; align-items: center; gap: 10px;"><span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.7</span><span style="font-size: 13px; color: var(--text-dim);">Apr 19 2026</span></div><span style="font-size: 14px; color: var(--text);">Snake Logic now supports smooth drag-to-draw path (tap still works perfectly)! Fixed score timer bug when switching games. Play smoother than ever!</span></div>
-                    <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;"><div style="display: flex; align-items: center; gap: 10px;"><span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.6</span><span style="font-size: 13px; color: var(--text-dim);">Apr 18 2026</span></div><span style="font-size: 14px; color: var(--text);">Added Chain Reaction!</span></div>
-                    <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;"><div style="display: flex; align-items: center; gap: 10px;"><span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.5</span><span style="font-size: 13px; color: var(--text-dim);">Apr 16 2026</span></div><span style="font-size: 14px; color: var(--text);">New Games! — Shrinkage & Mini Crossword</span></div>
-                    <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;"><div style="display: flex; align-items: center; gap: 10px;"><span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.4</span><span style="font-size: 13px; color: var(--text-dim);">Apr 15 2026</span></div><span style="font-size: 14px; color: var(--text);">Added Word Search Frenzy — swipe to find 3 hidden words on an 8x8 grid! Added Slice, swipe to perfectly slice the square! </span></div>
-                    <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;"><div style="display: flex; align-items: center; gap: 10px;"><span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.3</span><span style="font-size: 13px; color: var(--text-dim);">Apr 14 2026</span></div><span style="font-size: 14px; color: var(--text);">New Color Finder Game! And bug fixes</span></div>
-                    <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;"><div style="display: flex; align-items: center; gap: 10px;"><span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.2</span><span style="font-size: 13px; color: var(--text-dim);">Apr 14 2026</span></div><span style="font-size: 14px; color: var(--text);">Added Flood Paint &amp; Spell! Snake &amp; Wash Away improved.</span></div>
-                    <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;"><div style="display: flex; align-items: center; gap: 10px;"><span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.1</span><span style="font-size: 13px; color: var(--text-dim);">Apr 10 2026</span></div><span style="font-size: 14px; color: var(--text);">Tournaments Added!</span></div>
-                    <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;"><div style="display: flex; align-items: center; gap: 10px;"><span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.0</span><span style="font-size: 13px; color: var(--text-dim);">Apr 10 2026</span></div><span style="font-size: 14px; color: var(--text);">Base game</span></div>
+
+ <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;"><div style="display: flex; align-items: center; gap: 10px;"><span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.8</span><span style="font-size: 13px; color: var(--text-dim);">Apr 19 2026</span></div><span style="font-size: 14px; color: var(--text);">Bug fixes</span></div>  <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;"><div style="display: flex; align-items: center; gap: 10px;"><span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.7</span><span style="font-size: 13px; color: var(--text-dim);">Apr 19 2026</span></div><span style="font-size: 14px; color: var(--text);"> Snake Logic now supports smooth drag-to-draw path (tap still works perfectly)! Fixed score timer bug when switching games. Play smoother than ever! </span></div>  <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;"><div style="display: flex; align-items: center; gap: 10px;"><span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.6</span><span style="font-size: 13px; color: var(--text-dim);">Apr 18 2026</span></div><span style="font-size: 14px; color: var(--text);">Added Chain Reaction!</span></div>  <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;"><div style="display: flex; align-items: center; gap: 10px;"><span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.5</span><span style="font-size: 13px; color: var(--text-dim);">Apr 16 2026</span></div><span style="font-size: 14px; color: var(--text);">New Games! Shrinkage & Mini Crossword</span></div>  <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;"><div style="display: flex; align-items: center; gap: 10px;"><span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.4</span><span style="font-size: 13px; color: var(--text-dim);">Apr 15 2026</span></div><span style="font-size: 14px; color: var(--text);"> Added Word Search Frenzy — swipe to find 3 hidden words on an 8x8 grid! Added Slice, swipe to perfectly slice the square! </span></div>  <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;"><div style="display: flex; align-items: center; gap: 10px;"><span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.3</span><span style="font-size: 13px; color: var(--text-dim);">Apr 14 2026</span></div><span style="font-size: 14px; color: var(--text);">New Color Finder Game! And bug fixes</span></div>  <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;"><div style="display: flex; align-items: center; gap: 10px;"><span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.2</span><span style="font-size: 13px; color: var(--text-dim);">Apr 14 2026</span></div><span style="font-size: 14px; color: var(--text);">Added Flood Paint & Spell! Snake & Wash Away improved.</span></div>  <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;"><div style="display: flex; align-items: center; gap: 10px;"><span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.1</span><span style="font-size: 13px; color: var(--text-dim);">Apr 10 2026</span></div><span style="font-size: 14px; color: var(--text);">Tournaments Added!</span></div>  <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;"><div style="display: flex; align-items: center; gap: 10px;"><span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.0</span><span style="font-size: 13px; color: var(--text-dim);">Apr 10 2026</span></div><span style="font-size: 14px; color: var(--text);">Base game</span></div>
+
                 </div>
             </div>
         </div>
@@ -528,7 +335,6 @@
     function random() { return currentMode === 'daily' ? mulberry32() : Math.random(); }
     const iconBase = (content, color) => `<svg viewBox="0 0 100 100" width="100%" height="100%"><rect width="100" height="100" rx="22" fill="${color}" opacity="0.1"/><rect width="100" height="100" rx="22" fill="none" stroke="${color}" stroke-width="2" opacity="0.3"/>${content}</svg>`;
     
-    // BRIGHTER CHAMPION TROPHY (gold with glow)
     const svgGoldTrophy = `<svg viewBox="0 0 100 100" width="32" height="32" style="display:inline-block; vertical-align:middle; margin-right:8px; filter: drop-shadow(0 0 6px #ffaa00) drop-shadow(0 0 3px #ffdd55);"><path d="M25 20 h50 v15 c0 20 -15 35 -25 45 c-10 -10 -25 -25 -25 -45 z" fill="#FFE066" stroke="#FFB300" stroke-width="2"/><path d="M15 20 h15 v10 h-15 z" fill="#FFE066"/><path d="M70 20 h15 v10 h-15 z" fill="#FFE066"/><rect x="40" y="80" width="20" height="10" fill="#FFB300"/><rect x="30" y="90" width="40" height="10" fill="#E67E00"/></svg>`;
     const svgSilverTrophy = `<svg viewBox="0 0 100 100" width="32" height="32" style="display:inline-block; vertical-align:middle; margin-right:8px;"><path d="M25 20 h50 v15 c0 20 -15 35 -25 45 c-10 -10 -25 -25 -25 -45 z" fill="#cbd5e1"/><path d="M15 20 h15 v10 h-15 z" fill="#cbd5e1"/><path d="M70 20 h15 v10 h-15 z" fill="#cbd5e1"/><rect x="40" y="80" width="20" height="10" fill="#94a3b8"/><rect x="30" y="90" width="40" height="10" fill="#64748b"/></svg>`;
     const svgBronzeTrophy = `<svg viewBox="0 0 100 100" width="32" height="32" style="display:inline-block; vertical-align:middle; margin-right:8px;"><path d="M25 20 h50 v15 c0 20 -15 35 -25 45 c-10 -10 -25 -25 -25 -45 z" fill="#cd7f32"/><path d="M15 20 h15 v10 h-15 z" fill="#cd7f32"/><path d="M70 20 h15 v10 h-15 z" fill="#cd7f32"/><rect x="40" y="80" width="20" height="10" fill="#b87333"/><rect x="30" y="90" width="40" height="10" fill="#8b5a2b"/></svg>`;
@@ -565,7 +371,7 @@
         miniCrossword: `<svg viewBox="0 0 100 100" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" rx="8" fill="#111827"/><rect x="5" y="5" width="42" height="42" rx="2" fill="#f8fafc"/><rect x="52" y="5" width="42" height="42" rx="2" fill="#f8fafc"/><rect x="5" y="52" width="42" height="42" rx="2" fill="#f8fafc"/><rect x="52" y="52" width="42" height="42" rx="2" fill="#3b82f6"/><line x1="26" y1="5" x2="26" y2="47" stroke="#e5e7eb" stroke-width="1"/><line x1="5" y1="26" x2="47" y2="26" stroke="#e5e7eb" stroke-width="1"/></svg>`,
         chainReaction: `<svg viewBox="0 0 100 100" width="100%" height="100%"><text x="50" y="42" font-size="19" font-weight="900" fill="#8b5cf6" text-anchor="middle" font-family="-apple-system, sans-serif" letter-spacing="2">CHAIN</text><text x="50" y="68" font-size="19" font-weight="900" fill="#c026d3" text-anchor="middle" font-family="-apple-system, sans-serif" letter-spacing="3">R———</text></svg>`,
         groups: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#3a3a3c"/><stop offset="100%" stop-color="#121213"/></linearGradient><filter id="glow"><feGaussianBlur stdDeviation="3" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><rect x="2" y="2" width="96" height="96" rx="20" fill="url(#bgGrad)" stroke="#565758" stroke-width="2"/><rect x="15" y="15" width="30" height="30" rx="6" fill="#f9df6d" filter="url(#glow)"/><rect x="55" y="15" width="30" height="30" rx="6" fill="#f9df6d" filter="url(#glow)"/><rect x="15" y="55" width="30" height="30" rx="6" fill="#f9df6d" filter="url(#glow)"/><rect x="55" y="55" width="30" height="30" rx="6" fill="#f9df6d" filter="url(#glow)"/><path d="M 45 30 L 55 30 M 30 45 L 30 55 M 70 45 L 70 55 M 45 70 L 55 70" stroke="#f9df6d" stroke-width="4" stroke-linecap="round" filter="url(#glow)"/></svg>`,
-        links: `<svg viewBox="0 0 100 100" width="100%" height="100%"><defs><linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00b09b"/><stop offset="100%" stop-color="#96c93d"/></linearGradient></defs><rect width="100" height="100" rx="24" fill="url(#greenGrad)" stroke="#ffffff" stroke-width="2"/><g transform="translate(15, 20)"><circle cx="35" cy="30" r="22" fill="none" stroke="white" stroke-width="8"/><circle cx="35" cy="30" r="22" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="12"/><circle cx="50" cy="30" r="22" fill="none" stroke="white" stroke-width="8" transform="translate(15, 0)"/><circle cx="50" cy="30" r="22" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="12" transform="translate(15, 0)"/></g></svg>`,
+        links: `<svg viewBox="0 0 100 100" width="100%" height="100%"><defs><linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00b09b"/><stop offset="100%" stop-color="#96c93d"/></linearGradient></defs><rect width="100" height="100" rx="24" fill="url(#greenGrad)" stroke="#ffffff" stroke-width="2"/><g transform="translate(50, 50)"><circle cx="-16" cy="0" r="18" fill="none" stroke="white" stroke-width="6"/><circle cx="16" cy="0" r="18" fill="none" stroke="white" stroke-width="6"/><path d="M -4,16 Q 0,22 4,16" fill="none" stroke="white" stroke-width="6" stroke-linecap="round"/></g></svg>`,
         lightup: `<svg viewBox="0 0 100 100" width="100%" height="100%"><defs><linearGradient id="bulbGrad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#ffe082"/><stop offset="100%" stop-color="#ffb300"/></linearGradient></defs><rect x="5" y="5" width="90" height="90" rx="22" fill="none" stroke="#ffd54f" stroke-width="4"/><path d="M 50 15 C 22 15 22 48 38 58 L 38 70 L 62 70 L 62 58 C 78 48 78 15 50 15 Z" fill="url(#bulbGrad)" opacity="0.9"/><path d="M 42 70 L 42 45 L 50 32 L 58 45 L 58 70" fill="none" stroke="#ffd54f" stroke-width="3" stroke-linejoin="round"/><circle cx="50" cy="32" r="3.5" fill="#fff"/><path d="M 37 74 L 63 74 M 38 79 L 62 79 M 40 84 L 60 84" stroke="#94a1b2" stroke-width="3.5" stroke-linecap="round"/></svg>`
     };
     const wordList = ["BRAIN", "LOGIC", "SMART", "FOCUS", "SWIFT", "THINK", "SOLVE", "SPEED", "TRAIN", "POWER", "QUICK", "REACT", "PROVE", "NINJA", "CROWN", "EAGLE", "FLAME", "GIANT", "HEART", "INDEX", "JUMBO", "KNACK", "LASER", "MAGIC", "NOBLE", "OCEAN", "PILOT", "QUEST", "RIDER", "SUPER", "TIGER", "UNITY", "VALOR", "WATCH", "XENON", "YOUTH", "ZEBRA", "CHAMP", "FLASH", "GHOST"];
@@ -625,53 +431,16 @@
         pc.style.flexDirection = 'column';
     }
     
-    // ====================== LIGHT UP GAME (FIXED - instant start, proper size) ======================
-    const lightUpLevels = [
-        ['...1..','..W...','.....W','......','..2...','0.....'], 
-        ['..0...','..W...','...W..','......','..1...','...0..'], 
-        ['W.....','..W.1.','..1...','...1..','.W.0..','.....W'], 
-        ['..1..W','......','W..W..','..0..1','......','W..W..'], 
-        ['.W....','..1...','...W..','..W...','...W..','....0.'], 
-        ['0....W','..1...','..0...','...1..','...W..','W....0'], 
-        ['...1..','..W...','.W....','....0.','...W..','..W...'], 
-        ['W.W...','..W...','.....1','0.....','...W..','...0.W'], 
-        ['..W..0','.0....','W.....','.....W','....1.','W..W..'], 
-        ['.1....','...0..','....W.','.1....','..0...','....W.'], 
-        ['W...W.','.1....','....0.','.0....','....W.','.W...1'], 
-        ['.....1','...W..','.0....','....W.','..0...','1.....'], 
-        ['..1...','W.....','...W..','..0...','.....1','...W..'], 
-        ['.0...W','..W...','....1.','.W....','...1..','W...0.'], 
-        ['...0..','.1....','....W.','.W....','....W.','..0...'], 
-        ['W....W','..0...','.....W','W.....','...0..','W....W'], 
-        ['.1....','..W...','...W..','..1...','...0..','....1.'], 
-        ['0..W..','......','W....1','W....W','......','..0..W'], 
-        ['..W...','.1...0','......','......','W...1.','...0..'], 
-        ['1....0','.W..W.','..W...','...W..','.1..W.','0....0']  
-    ];
-    let lightUpLevelData = [];
-    let lightUpLights = [];
-    let lightUpCorrectSolution = [];
-    let lightUpWinTriggered = false;
-    let lightUpHintCooldown = 0;
-    let lightUpHintInterval = null;
-    let lightUpInstructionsModal = null;
-    
+    // ====================== LIGHT UP GAME ======================
+    const lightUpLevels = [['...1..','..W...','.....W','......','..2...','0.....'],['..0...','..W...','...W..','......','..1...','...0..'],['W.....','..W.1.','..1...','...1..','.W.0..','.....W'],['..1..W','......','W..W..','..0..1','......','W..W..'],['.W....','..1...','...W..','..W...','...W..','....0.'],['0....W','..1...','..0...','...1..','...W..','W....0'],['...1..','..W...','.W....','....0.','...W..','..W...'],['W.W...','..W...','.....1','0.....','...W..','...0.W'],['..W..0','.0....','W.....','.....W','....1.','W..W..'],['.1....','...0..','....W.','.1....','..0...','....W.'],['W...W.','.1....','....0.','.0....','....W.','.W...1'],['.....1','...W..','.0....','....W.','..0...','1.....'],['..1...','W.....','...W..','..0...','.....1','...W..'],['.0...W','..W...','....1.','.W....','...1..','W...0.'],['...0..','.1....','....W.','.W....','....W.','..0...'],['W....W','..0...','.....W','W.....','...0..','W....W'],['.1....','..W...','...W..','..1...','...0..','....1.'],['0..W..','......','W....1','W....W','......','..0..W'],['..W...','.1...0','......','......','W...1.','...0..'],['1....0','.W..W.','..W...','...W..','.1..W.','0....0']];
+    let lightUpLevelData = [], lightUpLights = [], lightUpCorrectSolution = [], lightUpWinTriggered = false, lightUpHintCooldown = 0, lightUpHintInterval = null, lightUpInstructionsModal = null;
     function showLightUpInstructions() { if (lightUpInstructionsModal) lightUpInstructionsModal.classList.add('active'); }
     function hideLightUpInstructions() { if (lightUpInstructionsModal) lightUpInstructionsModal.classList.remove('active'); }
-    
     function startLightUp() {
         resetPuzzleContainer();
         const container = document.getElementById('puzzle-container');
         container.classList.add('lightup-container');
-        container.innerHTML = `
-            <div class="lu-header-actions">
-                <button class="lu-btn-icon" id="lu-instruc-btn">
-                    <svg viewBox="0 0 24 24"><path d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
-                </button>
-            </div>
-            <div id="lu-grid" class="lu-grid"></div>
-            <button id="lu-hint-btn" class="lu-hint-btn">💡 Hint</button>
-        `;
+        container.innerHTML = `<div class="lu-header-actions"><button class="lu-btn-icon" id="lu-instruc-btn"><svg viewBox="0 0 24 24"><path d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg></button></div><div id="lu-grid" class="lu-grid"></div><button id="lu-hint-btn" class="lu-hint-btn">💡 Hint</button>`;
         const instrucModal = document.createElement('div');
         instrucModal.className = 'lu-instruc-modal';
         instrucModal.innerHTML = `<div class="lu-modal-content"><h3>How to Play</h3><ul><li>Tap an empty cell to place a Light Bulb.</li><li>Bulbs shine in all four directions until blocked by a wall.</li><li>No two bulbs may shine on each other.</li><li>Numbered walls (0,1,2) must have exactly that many bulbs adjacent.</li><li>Illuminate every empty cell without breaking the rules.</li></ul><button class="lu-close-modal">Got it</button></div>`;
@@ -709,23 +478,15 @@
         hintBtn.onclick = () => {
             if (lightUpHintCooldown > 0 || lightUpWinTriggered || !scoreTracker.active) return;
             const missing = lightUpCorrectSolution.find(pos => !lightUpLights[pos.r][pos.c]);
-            if (missing) {
-                lightUpLights[missing.r][missing.c] = true;
-                renderLightUpBoard();
-                scoreTracker.current = Math.max(0, scoreTracker.current - 5);
-                updateScoreDisplay();
-            }
+            if (missing) { lightUpLights[missing.r][missing.c] = true; renderLightUpBoard(); scoreTracker.current = Math.max(0, scoreTracker.current - 5); updateScoreDisplay(); }
             lightUpHintCooldown = 10;
             hintBtn.classList.add('cooldown');
             hintBtn.innerText = `💡 Wait ${lightUpHintCooldown}s`;
             if (lightUpHintInterval) clearInterval(lightUpHintInterval);
             lightUpHintInterval = setInterval(() => {
                 lightUpHintCooldown--;
-                if (lightUpHintCooldown <= 0) {
-                    clearInterval(lightUpHintInterval);
-                    hintBtn.classList.remove('cooldown');
-                    hintBtn.innerText = `💡 Hint`;
-                } else hintBtn.innerText = `💡 Wait ${lightUpHintCooldown}s`;
+                if (lightUpHintCooldown <= 0) { clearInterval(lightUpHintInterval); hintBtn.classList.remove('cooldown'); hintBtn.innerText = `💡 Hint`; }
+                else hintBtn.innerText = `💡 Wait ${lightUpHintCooldown}s`;
             }, 1000);
         };
     }
@@ -773,9 +534,7 @@
         if (litCount === emptyCount && !hasConflict && wallsOk && !lightUpWinTriggered) { lightUpWinTriggered = true; winGame(); }
     }
     function calculateLightUpSolution() {
-        const size=6;
-        let emptyCells=[];
-        for(let r=0;r<size;r++) for(let c=0;c<size;c++) if(lightUpLevelData[r][c]==='.') emptyCells.push({r,c});
+        const size=6; let emptyCells=[]; for(let r=0;r<size;r++) for(let c=0;c<size;c++) if(lightUpLevelData[r][c]==='.') emptyCells.push({r,c});
         let testLights=[];
         function checkWinState(){
             let illum=Array(size).fill().map(()=>Array(size).fill(false));
@@ -795,43 +554,27 @@
                 if(testLights.some(l=>l.r===r && l.c===c-1)) count++;
                 if(testLights.some(l=>l.r===r && l.c===c+1)) count++;
                 if(count!==req) return false;
-            }
-            return true;
+            } return true;
         }
         function isValidPlace(r,c){
-            testLights.push({r,c});
-            let valid=true;
+            testLights.push({r,c}); let valid=true;
             for(let wr=0;wr<size;wr++) for(let wc=0;wc<size;wc++) if(['0','1','2'].includes(lightUpLevelData[wr][wc])){
-                let req=parseInt(lightUpLevelData[wr][wc]);
-                let count=0;
+                let req=parseInt(lightUpLevelData[wr][wc]); let count=0;
                 if(testLights.some(l=>l.r===wr-1 && l.c===wc)) count++;
                 if(testLights.some(l=>l.r===wr+1 && l.c===wc)) count++;
                 if(testLights.some(l=>l.r===wr && l.c===wc-1)) count++;
                 if(testLights.some(l=>l.r===wr && l.c===wc+1)) count++;
                 if(count>req){ valid=false; break; }
             }
-            testLights.pop();
-            if(!valid) return false;
+            testLights.pop(); if(!valid) return false;
             for(let i=c-1;i>=0 && lightUpLevelData[r][i]==='.';i--) if(testLights.some(l=>l.r===r && l.c===i)) return false;
             for(let i=c+1;i<size && lightUpLevelData[r][i]==='.';i++) if(testLights.some(l=>l.r===r && l.c===i)) return false;
             for(let i=r-1;i>=0 && lightUpLevelData[i][c]==='.';i--) if(testLights.some(l=>l.r===i && l.c===c)) return false;
             for(let i=r+1;i<size && lightUpLevelData[i][c]==='.';i++) if(testLights.some(l=>l.r===i && l.c===c)) return false;
             return true;
         }
-        function backtrack(idx){
-            if(checkWinState()) return true;
-            if(idx>=emptyCells.length) return false;
-            let cell=emptyCells[idx];
-            if(isValidPlace(cell.r,cell.c)){
-                testLights.push(cell);
-                if(backtrack(idx+1)) return true;
-                testLights.pop();
-            }
-            if(backtrack(idx+1)) return true;
-            return false;
-        }
-        testLights=[];
-        backtrack(0);
+        function backtrack(idx){ if(checkWinState()) return true; if(idx>=emptyCells.length) return false; let cell=emptyCells[idx]; if(isValidPlace(cell.r,cell.c)){ testLights.push(cell); if(backtrack(idx+1)) return true; testLights.pop(); } if(backtrack(idx+1)) return true; return false; }
+        testLights=[]; backtrack(0);
         lightUpCorrectSolution=testLights.map(l=>({r:l.r,c:l.c}));
     }
     
@@ -3426,7 +3169,7 @@
         startLiveTimer(1200, 2);
     }
     
-    // ====================== CORE FUNCTIONS ======================
+    // ====================== CORE FUNCTIONS (with enhanced stats) ======================
     function openAbout() { document.getElementById('about-modal').classList.add('active'); }
     function closeAbout() { document.getElementById('about-modal').classList.remove('active'); }
     function toggleMode() {
@@ -3563,7 +3306,6 @@
         let me = tourneyState.players.find(p => p.isMe); 
         if (!me) return;
         me.score = score;
-        // AI scores
         tourneyState.players.forEach(p => { 
             if(!p.isMe && p.status === 'alive') { 
                 let min = tourneyState.round === 1 ? 30 : (tourneyState.round === 2 ? 40 : 60); 
@@ -3571,7 +3313,6 @@
                 p.score = Math.floor(Math.random() * (max - min)) + min; 
             } 
         });
-        // Sort: alive first, then by score
         tourneyState.players.sort((a,b) => { 
             if(a.status === 'eliminated' && b.status === 'alive') return 1; 
             if(b.status === 'eliminated' && a.status === 'alive') return -1; 
@@ -3580,8 +3321,6 @@
         let cutoff = tourneyState.round === 1 ? 8 : (tourneyState.round === 2 ? 5 : 1);
         tourneyState.players.forEach((p, i) => { if (i >= cutoff) p.status = 'eliminated'; });
         tourneyState.round++;
-        
-        // Award trophy if tournament just completed (round > 3)
         if (tourneyState.round > 3) {
             let finalRank = tourneyState.players.findIndex(p => p.isMe) + 1;
             let now = new Date();
@@ -3590,9 +3329,7 @@
             trophies.push({ rank: finalRank, date: dateStr, time: timeStr });
             localStorage.setItem('mindflex_trophies', JSON.stringify(trophies));
         }
-        
-        renderTourneyBracket(); // shows leaderboard and "Continue" button
-        // No auto-launch; user must click Continue to play next game
+        renderTourneyBracket();
     }
     
     function continueTournament() {
@@ -3616,35 +3353,40 @@
     
     function endTournament() { tourneyState.active = false; renderCompeteView(); }
     
-    // Random order toggle
+    // Random order every 30 minutes (default ON)
     let gamesOriginalOrder = [...games];
-    function toggleRandomOrder() {
-        const checkbox = document.getElementById('randomOrderToggle');
-        localStorage.setItem('randomGameOrder', checkbox.checked);
-        renderMenu();
-    }
-    // Load saved preference on page load
-    (function loadRandomPref() {
-        const saved = localStorage.getItem('randomGameOrder');
-        if (saved !== null) {
-            const chk = document.getElementById('randomOrderToggle');
-            if (chk) chk.checked = saved === 'true';
+    function getShuffledGamesOrder() {
+        const randomOrderEnabled = localStorage.getItem('randomGameOrder') === 'true';
+        if (!randomOrderEnabled) return games;
+        const now = Date.now();
+        const intervalMs = 30 * 60 * 1000;
+        const intervalId = Math.floor(now / intervalMs);
+        const storedId = localStorage.getItem('mindflex_order_interval_id');
+        const storedOrder = localStorage.getItem('mindflex_shuffled_ids');
+        if (storedId == intervalId && storedOrder) {
+            try {
+                const orderIds = JSON.parse(storedOrder);
+                const orderedGames = orderIds.map(id => games.find(g => g.id === id)).filter(g => g);
+                if (orderedGames.length === games.length) return orderedGames;
+            } catch(e) {}
         }
-    })();
+        let seed = intervalId;
+        function seededRandom() { let x = Math.sin(seed++) * 10000; return x - Math.floor(x); }
+        const shuffled = [...games];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(seededRandom() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        localStorage.setItem('mindflex_order_interval_id', intervalId);
+        localStorage.setItem('mindflex_shuffled_ids', JSON.stringify(shuffled.map(g => g.id)));
+        return shuffled;
+    }
     
     function renderMenu() {
         if(currentMode === 'compete') return;
         const grid = document.getElementById('menu-grid');
         grid.innerHTML = '';
-        let gamesToRender = [...games];
-        const randomOrder = localStorage.getItem('randomGameOrder') === 'true';
-        if (randomOrder) {
-            // Fisher-Yates shuffle
-            for (let i = gamesToRender.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [gamesToRender[i], gamesToRender[j]] = [gamesToRender[j], gamesToRender[i]];
-            }
-        }
+        let gamesToRender = getShuffledGamesOrder();
         gamesToRender.forEach(g => {
             let scoreStr = '';
             let isLocked = false;
@@ -3657,34 +3399,27 @@
                     isLocked = true;
                     btnText = 'Played';
                     btnClass = 'played';
-                } else {
-                    scoreStr = `Not Played Today`;
-                }
+                } else { scoreStr = `Not Played Today`; }
             } else {
                 let score = highScores[g.id] || 0;
                 scoreStr = score > 0 ? `High Score: ${score}` : 'Not Played';
                 if(score > 0) btnClass = 'played';
             }
-            grid.innerHTML += `
-                <div class="card ${isLocked ? 'locked' : ''}">
-                    <div class="icon-box">${g.icon}</div>
-                    <div class="card-title">${g.name}</div>
-                    <div class="card-score">${scoreStr}</div>
-                    <button class="btn ${btnClass}" onclick="launchGame('${g.id}')">${btnText}</button>
-                </div>
-            `;
+            grid.innerHTML += `<div class="card ${isLocked ? 'locked' : ''}"><div class="icon-box">${g.icon}</div><div class="card-title">${g.name}</div><div class="card-score">${scoreStr}</div><button class="btn ${btnClass}" onclick="launchGame('${g.id}')">${btnText}</button></div>`;
         });
     }
+    
+    function toggleRandomOrder() {
+        const chk = document.getElementById('randomOrderToggle');
+        localStorage.setItem('randomGameOrder', chk.checked);
+        localStorage.removeItem('mindflex_order_interval_id');
+        if(currentMode !== 'compete') renderMenu();
+    }
+    
     function launchGame(id) {
-        if (scoreTracker.timer) {
-            clearInterval(scoreTracker.timer);
-            scoreTracker.timer = null;
-        }
+        if (scoreTracker.timer) { clearInterval(scoreTracker.timer); scoreTracker.timer = null; }
         scoreTracker.active = false;
-        if (gameVars.req) {
-            cancelAnimationFrame(gameVars.req);
-            gameVars.req = null;
-        }
+        if (gameVars.req) { cancelAnimationFrame(gameVars.req); gameVars.req = null; }
         if(currentMode === 'daily' && dailyScores[todayKey][id] !== undefined) return;
         resetPuzzleContainer();
         activeGameId = id;
@@ -3727,10 +3462,7 @@
         }, speedMs);
     }
     function finalizeScore(finalScore) {
-        if (currentMode === 'compete') { 
-            handleTourneyScore(finalScore); 
-            return; 
-        }
+        if (currentMode === 'compete') { handleTourneyScore(finalScore); return; }
         if (currentMode === 'daily') {
             dailyScores[todayKey][activeGameId] = finalScore;
             localStorage.setItem('mindflex_daily_scores', JSON.stringify(dailyScores));
@@ -3794,86 +3526,267 @@
             setTimeout(() => c.remove(), 2500);
         }
     }
+    let trophiesPagination = { offset: 3, totalShown: 3, allTrophies: [] };
+    function renderTrophiesWithMore() {
+        const trophies = JSON.parse(localStorage.getItem('mindflex_trophies') || '[]');
+        const sorted = [...trophies].reverse();
+        trophiesPagination.allTrophies = sorted;
+        const limit = trophiesPagination.totalShown;
+        const sliced = sorted.slice(0, limit);
+        const trophyContainer = document.getElementById('trophy-list-container');
+        if (!trophyContainer) return;
+        let html = '';
+        if(sliced.length === 0) html = '<p style="font-size:13px;color:var(--text-dim);">No trophies yet. Join a tournament!</p>';
+        else {
+            sliced.forEach((t, idx) => {
+                let rank = t.rank;
+                let trophySvg = rank === 1 ? svgGoldTrophy : (rank === 2 ? svgSilverTrophy : (rank === 3 ? svgBronzeTrophy : svgBrownTrophy));
+                let rankText = rank === 1 ? 'Champion' : (rank === 2 ? 'Runner-Up' : (rank === 3 ? 'Third Place' : 'Participation'));
+                html += `<div class="stat-row"><div>${trophySvg} <span style="font-weight:bold;color:var(--accent);">${rankText}</span></div> <div style="font-size:12px;color:var(--text-dim);">${t.date} ${t.time}</div></div>`;
+            });
+        }
+        trophyContainer.innerHTML = html;
+        const moreBtn = document.getElementById('trophies-view-more');
+        if(moreBtn) {
+            if(limit >= sorted.length) {
+                moreBtn.classList.add('disabled');
+                moreBtn.disabled = true;
+                moreBtn.innerText = 'No more trophies';
+            } else {
+                moreBtn.classList.remove('disabled');
+                moreBtn.disabled = false;
+                moreBtn.innerText = 'View More (+5)';
+            }
+        }
+    }
+    function loadMoreTrophies() {
+        trophiesPagination.totalShown += 5;
+        renderTrophiesWithMore();
+    }
+    
+    // DAILY TOTALS PAGINATION (View More +5)
+    let dailyTotalOffset = 3; // show 3 initially, each load adds 5
+    function renderDailyTotalsList() {
+        const container = document.getElementById('daily-totals-container');
+        if (!container) return;
+        let totalScoresByDay = {};
+        Object.keys(dailyScores).forEach(date => {
+            let dayTotal = 0;
+            Object.keys(dailyScores[date]).forEach(gId => dayTotal += dailyScores[date][gId]);
+            totalScoresByDay[date] = dayTotal;
+        });
+        const sortedDates = Object.keys(totalScoresByDay).sort().reverse();
+        const visibleDates = sortedDates.slice(0, dailyTotalOffset);
+        if (visibleDates.length === 0) {
+            container.innerHTML = '<p style="color:var(--text-dim);font-size:13px;">Play a daily game to see stats.</p>';
+            return;
+        }
+        let html = '<div class="daily-totals-list">';
+        visibleDates.forEach(date => {
+            html += `<div class="stat-row daily-row-clickable" data-date="${date}"><span>${date === todayKey ? 'Today' : date}</span><span style="color:var(--success);font-weight:bold;">${totalScoresByDay[date]} pts</span></div>`;
+        });
+        html += `</div>`;
+        if (sortedDates.length > dailyTotalOffset) {
+            html += `<button id="load-more-daily" class="view-more-btn" style="margin-top:10px;">View More (+5)</button>`;
+        }
+        container.innerHTML = html;
+        document.querySelectorAll('.daily-row-clickable').forEach(row => {
+            row.addEventListener('click', (e) => {
+                const date = row.dataset.date;
+                if (date) showDayPopup(date);
+            });
+        });
+        const moreBtn = document.getElementById('load-more-daily');
+        if (moreBtn) moreBtn.onclick = () => { dailyTotalOffset += 5; renderDailyTotalsList(); };
+    }
+    
+    // DAY POPUP WITH 12 GAMES PER PAGE
+    let currentDayPopup = null, currentDayGamePage = 0, currentPopupDate = null;
+    const GAMES_PER_PAGE = 12;
+    function showDayPopup(dateKey) {
+        if (currentDayPopup) currentDayPopup.remove();
+        currentPopupDate = dateKey;
+        currentDayGamePage = 0;
+        const popupDiv = document.createElement('div');
+        popupDiv.className = 'day-popup';
+        popupDiv.innerHTML = `
+            <div class="day-popup-content">
+                <div class="day-popup-header">
+                    <span class="day-title">${dateKey}</span>
+                    <button class="close-popup">&times;</button>
+                </div>
+                <div id="day-games-container" style="min-height: 280px;"></div>
+                <div class="pagination-controls" id="day-pagination">
+                    <button class="page-btn" id="prev-game-page">◀ Prev</button>
+                    <button class="page-btn" id="next-game-page">Next ▶</button>
+                </div>
+                <button class="view-cal-btn" id="open-cal-from-popup">📅 Open Calendar</button>
+            </div>
+        `;
+        document.body.appendChild(popupDiv);
+        currentDayPopup = popupDiv;
+        renderDayGamesInPopup(dateKey);
+        popupDiv.querySelector('.close-popup').onclick = () => { popupDiv.remove(); currentDayPopup = null; };
+        popupDiv.querySelector('#prev-game-page').onclick = () => {
+            const scores = dailyScores[dateKey] || {};
+            const totalGames = games.filter(g => scores[g.id] !== undefined).length;
+            if (currentDayGamePage > 0) { currentDayGamePage--; renderDayGamesInPopup(dateKey); }
+        };
+        popupDiv.querySelector('#next-game-page').onclick = () => {
+            const scores = dailyScores[dateKey] || {};
+            const totalGames = games.filter(g => scores[g.id] !== undefined).length;
+            if ((currentDayGamePage + 1) * GAMES_PER_PAGE < totalGames) { currentDayGamePage++; renderDayGamesInPopup(dateKey); }
+        };
+        popupDiv.querySelector('#open-cal-from-popup').onclick = () => { popupDiv.remove(); openCalendar(); };
+    }
+    function renderDayGamesInPopup(dateKey) {
+        const container = document.getElementById('day-games-container');
+        if (!container) return;
+        const scores = dailyScores[dateKey] || {};
+        const playedGames = games.filter(g => scores[g.id] !== undefined);
+        const start = currentDayGamePage * GAMES_PER_PAGE;
+        const pageGames = playedGames.slice(start, start + GAMES_PER_PAGE);
+        if (pageGames.length === 0) {
+            container.innerHTML = '<div style="text-align:center; padding: 20px; color: var(--text-dim);">No games played this day.</div>';
+            return;
+        }
+        let html = `<div class="games-grid">`;
+        pageGames.forEach(g => {
+            const scoreVal = scores[g.id];
+            html += `
+                <div class="game-score-card">
+                    <div class="game-icon-mini">${g.icon}</div>
+                    <div class="game-name-mini">${g.name}</div>
+                    <div class="game-score-value">${scoreVal !== undefined ? scoreVal : '-'}</div>
+                </div>
+            `;
+        });
+        html += `</div>`;
+        container.innerHTML = html;
+    }
+    function openCalendar() {
+        const allDates = Object.keys(dailyScores).sort().reverse();
+        const calDiv = document.createElement('div');
+        calDiv.className = 'calendar-modal';
+        calDiv.innerHTML = `
+            <div class="calendar-content">
+                <div class="calendar-header">
+                    <span class="day-title">📅 Played Days</span>
+                    <button class="close-calendar">&times;</button>
+                </div>
+                <div id="calendar-grid" class="calendar-grid"></div>
+            </div>
+        `;
+        document.body.appendChild(calDiv);
+        const gridContainer = calDiv.querySelector('#calendar-grid');
+        if (allDates.length === 0) gridContainer.innerHTML = '<div style="padding:20px;text-align:center">No daily games played yet.</div>';
+        else {
+            allDates.forEach(d => {
+                const btn = document.createElement('button');
+                btn.className = 'calendar-day-btn';
+                btn.innerText = d;
+                btn.onclick = () => {
+                    calDiv.remove();
+                    showDayPopup(d);
+                };
+                gridContainer.appendChild(btn);
+            });
+        }
+        calDiv.querySelector('.close-calendar').onclick = () => calDiv.remove();
+    }
+    
     function openStats() {
         document.getElementById('stats-modal').classList.add('active');
         const body = document.getElementById('stats-body');
         body.innerHTML = '';
-        let trophyHTML = `<div class="stat-card"><h3>Tournament Trophies</h3>`;
-        if(trophies.length === 0) {
-            trophyHTML += `<p style="font-size:13px;color:var(--text-dim);">No trophies yet. Join a tournament!</p>`;
-        } else {
-            trophies.forEach((t, idx) => {
-                let rank = t.rank;
-                let trophySvg;
-                if (rank === 1) trophySvg = svgGoldTrophy;
-                else if (rank === 2) trophySvg = svgSilverTrophy;
-                else if (rank === 3) trophySvg = svgBronzeTrophy;
-                else trophySvg = svgBrownTrophy;
-                let rankText = rank === 1 ? 'Champion' : (rank === 2 ? 'Runner-Up' : (rank === 3 ? 'Third Place' : 'Participation'));
-                trophyHTML += `<div class="stat-row"><div>${trophySvg} <span style="font-weight:bold;color:var(--accent);">${rankText}</span></div> <div style="font-size:12px;color:var(--text-dim);">${t.date} ${t.time}</div></div>`;
-            });
-        }
-        trophyHTML += `</div>`;
-        // rest of stats unchanged
-        let totalScoresByDay = {};
-        let gameAverages = {};
-        let gameCounts = {};
+        // Trophies card
+        const trophyCard = document.createElement('div');
+        trophyCard.className = 'stat-card';
+        trophyCard.innerHTML = `<h3>Tournament Trophies (newest first)</h3><div id="trophy-list-container"></div><button id="trophies-view-more" class="view-more-btn">View More (+5)</button>`;
+        body.appendChild(trophyCard);
+        trophiesPagination.totalShown = 3;
+        renderTrophiesWithMore();
+        document.getElementById('trophies-view-more').onclick = () => loadMoreTrophies();
+        // Daily totals card with pagination
+        const dailyCard = document.createElement('div');
+        dailyCard.className = 'stat-card';
+        dailyCard.innerHTML = `<h3>Daily Totals (tap date to see details)</h3><div id="daily-totals-container"></div><button id="open-calendar-btn" class="view-cal-btn" style="margin-top:12px;">📅 Open Calendar</button>`;
+        body.appendChild(dailyCard);
+        renderDailyTotalsList();
+        document.getElementById('open-calendar-btn').onclick = openCalendar;
+        // Today's games (full list)
+        const todayHTML = `<div class="stat-card"><h3>Today's Games</h3><div id="today-games-grid" class="games-grid" style="max-height:300px; overflow-y:auto;"></div></div>`;
+        body.insertAdjacentHTML('beforeend', todayHTML);
+        const todayScores = dailyScores[todayKey] || {};
+        const todayGrid = document.getElementById('today-games-grid');
+        games.forEach(g => {
+            const score = todayScores[g.id] !== undefined ? todayScores[g.id] : '—';
+            const card = document.createElement('div');
+            card.className = 'game-score-card';
+            card.innerHTML = `<div class="game-icon-mini">${g.icon}</div><div class="game-name-mini">${g.name}</div><div class="game-score-value">${score}</div>`;
+            todayGrid.appendChild(card);
+        });
+        // Average scores
+        let gameAverages = {}, gameCounts = {};
         Object.keys(dailyScores).forEach(date => {
-            let dayTotal = 0;
             Object.keys(dailyScores[date]).forEach(gId => {
                 let score = dailyScores[date][gId];
-                dayTotal += score;
                 gameAverages[gId] = (gameAverages[gId] || 0) + score;
                 gameCounts[gId] = (gameCounts[gId] || 0) + 1;
             });
-            totalScoresByDay[date] = dayTotal;
         });
-        let bestGameId = null; let bestAvg = -1;
+        let avgHTML = `<div class="stat-card"><h3>Average Scores</h3><div id="avg-grid" class="games-grid" style="max-height:280px; overflow-y:auto;"></div></div>`;
+        body.insertAdjacentHTML('beforeend', avgHTML);
+        const avgGrid = document.getElementById('avg-grid');
+        games.forEach(g => {
+            if (gameCounts[g.id]) {
+                let avg = Math.round(gameAverages[g.id] / gameCounts[g.id]);
+                const card = document.createElement('div');
+                card.className = 'game-score-card';
+                card.innerHTML = `<div class="game-icon-mini">${g.icon}</div><div class="game-name-mini">${g.name}</div><div class="game-score-value">${avg}</div>`;
+                avgGrid.appendChild(card);
+            } else {
+                const card = document.createElement('div');
+                card.className = 'game-score-card';
+                card.innerHTML = `<div class="game-icon-mini">${g.icon}</div><div class="game-name-mini">${g.name}</div><div class="game-score-value">—</div>`;
+                avgGrid.appendChild(card);
+            }
+        });
+        // Best game card
+        let bestGameId = null, bestAvg = -1;
         Object.keys(gameAverages).forEach(gId => {
             let avg = gameAverages[gId] / gameCounts[gId];
             if(avg > bestAvg) { bestAvg = avg; bestGameId = gId; }
         });
-        let historyHTML = `<div class="stat-card"><h3>Daily Totals</h3>`;
-        let sortedDates = Object.keys(totalScoresByDay).sort().reverse();
-        if(sortedDates.length === 0) historyHTML += `<p style="color:var(--text-dim);font-size:13px;">Play a daily game to see stats.</p>`;
-        sortedDates.forEach(d => {
-            historyHTML += `<div class="stat-row"><span>${d === todayKey ? 'Today' : d}</span><span style="color:var(--success);font-weight:bold;">${totalScoresByDay[d]} pts</span></div>`;
-        });
-        historyHTML += `</div>`;
-        let todayHTML = `<div class="stat-card"><h3>Today's Games</h3>`;
-        const todayScores = dailyScores[todayKey] || {};
-        games.forEach(g => {
-            const score = todayScores[g.id] !== undefined ? todayScores[g.id] : '—';
-            todayHTML += `<div class="stat-row" style="align-items:center; gap:12px;">
-                <div style="width:32px;height:32px;">${g.icon}</div>
-                <span style="flex:1">${g.name}</span>
-                <span style="font-weight:bold; color:${score==='—' ? 'var(--text-dim)' : 'var(--success)'}">${score}</span>
-            </div>`;
-        });
-        todayHTML += `</div>`;
-        let bestHTML = '';
         if(bestGameId) {
             let g = games.find(x => x.id === bestGameId);
-            bestHTML = `<div class="stat-card"><h3>Strongest Puzzle</h3><div style="display:flex; align-items:center;"><div class="best-game-icon">${g.icon}</div><div><div style="font-weight:bold;">${g.name}</div><div style="font-size:12px; color:var(--text-dim);">Average: ${Math.round(bestAvg)} pts</div></div></div></div>`;
+            const bestCard = document.createElement('div');
+            bestCard.className = 'stat-card';
+            bestCard.innerHTML = `<h3>Strongest Puzzle</h3><div style="display:flex; align-items:center;"><div class="best-game-icon">${g.icon}</div><div><div style="font-weight:bold;">${g.name}</div><div style="font-size:12px; color:var(--text-dim);">Average: ${Math.round(bestAvg)} pts</div></div></div>`;
+            body.insertBefore(bestCard, body.firstChild);
         }
-        let avgHTML = `<div class="stat-card"><h3>Average Scores</h3>`;
-        games.forEach(g => {
-            if(gameCounts[g.id]) {
-                let avg = Math.round(gameAverages[g.id] / gameCounts[g.id]);
-                avgHTML += `<div class="stat-row"><span>${g.name}</span><span>${avg}</span></div>`;
-            }
-        });
-        avgHTML += `</div>`;
-        body.innerHTML = trophyHTML + bestHTML + historyHTML + todayHTML + avgHTML;
     }
     function closeStats() { document.getElementById('stats-modal').classList.remove('active'); }
     
-    // Global hooks for tournament
+    // Initialize
+    (function initRandomDefault() { if(localStorage.getItem('randomGameOrder') === null) localStorage.setItem('randomGameOrder', 'true'); const chk = document.getElementById('randomOrderToggle'); if(chk) chk.checked = localStorage.getItem('randomGameOrder') === 'true'; })();
     window.continueTournament = continueTournament;
     window.endTournament = endTournament;
     window.joinTournament = joinTournament;
     window.toggleRandomOrder = toggleRandomOrder;
-    
+    window.launchGame = launchGame;
+    window.quitGame = quitGame;
+    window.startGameplay = startGameplay;
+    window.checkWinShrink = checkWinShrink;
+    window.useHintShrink = useHintShrink;
+    window.useHint = useHint;
+    window.handleKey = handleKey;
+    window.showTop5 = showTop5;
+    window.closeTop5 = closeTop5;
+    window.showAllScores = showAllScores;
+    window.closeAllScores = closeAllScores;
+    window.returnToMenu = returnToMenu;
+    window.renderAllScores = renderAllScores;
     renderMenu();
 </script>
 </body>
