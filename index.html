@@ -268,10 +268,10 @@
         .links-status { text-align: center; margin-top: 10px; font-size: 16px; font-weight: bold; color: var(--text-dim); }
         .links-target-bar { background: var(--surface-hi); border-radius: 40px; padding: 8px 16px; margin-bottom: 15px; display: inline-block; width: auto; align-self: center; font-size: 14px; font-weight: bold; }
 
-        /* LIGHT UP GAME STYLES */
+        /* FIXED LIGHT UP STYLES - no scaling issues */
         #puzzle-container.lightup-container {
             width: 100%;
-            max-width: 400px;
+            max-width: 100%;
             background: transparent;
         }
         .lu-header-actions {
@@ -300,23 +300,24 @@
         .lu-grid {
             display: grid;
             grid-template-columns: repeat(6, 1fr);
-            gap: 4px;
+            gap: 6px;
             background: var(--surface);
-            padding: 8px;
-            border-radius: 16px;
+            padding: 12px;
+            border-radius: 20px;
             box-shadow: 0 12px 25px rgba(0,0,0,0.4);
             margin-bottom: 15px;
+            width: 100%;
         }
         .lu-cell {
             aspect-ratio: 1;
             background: #2d2d3a;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: background 0.1s;
-            font-size: 18px;
+            transition: all 0.1s ease;
+            font-size: 20px;
             font-weight: bold;
             color: var(--text);
             position: relative;
@@ -327,17 +328,17 @@
             box-shadow: inset 0 0 8px rgba(0,0,0,0.5);
         }
         .lu-cell.wall.error { color: var(--danger); text-shadow: 0 0 6px var(--danger); }
-        .lu-cell.illuminated { background: rgba(255, 213, 79, 0.25) !important; }
-        .lu-cell.conflict { background: rgba(255, 82, 82, 0.2) !important; }
+        .lu-cell.illuminated { background: rgba(255, 213, 79, 0.3) !important; }
+        .lu-cell.conflict { background: rgba(255, 82, 82, 0.25) !important; }
         .lu-bulb-icon {
-            width: 65%;
-            height: 65%;
+            width: 70%;
+            height: 70%;
             fill: #ffd54f;
-            filter: drop-shadow(0 0 8px #ffd54f);
+            filter: drop-shadow(0 0 6px #ffd54f);
             pointer-events: none;
             animation: lufadein 0.2s ease-out;
         }
-        .lu-cell.conflict .lu-bulb-icon { fill: #ff5252; filter: drop-shadow(0 0 8px #ff5252); }
+        .lu-cell.conflict .lu-bulb-icon { fill: #ff5252; filter: drop-shadow(0 0 6px #ff5252); }
         @keyframes lufadein {
             from { opacity: 0; transform: scale(0.5); }
             to { opacity: 1; transform: scale(1); }
@@ -403,6 +404,28 @@
             font-weight: bold;
             cursor: pointer;
         }
+        /* Random order toggle in update log */
+        .order-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 10px;
+            padding: 8px 0;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .order-toggle label {
+            font-size: 13px;
+            color: var(--text-dim);
+        }
+        .order-toggle input {
+            transform: scale(1.2);
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        /* Brighter champion trophy */
+        .champion-glow {
+            filter: drop-shadow(0 0 8px #ffaa00) drop-shadow(0 0 4px #ffdd55);
+        }
     </style>
 </head>
 <body>
@@ -454,25 +477,31 @@
             </div>
             <div class="stat-card">
                 <h3>Update Log</h3>
-                <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;">
-                    <div style="display: flex; align-items: center; gap: 10px;">
-                        <span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.11</span>
-                        <span style="font-size: 13px; color: var(--text-dim);">?</span>
-                    </div>
-                    <span style="font-size: 14px; color: var(--text);">Coming Soon…</span>
+                <div class="order-toggle">
+                    <label>Random game order on refresh</label>
+                    <input type="checkbox" id="randomOrderToggle" onchange="toggleRandomOrder()">
                 </div>
-                <!-- Rest of update log entries (same as original) -->
-                <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;"><div style="display: flex; align-items: center; gap: 10px;"><span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.10</span><span style="font-size: 13px; color: var(--text-dim);">May 8 2026</span></div><span style="font-size: 14px; color: var(--text);">Added Links and Added Light Up!</span></div>
-                <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;"><div style="display: flex; align-items: center; gap: 10px;"><span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.9</span><span style="font-size: 13px; color: var(--text-dim);">Apr 22 2026</span></div><span style="font-size: 14px; color: var(--text);">Added Groups!</span></div>
-                <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;"><div style="display: flex; align-items: center; gap: 10px;"><span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.8</span><span style="font-size: 13px; color: var(--text-dim);">Apr 19 2026</span></div><span style="font-size: 14px; color: var(--text);">Bug fixes</span></div>
-                <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;"><div style="display: flex; align-items: center; gap: 10px;"><span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.7</span><span style="font-size: 13px; color: var(--text-dim);">Apr 19 2026</span></div><span style="font-size: 14px; color: var(--text);">Snake Logic now supports smooth drag-to-draw path (tap still works perfectly)! Fixed score timer bug when switching games. Play smoother than ever!</span></div>
-                <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;"><div style="display: flex; align-items: center; gap: 10px;"><span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.6</span><span style="font-size: 13px; color: var(--text-dim);">Apr 18 2026</span></div><span style="font-size: 14px; color: var(--text);">Added Chain Reaction!</span></div>
-                <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;"><div style="display: flex; align-items: center; gap: 10px;"><span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.5</span><span style="font-size: 13px; color: var(--text-dim);">Apr 16 2026</span></div><span style="font-size: 14px; color: var(--text);">New Games! — Shrinkage & Mini Crossword</span></div>
-                <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;"><div style="display: flex; align-items: center; gap: 10px;"><span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.4</span><span style="font-size: 13px; color: var(--text-dim);">Apr 15 2026</span></div><span style="font-size: 14px; color: var(--text);">Added Word Search Frenzy — swipe to find 3 hidden words on an 8x8 grid! Added Slice, swipe to perfectly slice the square! </span></div>
-                <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;"><div style="display: flex; align-items: center; gap: 10px;"><span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.3</span><span style="font-size: 13px; color: var(--text-dim);">Apr 14 2026</span></div><span style="font-size: 14px; color: var(--text);">New Color Finder Game! And bug fixes</span></div>
-                <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;"><div style="display: flex; align-items: center; gap: 10px;"><span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.2</span><span style="font-size: 13px; color: var(--text-dim);">Apr 14 2026</span></div><span style="font-size: 14px; color: var(--text);">Added Flood Paint &amp; Spell! Snake &amp; Wash Away improved.</span></div>
-                <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;"><div style="display: flex; align-items: center; gap: 10px;"><span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.1</span><span style="font-size: 13px; color: var(--text-dim);">Apr 10 2026</span></div><span style="font-size: 14px; color: var(--text);">Tournaments Added!</span></div>
-                <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;"><div style="display: flex; align-items: center; gap: 10px;"><span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.0</span><span style="font-size: 13px; color: var(--text-dim);">Apr 10 2026</span></div><span style="font-size: 14px; color: var(--text);">Base game</span></div>
+                <div id="update-log-list">
+                    <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.12</span>
+                            <span style="font-size: 13px; color: var(--text-dim);">Coming Soon…</span>
+                        </div>
+                        <span style="font-size: 14px; color: var(--text);">…</span>
+                    </div>
+                    <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;"><div style="display: flex; align-items: center; gap: 10px;"><span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.11</span><span style="font-size: 13px; color: var(--text-dim);">May 8 2026</span></div><span style="font-size: 14px; color: var(--text);"> Light Up bugs fixed! + Random game order toggle + Champion trophy glows! Tournament bugs fixed</span></div>
+                    <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;"><div style="display: flex; align-items: center; gap: 10px;"><span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.10</span><span style="font-size: 13px; color: var(--text-dim);">May 8 2026</span></div><span style="font-size: 14px; color: var(--text);">Added Links and Added Light Up!</span></div>
+                    <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;"><div style="display: flex; align-items: center; gap: 10px;"><span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.9</span><span style="font-size: 13px; color: var(--text-dim);">Apr 22 2026</span></div><span style="font-size: 14px; color: var(--text);">Added Groups!</span></div>
+                    <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;"><div style="display: flex; align-items: center; gap: 10px;"><span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.8</span><span style="font-size: 13px; color: var(--text-dim);">Apr 19 2026</span></div><span style="font-size: 14px; color: var(--text);">Bug fixes</span></div>
+                    <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;"><div style="display: flex; align-items: center; gap: 10px;"><span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.7</span><span style="font-size: 13px; color: var(--text-dim);">Apr 19 2026</span></div><span style="font-size: 14px; color: var(--text);">Snake Logic now supports smooth drag-to-draw path (tap still works perfectly)! Fixed score timer bug when switching games. Play smoother than ever!</span></div>
+                    <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;"><div style="display: flex; align-items: center; gap: 10px;"><span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.6</span><span style="font-size: 13px; color: var(--text-dim);">Apr 18 2026</span></div><span style="font-size: 14px; color: var(--text);">Added Chain Reaction!</span></div>
+                    <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;"><div style="display: flex; align-items: center; gap: 10px;"><span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.5</span><span style="font-size: 13px; color: var(--text-dim);">Apr 16 2026</span></div><span style="font-size: 14px; color: var(--text);">New Games! — Shrinkage & Mini Crossword</span></div>
+                    <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;"><div style="display: flex; align-items: center; gap: 10px;"><span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.4</span><span style="font-size: 13px; color: var(--text-dim);">Apr 15 2026</span></div><span style="font-size: 14px; color: var(--text);">Added Word Search Frenzy — swipe to find 3 hidden words on an 8x8 grid! Added Slice, swipe to perfectly slice the square! </span></div>
+                    <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;"><div style="display: flex; align-items: center; gap: 10px;"><span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.3</span><span style="font-size: 13px; color: var(--text-dim);">Apr 14 2026</span></div><span style="font-size: 14px; color: var(--text);">New Color Finder Game! And bug fixes</span></div>
+                    <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;"><div style="display: flex; align-items: center; gap: 10px;"><span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.2</span><span style="font-size: 13px; color: var(--text-dim);">Apr 14 2026</span></div><span style="font-size: 14px; color: var(--text);">Added Flood Paint &amp; Spell! Snake &amp; Wash Away improved.</span></div>
+                    <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;"><div style="display: flex; align-items: center; gap: 10px;"><span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.1</span><span style="font-size: 13px; color: var(--text-dim);">Apr 10 2026</span></div><span style="font-size: 14px; color: var(--text);">Tournaments Added!</span></div>
+                    <div class="stat-row" style="flex-direction: column; align-items: flex-start; gap: 8px;"><div style="display: flex; align-items: center; gap: 10px;"><span style="font-weight: bold; background: var(--success); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px;">v1.0</span><span style="font-size: 13px; color: var(--text-dim);">Apr 10 2026</span></div><span style="font-size: 14px; color: var(--text);">Base game</span></div>
+                </div>
             </div>
         </div>
     </div>
@@ -499,8 +528,8 @@
     function random() { return currentMode === 'daily' ? mulberry32() : Math.random(); }
     const iconBase = (content, color) => `<svg viewBox="0 0 100 100" width="100%" height="100%"><rect width="100" height="100" rx="22" fill="${color}" opacity="0.1"/><rect width="100" height="100" rx="22" fill="none" stroke="${color}" stroke-width="2" opacity="0.3"/>${content}</svg>`;
     
-    // Trophy SVGs
-    const svgGoldTrophy = `<svg viewBox="0 0 100 100" width="32" height="32" style="display:inline-block; vertical-align:middle; margin-right:8px;"><path d="M25 20 h50 v15 c0 20 -15 35 -25 45 c-10 -10 -25 -25 -25 -45 z" fill="#fbbf24"/><path d="M15 20 h15 v10 h-15 z" fill="#fbbf24"/><path d="M70 20 h15 v10 h-15 z" fill="#fbbf24"/><rect x="40" y="80" width="20" height="10" fill="#d97706"/><rect x="30" y="90" width="40" height="10" fill="#b45309"/></svg>`;
+    // BRIGHTER CHAMPION TROPHY (gold with glow)
+    const svgGoldTrophy = `<svg viewBox="0 0 100 100" width="32" height="32" style="display:inline-block; vertical-align:middle; margin-right:8px; filter: drop-shadow(0 0 6px #ffaa00) drop-shadow(0 0 3px #ffdd55);"><path d="M25 20 h50 v15 c0 20 -15 35 -25 45 c-10 -10 -25 -25 -25 -45 z" fill="#FFE066" stroke="#FFB300" stroke-width="2"/><path d="M15 20 h15 v10 h-15 z" fill="#FFE066"/><path d="M70 20 h15 v10 h-15 z" fill="#FFE066"/><rect x="40" y="80" width="20" height="10" fill="#FFB300"/><rect x="30" y="90" width="40" height="10" fill="#E67E00"/></svg>`;
     const svgSilverTrophy = `<svg viewBox="0 0 100 100" width="32" height="32" style="display:inline-block; vertical-align:middle; margin-right:8px;"><path d="M25 20 h50 v15 c0 20 -15 35 -25 45 c-10 -10 -25 -25 -25 -45 z" fill="#cbd5e1"/><path d="M15 20 h15 v10 h-15 z" fill="#cbd5e1"/><path d="M70 20 h15 v10 h-15 z" fill="#cbd5e1"/><rect x="40" y="80" width="20" height="10" fill="#94a3b8"/><rect x="30" y="90" width="40" height="10" fill="#64748b"/></svg>`;
     const svgBronzeTrophy = `<svg viewBox="0 0 100 100" width="32" height="32" style="display:inline-block; vertical-align:middle; margin-right:8px;"><path d="M25 20 h50 v15 c0 20 -15 35 -25 45 c-10 -10 -25 -25 -25 -45 z" fill="#cd7f32"/><path d="M15 20 h15 v10 h-15 z" fill="#cd7f32"/><path d="M70 20 h15 v10 h-15 z" fill="#cd7f32"/><rect x="40" y="80" width="20" height="10" fill="#b87333"/><rect x="30" y="90" width="40" height="10" fill="#8b5a2b"/></svg>`;
     const svgBrownTrophy = `<svg viewBox="0 0 100 100" width="32" height="32" style="display:inline-block; vertical-align:middle; margin-right:8px;"><path d="M25 20 h50 v15 c0 20 -15 35 -25 45 c-10 -10 -25 -25 -25 -45 z" fill="#8B4513"/><path d="M15 20 h15 v10 h-15 z" fill="#8B4513"/><path d="M70 20 h15 v10 h-15 z" fill="#8B4513"/><rect x="40" y="80" width="20" height="10" fill="#6B3410"/><rect x="30" y="90" width="40" height="10" fill="#5c2e0b"/></svg>`;
@@ -596,7 +625,7 @@
         pc.style.flexDirection = 'column';
     }
     
-    // ====================== LIGHT UP GAME ======================
+    // ====================== LIGHT UP GAME (FIXED - instant start, proper size) ======================
     const lightUpLevels = [
         ['...1..','..W...','.....W','......','..2...','0.....'], 
         ['..0...','..W...','...W..','......','..1...','...0..'], 
@@ -625,15 +654,10 @@
     let lightUpWinTriggered = false;
     let lightUpHintCooldown = 0;
     let lightUpHintInterval = null;
-    let lightUpGridContainer = null;
     let lightUpInstructionsModal = null;
     
-    function showLightUpInstructions() {
-        if (lightUpInstructionsModal) lightUpInstructionsModal.classList.add('active');
-    }
-    function hideLightUpInstructions() {
-        if (lightUpInstructionsModal) lightUpInstructionsModal.classList.remove('active');
-    }
+    function showLightUpInstructions() { if (lightUpInstructionsModal) lightUpInstructionsModal.classList.add('active'); }
+    function hideLightUpInstructions() { if (lightUpInstructionsModal) lightUpInstructionsModal.classList.remove('active'); }
     
     function startLightUp() {
         resetPuzzleContainer();
@@ -648,36 +672,20 @@
             <div id="lu-grid" class="lu-grid"></div>
             <button id="lu-hint-btn" class="lu-hint-btn">💡 Hint</button>
         `;
-        
-        // Instructions modal
         const instrucModal = document.createElement('div');
         instrucModal.className = 'lu-instruc-modal';
-        instrucModal.innerHTML = `
-            <div class="lu-modal-content">
-                <h3>How to Play</h3>
-                <ul>
-                    <li>Tap an empty cell to place a <span style="color:#ffd54f;">Light Bulb</span>.</li>
-                    <li>Bulbs shine in all four directions until blocked by a wall.</li>
-                    <li><strong>Rule 1:</strong> No two bulbs may shine on each other.</li>
-                    <li><strong>Rule 2:</strong> Numbered walls (0,1,2) must have exactly that many bulbs in adjacent cells (up/down/left/right).</li>
-                    <li><strong>Goal:</strong> Illuminate every empty cell without breaking the rules.</li>
-                </ul>
-                <button class="lu-close-modal">Got it</button>
-            </div>
-        `;
+        instrucModal.innerHTML = `<div class="lu-modal-content"><h3>How to Play</h3><ul><li>Tap an empty cell to place a Light Bulb.</li><li>Bulbs shine in all four directions until blocked by a wall.</li><li>No two bulbs may shine on each other.</li><li>Numbered walls (0,1,2) must have exactly that many bulbs adjacent.</li><li>Illuminate every empty cell without breaking the rules.</li></ul><button class="lu-close-modal">Got it</button></div>`;
         container.appendChild(instrucModal);
         lightUpInstructionsModal = instrucModal;
         instrucModal.querySelector('.lu-close-modal').addEventListener('click', () => hideLightUpInstructions());
         document.getElementById('lu-instruc-btn').addEventListener('click', () => showLightUpInstructions());
-        
-        // Random level
         const levelIndex = Math.floor(Math.random() * lightUpLevels.length);
         lightUpLevelData = lightUpLevels[levelIndex].map(row => row.split(''));
         const size = 6;
         lightUpLights = Array(size).fill().map(() => Array(size).fill(false));
         lightUpWinTriggered = false;
-        
-        // Build grid UI
+        lightUpHintCooldown = 0;
+        if (lightUpHintInterval) clearInterval(lightUpHintInterval);
         const gridEl = document.getElementById('lu-grid');
         gridEl.innerHTML = '';
         for (let r = 0; r < size; r++) {
@@ -686,26 +694,19 @@
                 cell.classList.add('lu-cell');
                 if (lightUpLevelData[r][c] !== '.') {
                     cell.classList.add('wall');
-                    if (['0','1','2'].includes(lightUpLevelData[r][c])) {
-                        cell.innerText = lightUpLevelData[r][c];
-                    }
+                    if (['0','1','2'].includes(lightUpLevelData[r][c])) cell.innerText = lightUpLevelData[r][c];
                 } else {
-                    cell.addEventListener('click', (function(row, col) {
-                        return function() { onLightUpCellClick(row, col); };
-                    })(r, c));
+                    cell.addEventListener('click', (function(row, col) { return function() { onLightUpCellClick(row, col); }; })(r, c));
                 }
-                cell.dataset.r = r;
-                cell.dataset.c = c;
+                cell.dataset.r = r; cell.dataset.c = c;
                 gridEl.appendChild(cell);
             }
         }
         calculateLightUpSolution();
         renderLightUpBoard();
         startLiveTimer(1200, 1);
-        
-        // Hint logic
         const hintBtn = document.getElementById('lu-hint-btn');
-        hintBtn.addEventListener('click', () => {
+        hintBtn.onclick = () => {
             if (lightUpHintCooldown > 0 || lightUpWinTriggered || !scoreTracker.active) return;
             const missing = lightUpCorrectSolution.find(pos => !lightUpLights[pos.r][pos.c]);
             if (missing) {
@@ -724,166 +725,117 @@
                     clearInterval(lightUpHintInterval);
                     hintBtn.classList.remove('cooldown');
                     hintBtn.innerText = `💡 Hint`;
-                } else {
-                    hintBtn.innerText = `💡 Wait ${lightUpHintCooldown}s`;
-                }
+                } else hintBtn.innerText = `💡 Wait ${lightUpHintCooldown}s`;
             }, 1000);
-        });
+        };
     }
-    
-    function onLightUpCellClick(r, c) {
-        if (lightUpWinTriggered || !scoreTracker.active) return;
-        if (lightUpLevelData[r][c] !== '.') return;
-        lightUpLights[r][c] = !lightUpLights[r][c];
-        renderLightUpBoard();
-    }
-    
+    function onLightUpCellClick(r,c) { if (!lightUpWinTriggered && scoreTracker.active && lightUpLevelData[r][c] === '.') { lightUpLights[r][c] = !lightUpLights[r][c]; renderLightUpBoard(); } }
     function renderLightUpBoard() {
         const size = 6;
-        let illum = Array(size).fill().map(() => Array(size).fill(false));
-        let conflict = Array(size).fill().map(() => Array(size).fill(false));
-        let emptyCount = 0;
-        let litCount = 0;
-        let hasConflict = false;
-        
-        for (let r = 0; r < size; r++) {
-            for (let c = 0; c < size; c++) {
-                if (lightUpLevelData[r][c] === '.') emptyCount++;
-                if (lightUpLights[r][c]) {
-                    illum[r][c] = true;
-                    for (let i = c+1; i < size; i++) {
-                        if (lightUpLevelData[r][i] !== '.') break;
-                        illum[r][i] = true;
-                        if (lightUpLights[r][i]) { conflict[r][c] = true; conflict[r][i] = true; hasConflict = true; }
-                    }
-                    for (let i = c-1; i >= 0; i--) {
-                        if (lightUpLevelData[r][i] !== '.') break;
-                        illum[r][i] = true;
-                        if (lightUpLights[r][i]) { conflict[r][c] = true; conflict[r][i] = true; hasConflict = true; }
-                    }
-                    for (let i = r+1; i < size; i++) {
-                        if (lightUpLevelData[i][c] !== '.') break;
-                        illum[i][c] = true;
-                        if (lightUpLights[i][c]) { conflict[r][c] = true; conflict[i][c] = true; hasConflict = true; }
-                    }
-                    for (let i = r-1; i >= 0; i--) {
-                        if (lightUpLevelData[i][c] !== '.') break;
-                        illum[i][c] = true;
-                        if (lightUpLights[i][c]) { conflict[r][c] = true; conflict[i][c] = true; hasConflict = true; }
-                    }
-                }
+        let illum = Array(size).fill().map(()=>Array(size).fill(false));
+        let conflict = Array(size).fill().map(()=>Array(size).fill(false));
+        let emptyCount = 0, litCount = 0, hasConflict = false;
+        for (let r=0;r<size;r++) for (let c=0;c<size;c++) {
+            if (lightUpLevelData[r][c] === '.') emptyCount++;
+            if (lightUpLights[r][c]) {
+                illum[r][c]=true;
+                for(let i=c+1;i<size && lightUpLevelData[r][i]==='.';i++) { illum[r][i]=true; if(lightUpLights[r][i]){conflict[r][c]=conflict[r][i]=true; hasConflict=true;} }
+                for(let i=c-1;i>=0 && lightUpLevelData[r][i]==='.';i--) { illum[r][i]=true; if(lightUpLights[r][i]){conflict[r][c]=conflict[r][i]=true; hasConflict=true;} }
+                for(let i=r+1;i<size && lightUpLevelData[i][c]==='.';i++) { illum[i][c]=true; if(lightUpLights[i][c]){conflict[r][c]=conflict[i][c]=true; hasConflict=true;} }
+                for(let i=r-1;i>=0 && lightUpLevelData[i][c]==='.';i--) { illum[i][c]=true; if(lightUpLights[i][c]){conflict[r][c]=conflict[i][c]=true; hasConflict=true;} }
             }
         }
-        
         let wallsOk = true;
         const gridEl = document.getElementById('lu-grid');
         const cells = gridEl.children;
-        for (let r = 0; r < size; r++) {
-            for (let c = 0; c < size; c++) {
-                const cell = cells[r * size + c];
-                cell.className = 'lu-cell';
-                if (lightUpLevelData[r][c] !== '.') {
-                    cell.classList.add('wall');
-                    if (['0','1','2'].includes(lightUpLevelData[r][c])) {
-                        const req = parseInt(lightUpLevelData[r][c]);
-                        let count = 0;
-                        if (r>0 && lightUpLights[r-1][c]) count++;
-                        if (r<5 && lightUpLights[r+1][c]) count++;
-                        if (c>0 && lightUpLights[r][c-1]) count++;
-                        if (c<5 && lightUpLights[r][c+1]) count++;
-                        if (count > req) { cell.classList.add('error'); wallsOk = false; }
-                        else if (count < req) wallsOk = false;
-                    }
-                } else {
-                    if (illum[r][c]) { cell.classList.add('illuminated'); litCount++; }
-                    if (conflict[r][c]) { cell.classList.add('conflict'); }
-                    cell.innerHTML = lightUpLights[r][c] ? `<svg class="lu-bulb-icon" viewBox="0 0 24 24"><path d="M12 2C8.69 2 6 4.69 6 8c0 2.34 1.35 4.35 3.28 5.43V17c0 .55.45 1 1 1h3.44c.55 0 1-.45 1-1v-3.57C16.65 12.35 18 10.34 18 8c0-3.31-2.69-6-6-6zm-2 18h4v1.5c0 .83-.67 1.5-1.5 1.5h-1c-.83 0-1.5-.67-1.5-1.5V20z"/></svg>` : '';
+        for (let r=0;r<size;r++) for (let c=0;c<size;c++) {
+            const cell = cells[r*size + c];
+            cell.className = 'lu-cell';
+            if (lightUpLevelData[r][c] !== '.') {
+                cell.classList.add('wall');
+                if (['0','1','2'].includes(lightUpLevelData[r][c])) {
+                    const req = parseInt(lightUpLevelData[r][c]);
+                    let count=0;
+                    if(r>0 && lightUpLights[r-1][c]) count++;
+                    if(r<5 && lightUpLights[r+1][c]) count++;
+                    if(c>0 && lightUpLights[r][c-1]) count++;
+                    if(c<5 && lightUpLights[r][c+1]) count++;
+                    if(count>req) { cell.classList.add('error'); wallsOk=false; }
+                    else if(count<req) wallsOk=false;
                 }
+            } else {
+                if(illum[r][c]) cell.classList.add('illuminated');
+                if(conflict[r][c]) cell.classList.add('conflict');
+                cell.innerHTML = lightUpLights[r][c] ? `<svg class="lu-bulb-icon" viewBox="0 0 24 24"><path d="M12 2C8.69 2 6 4.69 6 8c0 2.34 1.35 4.35 3.28 5.43V17c0 .55.45 1 1 1h3.44c.55 0 1-.45 1-1v-3.57C16.65 12.35 18 10.34 18 8c0-3.31-2.69-6-6-6zm-2 18h4v1.5c0 .83-.67 1.5-1.5 1.5h-1c-.83 0-1.5-.67-1.5-1.5V20z"/></svg>` : '';
+                if(illum[r][c]) litCount++;
             }
         }
-        if (litCount === emptyCount && !hasConflict && wallsOk && !lightUpWinTriggered) {
-            lightUpWinTriggered = true;
-            winGame();
-        }
+        if (litCount === emptyCount && !hasConflict && wallsOk && !lightUpWinTriggered) { lightUpWinTriggered = true; winGame(); }
     }
-    
     function calculateLightUpSolution() {
-        const size = 6;
-        let emptyCells = [];
-        for (let r = 0; r < size; r++)
-            for (let c = 0; c < size; c++)
-                if (lightUpLevelData[r][c] === '.') emptyCells.push({r,c});
-        let testLights = [];
-        function checkWinState() {
-            let illum = Array(size).fill().map(()=>Array(size).fill(false));
-            for (let l of testLights) {
-                illum[l.r][l.c] = true;
-                for (let i = l.c-1; i>=0 && lightUpLevelData[l.r][i]==='.'; i--) illum[l.r][i]=true;
-                for (let i = l.c+1; i<size && lightUpLevelData[l.r][i]==='.'; i++) illum[l.r][i]=true;
-                for (let i = l.r-1; i>=0 && lightUpLevelData[i][l.c]==='.'; i--) illum[i][l.c]=true;
-                for (let i = l.r+1; i<size && lightUpLevelData[i][l.c]==='.'; i++) illum[i][l.c]=true;
+        const size=6;
+        let emptyCells=[];
+        for(let r=0;r<size;r++) for(let c=0;c<size;c++) if(lightUpLevelData[r][c]==='.') emptyCells.push({r,c});
+        let testLights=[];
+        function checkWinState(){
+            let illum=Array(size).fill().map(()=>Array(size).fill(false));
+            for(let l of testLights){
+                illum[l.r][l.c]=true;
+                for(let i=l.c-1;i>=0 && lightUpLevelData[l.r][i]==='.';i--) illum[l.r][i]=true;
+                for(let i=l.c+1;i<size && lightUpLevelData[l.r][i]==='.';i++) illum[l.r][i]=true;
+                for(let i=l.r-1;i>=0 && lightUpLevelData[i][l.c]==='.';i--) illum[i][l.c]=true;
+                for(let i=l.r+1;i<size && lightUpLevelData[i][l.c]==='.';i++) illum[i][l.c]=true;
             }
-            for (let r=0;r<size;r++)
-                for (let c=0;c<size;c++)
-                    if (lightUpLevelData[r][c]==='.' && !illum[r][c]) return false;
-            for (let r=0;r<size;r++) {
-                for (let c=0;c<size;c++) {
-                    if (['0','1','2'].includes(lightUpLevelData[r][c])) {
-                        let req = parseInt(lightUpLevelData[r][c]);
-                        let count = 0;
-                        if (testLights.some(l=>l.r===r-1 && l.c===c)) count++;
-                        if (testLights.some(l=>l.r===r+1 && l.c===c)) count++;
-                        if (testLights.some(l=>l.r===r && l.c===c-1)) count++;
-                        if (testLights.some(l=>l.r===r && l.c===c+1)) count++;
-                        if (count !== req) return false;
-                    }
-                }
+            for(let r=0;r<size;r++) for(let c=0;c<size;c++) if(lightUpLevelData[r][c]==='.' && !illum[r][c]) return false;
+            for(let r=0;r<size;r++) for(let c=0;c<size;c++) if(['0','1','2'].includes(lightUpLevelData[r][c])){
+                let req=parseInt(lightUpLevelData[r][c]);
+                let count=0;
+                if(testLights.some(l=>l.r===r-1 && l.c===c)) count++;
+                if(testLights.some(l=>l.r===r+1 && l.c===c)) count++;
+                if(testLights.some(l=>l.r===r && l.c===c-1)) count++;
+                if(testLights.some(l=>l.r===r && l.c===c+1)) count++;
+                if(count!==req) return false;
             }
             return true;
         }
-        function isValidPlace(r,c) {
+        function isValidPlace(r,c){
             testLights.push({r,c});
-            let valid = true;
-            for (let wr=0;wr<size;wr++) {
-                for (let wc=0;wc<size;wc++) {
-                    if (['0','1','2'].includes(lightUpLevelData[wr][wc])) {
-                        let req = parseInt(lightUpLevelData[wr][wc]);
-                        let count = 0;
-                        if (testLights.some(l=>l.r===wr-1 && l.c===wc)) count++;
-                        if (testLights.some(l=>l.r===wr+1 && l.c===wc)) count++;
-                        if (testLights.some(l=>l.r===wr && l.c===wc-1)) count++;
-                        if (testLights.some(l=>l.r===wr && l.c===wc+1)) count++;
-                        if (count > req) { valid = false; break; }
-                    }
-                }
-                if (!valid) break;
+            let valid=true;
+            for(let wr=0;wr<size;wr++) for(let wc=0;wc<size;wc++) if(['0','1','2'].includes(lightUpLevelData[wr][wc])){
+                let req=parseInt(lightUpLevelData[wr][wc]);
+                let count=0;
+                if(testLights.some(l=>l.r===wr-1 && l.c===wc)) count++;
+                if(testLights.some(l=>l.r===wr+1 && l.c===wc)) count++;
+                if(testLights.some(l=>l.r===wr && l.c===wc-1)) count++;
+                if(testLights.some(l=>l.r===wr && l.c===wc+1)) count++;
+                if(count>req){ valid=false; break; }
             }
             testLights.pop();
-            if (!valid) return false;
-            for (let i=c-1;i>=0 && lightUpLevelData[r][i]==='.';i--) if (testLights.some(l=>l.r===r && l.c===i)) return false;
-            for (let i=c+1;i<size && lightUpLevelData[r][i]==='.';i++) if (testLights.some(l=>l.r===r && l.c===i)) return false;
-            for (let i=r-1;i>=0 && lightUpLevelData[i][c]==='.';i--) if (testLights.some(l=>l.r===i && l.c===c)) return false;
-            for (let i=r+1;i<size && lightUpLevelData[i][c]==='.';i++) if (testLights.some(l=>l.r===i && l.c===c)) return false;
+            if(!valid) return false;
+            for(let i=c-1;i>=0 && lightUpLevelData[r][i]==='.';i--) if(testLights.some(l=>l.r===r && l.c===i)) return false;
+            for(let i=c+1;i<size && lightUpLevelData[r][i]==='.';i++) if(testLights.some(l=>l.r===r && l.c===i)) return false;
+            for(let i=r-1;i>=0 && lightUpLevelData[i][c]==='.';i--) if(testLights.some(l=>l.r===i && l.c===c)) return false;
+            for(let i=r+1;i<size && lightUpLevelData[i][c]==='.';i++) if(testLights.some(l=>l.r===i && l.c===c)) return false;
             return true;
         }
-        function backtrack(idx) {
-            if (checkWinState()) return true;
-            if (idx >= emptyCells.length) return false;
-            let cell = emptyCells[idx];
-            if (isValidPlace(cell.r, cell.c)) {
+        function backtrack(idx){
+            if(checkWinState()) return true;
+            if(idx>=emptyCells.length) return false;
+            let cell=emptyCells[idx];
+            if(isValidPlace(cell.r,cell.c)){
                 testLights.push(cell);
-                if (backtrack(idx+1)) return true;
+                if(backtrack(idx+1)) return true;
                 testLights.pop();
             }
-            if (backtrack(idx+1)) return true;
+            if(backtrack(idx+1)) return true;
             return false;
         }
-        testLights = [];
+        testLights=[];
         backtrack(0);
-        lightUpCorrectSolution = testLights.map(l=>({r:l.r,c:l.c}));
+        lightUpCorrectSolution=testLights.map(l=>({r:l.r,c:l.c}));
     }
     
-    // ====================== ALL ORIGINAL GAME FUNCTIONS (exactly as provided) ======================
+    // ====================== ORIGINAL GAME FUNCTIONS (fully preserved) ======================
     // Shrinkage
     const puzzles = [
         { start: "BADGER", end: "EAR", v5: ["BREAD","BADGE","DEBAR","GRADE","RAGED"], v4: ["BEAR","BARE","BEAD","READ","DARE","DEAR","GEAR","RAGE","DRAG","GRAD","BRAD","GARB","GRAB"] },
@@ -3595,8 +3547,7 @@
             rTitle = "Tournament Complete";
             btnHTML = `<button class="btn-join" onclick="endTournament()">CLAIM TROPHY & EXIT</button>`;
         } else {
-            let gameToPlay = tourneyState.games[tourneyState.round - 1];
-            btnHTML = `<button class="btn-join" onclick="launchGame('${gameToPlay.id}')">PLAY ${gameToPlay.name.toUpperCase()}</button>`;
+            btnHTML = `<button class="btn-join" onclick="continueTournament()">CONTINUE →</button>`;
         }
         let lbHTML = `<div class="leaderboard">`;
         let cutoff = tourneyState.round === 1 ? 8 : (tourneyState.round === 2 ? 5 : 1);
@@ -3609,33 +3560,92 @@
         area.innerHTML = `<div class="compete-card" style="padding: 15px;"><div class="compete-title" style="font-size:20px; color:var(--text);">${rTitle}</div>${btnHTML}${lbHTML}</div>`;
     }
     function handleTourneyScore(score) {
-        let me = tourneyState.players.find(p => p.isMe); me.score = score;
-        tourneyState.players.forEach(p => { if(!p.isMe && p.status === 'alive') { let min = tourneyState.round === 1 ? 30 : (tourneyState.round === 2 ? 40 : 60); let max = tourneyState.round === 1 ? 80 : (tourneyState.round === 2 ? 90 : 98); p.score = Math.floor(Math.random() * (max - min)) + min; } });
-        tourneyState.players.sort((a,b) => { if(a.status === 'eliminated' && b.status === 'alive') return 1; if(b.status === 'eliminated' && a.status === 'alive') return -1; return b.score - a.score; });
+        let me = tourneyState.players.find(p => p.isMe); 
+        if (!me) return;
+        me.score = score;
+        // AI scores
+        tourneyState.players.forEach(p => { 
+            if(!p.isMe && p.status === 'alive') { 
+                let min = tourneyState.round === 1 ? 30 : (tourneyState.round === 2 ? 40 : 60); 
+                let max = tourneyState.round === 1 ? 80 : (tourneyState.round === 2 ? 90 : 98); 
+                p.score = Math.floor(Math.random() * (max - min)) + min; 
+            } 
+        });
+        // Sort: alive first, then by score
+        tourneyState.players.sort((a,b) => { 
+            if(a.status === 'eliminated' && b.status === 'alive') return 1; 
+            if(b.status === 'eliminated' && a.status === 'alive') return -1; 
+            return b.score - a.score; 
+        });
         let cutoff = tourneyState.round === 1 ? 8 : (tourneyState.round === 2 ? 5 : 1);
         tourneyState.players.forEach((p, i) => { if (i >= cutoff) p.status = 'eliminated'; });
         tourneyState.round++;
-        if (tourneyState.round > 3 && me.status === 'alive' && tourneyState.players[0].isMe) {
+        
+        // Award trophy if tournament just completed (round > 3)
+        if (tourneyState.round > 3) {
+            let finalRank = tourneyState.players.findIndex(p => p.isMe) + 1;
             let now = new Date();
             let dateStr = now.toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
-            let timeStr = getTournamentStatus().dateObj.toLocaleTimeString('en-US', {hour:'numeric', minute:'2-digit'});
-            trophies.push({ date: dateStr, time: timeStr });
+            let timeStr = getTournamentStatus().dateObj ? getTournamentStatus().dateObj.toLocaleTimeString('en-US', {hour:'numeric', minute:'2-digit'}) : "Tournament";
+            trophies.push({ rank: finalRank, date: dateStr, time: timeStr });
             localStorage.setItem('mindflex_trophies', JSON.stringify(trophies));
         }
-        renderTourneyBracket();
-        if (tourneyState.active && tourneyState.round <= 3 && me.status === 'alive') {
-            let nextGame = tourneyState.games[tourneyState.round - 1];
-            if (nextGame) {
-                launchGame(nextGame.id);
-            }
+        
+        renderTourneyBracket(); // shows leaderboard and "Continue" button
+        // No auto-launch; user must click Continue to play next game
+    }
+    
+    function continueTournament() {
+        if (!tourneyState.active) return;
+        if (tourneyState.round > 3) {
+            endTournament();
+            return;
+        }
+        let me = tourneyState.players.find(p => p.isMe);
+        if (me.status === 'eliminated') {
+            endTournament();
+            return;
+        }
+        let nextGame = tourneyState.games[tourneyState.round - 1];
+        if (nextGame) {
+            launchGame(nextGame.id);
+        } else {
+            endTournament();
         }
     }
+    
     function endTournament() { tourneyState.active = false; renderCompeteView(); }
+    
+    // Random order toggle
+    let gamesOriginalOrder = [...games];
+    function toggleRandomOrder() {
+        const checkbox = document.getElementById('randomOrderToggle');
+        localStorage.setItem('randomGameOrder', checkbox.checked);
+        renderMenu();
+    }
+    // Load saved preference on page load
+    (function loadRandomPref() {
+        const saved = localStorage.getItem('randomGameOrder');
+        if (saved !== null) {
+            const chk = document.getElementById('randomOrderToggle');
+            if (chk) chk.checked = saved === 'true';
+        }
+    })();
+    
     function renderMenu() {
         if(currentMode === 'compete') return;
         const grid = document.getElementById('menu-grid');
         grid.innerHTML = '';
-        games.forEach(g => {
+        let gamesToRender = [...games];
+        const randomOrder = localStorage.getItem('randomGameOrder') === 'true';
+        if (randomOrder) {
+            // Fisher-Yates shuffle
+            for (let i = gamesToRender.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [gamesToRender[i], gamesToRender[j]] = [gamesToRender[j], gamesToRender[i]];
+            }
+        }
+        gamesToRender.forEach(g => {
             let scoreStr = '';
             let isLocked = false;
             let btnText = 'Play';
@@ -3717,7 +3727,10 @@
         }, speedMs);
     }
     function finalizeScore(finalScore) {
-        if (currentMode === 'compete') { handleTourneyScore(finalScore); return; }
+        if (currentMode === 'compete') { 
+            handleTourneyScore(finalScore); 
+            return; 
+        }
         if (currentMode === 'daily') {
             dailyScores[todayKey][activeGameId] = finalScore;
             localStorage.setItem('mindflex_daily_scores', JSON.stringify(dailyScores));
@@ -3790,14 +3803,18 @@
             trophyHTML += `<p style="font-size:13px;color:var(--text-dim);">No trophies yet. Join a tournament!</p>`;
         } else {
             trophies.forEach((t, idx) => {
-                let trophySvg = svgGoldTrophy;
-                if (idx === 1) trophySvg = svgSilverTrophy;
-                else if (idx === 2) trophySvg = svgBronzeTrophy;
+                let rank = t.rank;
+                let trophySvg;
+                if (rank === 1) trophySvg = svgGoldTrophy;
+                else if (rank === 2) trophySvg = svgSilverTrophy;
+                else if (rank === 3) trophySvg = svgBronzeTrophy;
                 else trophySvg = svgBrownTrophy;
-                trophyHTML += `<div class="stat-row"><div>${trophySvg} <span style="font-weight:bold;color:var(--accent);">${idx === 0 ? 'Champion' : (idx === 1 ? 'Runner-Up' : (idx === 2 ? 'Third Place' : 'Participation'))}</span></div> <div style="font-size:12px;color:var(--text-dim);">${t.date} ${t.time}</div></div>`;
+                let rankText = rank === 1 ? 'Champion' : (rank === 2 ? 'Runner-Up' : (rank === 3 ? 'Third Place' : 'Participation'));
+                trophyHTML += `<div class="stat-row"><div>${trophySvg} <span style="font-weight:bold;color:var(--accent);">${rankText}</span></div> <div style="font-size:12px;color:var(--text-dim);">${t.date} ${t.time}</div></div>`;
             });
         }
         trophyHTML += `</div>`;
+        // rest of stats unchanged
         let totalScoresByDay = {};
         let gameAverages = {};
         let gameCounts = {};
@@ -3850,6 +3867,13 @@
         body.innerHTML = trophyHTML + bestHTML + historyHTML + todayHTML + avgHTML;
     }
     function closeStats() { document.getElementById('stats-modal').classList.remove('active'); }
+    
+    // Global hooks for tournament
+    window.continueTournament = continueTournament;
+    window.endTournament = endTournament;
+    window.joinTournament = joinTournament;
+    window.toggleRandomOrder = toggleRandomOrder;
+    
     renderMenu();
 </script>
 </body>
